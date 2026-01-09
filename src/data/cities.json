@@ -1,0 +1,32 @@
+{
+  "cities": [
+    {
+      "id": "city-1",
+      "name": "Pasadena, Oklahoma",
+      "state": "FL",
+      "count": 100,
+      "image": "/images/city1.png"
+    },
+    {
+      "id": "city-2",
+      "name": "Lafayette, California",
+      "state": "IG",
+      "count": 100,
+      "image": "/images/city2.png"
+    },
+    {
+      "id": "city-3",
+      "name": "New York",
+      "state": "",
+      "count": 100,
+      "image": "/images/city3.png"
+    },
+    {
+      "id": "city-4",
+      "name": "London",
+      "state": "NW",
+      "count": 100,
+      "image": "https://images.unsplash.com/photo-1491505078519-51d5baba992e?w=800&h=600&fit=crop"
+    }
+  ]
+}

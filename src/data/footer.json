@@ -1,0 +1,28 @@
+{
+  "brand": {
+    "description": "We are creative people who provide the best way to you who want to have a new comfortable and suitable place to live",
+    "socials": ["phone", "instagram", "facebook", "twitter"]
+  },
+  "sections": [
+    {
+      "title": "Pages",
+      "width": "351px",
+      "columns": 2,
+      "links": [
+        "Home V1", "Home V2", "Search Properties V1", "Search Properties V2",
+        "Property Details V1", "Property Details V2", "Agent List V1", "Agent List V2",
+        "Agent Details V1", "Agent Details V2", "About Us V1", "About Us V2",
+        "Contact Us V1", "Contact Us V2", "FAQ"
+      ]
+    },
+    {
+      "title": "Utility Pages",
+      "width": "121px",
+      "columns": 1,
+      "links": [
+        "Sign In", "Sign Up", "Forgot Password", "Reset Password",
+        "404 Error Page", "Style Guides", "Licenses", "Change Log"
+      ]
+    }
+  ]
+}

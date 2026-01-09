@@ -1,0 +1,46 @@
+{
+  "agents": [
+    {
+      "id": "agent-1",
+      "name": "Edwin Martins",
+      "role": "Property Advisor",
+      "avatar": "/images/agent1.png",
+      "phone": "+1234567890"
+    },
+    {
+      "id": "agent-2",
+      "name": "Sarah Johnson",
+      "role": "Property Advisor",
+      "avatar": "/images/agent2.png",
+      "phone": "+1987654321"
+    },
+    {
+      "id": "agent-3",
+      "name": "Michael Chen",
+      "role": "Property Advisor",
+      "avatar": "/images/agent3.png",
+      "phone": "+1555123456"
+    },
+    {
+      "id": "agent-4",
+      "name": "Chen Yuang",
+      "role": "Property Advisor",
+      "avatar": "/images/agent4.png",
+      "phone": "+1555123456"
+    },
+    {
+      "id": "agent-5",
+      "name": "Johan Smith",
+      "role": "Property Advisor",
+      "avatar": "/images/agent5.png",
+      "phone": "+1555123456"
+    },
+    {
+      "id": "agent-6",
+      "name": "Emma Wilson",
+      "role": "Property Advisor",
+      "avatar": "/images/agent6.png",
+      "phone": "+1555789012"
+    }
+  ]
+}

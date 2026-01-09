@@ -1,0 +1,58 @@
+{
+  "categories": [
+    {
+      "id": "category-1",
+      "title": "Studio",
+      "count": 200,
+      "iconName": "buildings" 
+    },
+    {
+      "id": "category-2",
+      "title": "Apartment",
+      "count": 300,
+      "iconName": "building"
+    },
+    {
+      "id": "category-3",
+      "title": "Office",
+      "count": 100,
+      "iconName": "buildings-2" 
+    },
+    {
+      "id": "category-4",
+      "title": "House",
+      "count": 400,
+      "iconName": "Home"
+    },
+    {
+      "id": "category-5",
+      "title": "Villa",
+      "count": 200,
+      "iconName": "Palmtree"
+    },
+    {
+      "id": "category-6",
+      "title": "Townhouse",
+      "count": 100,
+      "iconName": "Building2"
+    },
+    {
+      "id": "category-7",
+      "title": "Penthouse",
+      "count": 100,
+      "iconName": "Crown"
+    },
+    {
+      "id": "category-8",
+      "title": "Warehouse",
+      "count": 50,
+      "iconName": "Box"
+    },
+    {
+      "id": "category-9",
+      "title": "Commercial",
+      "count": 100,
+      "iconName": "Store"
+    }
+  ]
+}
