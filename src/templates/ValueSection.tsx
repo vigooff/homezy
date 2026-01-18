@@ -1,23 +1,40 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { Container } from "../components/atoms/Container";
 
 export const ValueSection = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const values = [
+    {
+      icon: "/icons/coin.svg",
+      title: "Affordable Price",
+      description: "We provide the best for you. The price we offer accordance with the quality we provide."
+    },
+    {
+      icon: "/icons/like-shapes.svg",
+      title: "Clear Legality",
+      description: "Put your trust in us. We are a legal entity with official legality in the relevant government."
+    },
+    {
+      icon: "/icons/people.svg",
+      title: "Experienced Agent",
+      description: "We always work with agents in their fields so that we can provide the best quality."
+    }
+  ];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? values.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === values.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <section className="w-full bg-[#FBFAFF]">
-      <div
-  className="
-    w-full
-    max-w-[1200px]
-    mx-auto
-    px-6
-    sm:px-8
-    lg:px-12
-    xl:px-0
-    py-[100px]
-  "
->
-
+      <Container className="py-[100px]">
         <div className="flex justify-between items-start gap-10 mb-20 max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10">
           <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
             Comfort Is Our Top Priority For You
@@ -29,24 +46,37 @@ export const ValueSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-[32px] max-[900px]:grid-cols-1">
-          <ValueCard
-            icon="/icons/coin.svg"
-            title="Affordable Price"
-            description="We provide the best for you. The price we offer accordance with the quality we provide."
-          />
-          <ValueCard
-            icon="/icons/like-shapes.svg"
-            title="Clear Legality"
-            description="Put your trust in us. We are a legal entity with official legality in the relevant government."
-          />
-          <ValueCard
-            icon="/icons/people.svg"
-            title="Experienced Agent"
-            description="We always work with agents in their fields so that we can provide the best quality."
-          />
+        <div className="hidden min-[901px]:grid grid-cols-3 gap-[32px]">
+          {values.map((item, index) => (
+            <ValueCard key={index} {...item} />
+          ))}
         </div>
-      </div>
+
+        <div className="hidden max-[900px]:flex flex-col items-center gap-8">
+          <div className="w-full max-w-[400px]">
+            <ValueCard {...values[currentIndex]} />
+          </div>
+          
+          <div className="flex gap-6"> 
+            <button 
+              onClick={handlePrev}
+              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] mr-[15px] mt-[20px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <button 
+              onClick={handleNext}
+              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] ml-[15px] mt-[20px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </Container>
     </section>
   );
 };
@@ -59,7 +89,7 @@ interface ValueCardProps {
 
 const ValueCard = ({ icon, title, description }: ValueCardProps) => {
   return (
-    <div className="bg-white rounded-[12px] border border-black/10 p-[32px] flex flex-col gap-[16px]">
+    <div className="bg-[#FFFFFF] rounded-[12px] border border-black/10 p-[32px] flex flex-col gap-[16px] h-full max-w-[400px] mx-auto">
       <div className="w-[64px] h-[64px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center">
         <Image src={icon} alt={title} width={28} height={28} />
       </div>
