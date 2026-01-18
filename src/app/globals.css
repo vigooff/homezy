@@ -7,7 +7,7 @@
   --foreground: #1A1A1A;
 }
 
-html, 
+html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
@@ -45,7 +45,7 @@ body {
   .text-on-dark {
     color: #FFFFFF !important;
   }
-  
+
   .text-on-light {
     color: #1A1A1A !important;
   }
@@ -59,7 +59,7 @@ body {
     font-weight: 700;
     color: var(--foreground);
   }
-  
+
   .heading-secondary {
     font-family: var(--font-soehne), sans-serif;
     font-size: 36px;
@@ -67,7 +67,7 @@ body {
     font-weight: 700;
     color: var(--foreground);
   }
-  
+
   .heading-tertiary {
     font-family: var(--font-soehne), sans-serif;
     font-size: 24px;
@@ -83,7 +83,7 @@ body {
     font-weight: 400;
     color: var(--foreground);
   }
-  
+
   .body-text-large {
     font-family: var(--font-hanken), sans-serif;
     font-size: 18px;
@@ -91,7 +91,7 @@ body {
     font-weight: 400;
     color: var(--foreground);
   }
-  
+
   .body-text-small {
     font-family: var(--font-hanken), sans-serif;
     font-size: 14px;
@@ -99,7 +99,7 @@ body {
     font-weight: 400;
     color: var(--foreground);
   }
-  
+
   .button-text {
     font-family: var(--font-satoshi), sans-serif;
     font-weight: 700;
@@ -129,12 +129,12 @@ body {
     max-width: 100% !important;
     padding: 0 24px !important;
   }
-  
+
   .agent-row {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .agent-card {
     width: calc(50% - 16px) !important;
     min-width: 340px;
@@ -147,7 +147,7 @@ body {
     max-width: 368px;
     margin: 0 auto;
   }
-  
+
   .agent-row {
     flex-direction: column;
     align-items: center;
@@ -192,11 +192,11 @@ body {
   .feedback-carousel-wrapper {
     padding-left: 20px;
   }
-  
+
   .feedback-carousel-slide {
     width: 340px;
   }
-  
+
   @keyframes scroll-continuous {
     0% {
       transform: translateX(0);
@@ -211,7 +211,7 @@ body {
   .feedback-carousel-slide {
     width: 300px;
   }
-  
+
   @keyframes scroll-continuous {
     0% {
       transform: translateX(0);
@@ -236,4 +236,123 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.hero-title {
+  font-size: 72px;
+  line-height: 82px;
+}
+
+@media (max-width: 1540px) {
+  .hero-title {
+    font-size: 66px;
+    line-height: 76px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .hero-title {
+    font-size: 60px;
+    line-height: 68px;
+  }
+
+  .hero-section-container {
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 60px;
+    line-height: 68px;
+  }
+
+  .hero-section-container {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+  }
+
+  .hero-content-wrapper {
+    width: 100% !important;
+    max-width: 800px;
+    margin-bottom: 60px;
+  }
+
+  .hero-visual-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-visual-section {
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-title {
+    font-size: 48px !important;
+    line-height: 56px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 36px !important;
+    line-height: 42px !important;
+  }
+
+  .hero-visual-section {
+    overflow: visible !important;
+  }
+
+  .max-w-\[1440px\] {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-section-container {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  .hero-visual-section {
+    transform: scale(0.65);
+    margin-top: -50px;
+  }
+}
+
+nav div {
+  transition: padding 0.3s ease-in-out;
+}
+
+.subscribe-form {
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 380px;
+  height: auto !important;
+  padding: 16px !important;
+}
+
+.subscribe-form input {
+  width: 100% !important;
+  margin-bottom: 12px;
+}
+
+.subscribe-form button {
+  width: 100% !important;
+  margin-left: 0 !important;
 }

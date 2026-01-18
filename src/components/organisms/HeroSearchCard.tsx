@@ -5,24 +5,24 @@ import { MapPin, DollarSign, Home } from "lucide-react";
 export const HeroSearchCard = () => {
   return (
     <div 
-      className="flex items-center border border-[#E8E1FF] shadow-sm"
+      className="flex max-[900px]:flex-col items-center border border-[#E8E1FF] shadow-sm bg-[#FFFFFF] mx-auto"
       style={{
-        width: "763px",
-        height: "96px",
-        backgroundColor: "#FFFFFF",
+        width: "100%",
+        maxWidth: "763px",
+        height: "auto",
+        minHeight: "96px",
         borderRadius: "15px",
-        padding: "20px",
-        gap: "24px", 
+        padding: "28px 32px",
+        gap: "32px", 
         opacity: 1,
       }}
     >
       <div 
-        className="flex items-center"
+        className="flex items-center max-[900px]:w-full max-[900px]:pb-4 max-[900px] max-[900px]:border-gray-100"
         style={{
-          width: "170px",
-          height: "44px",
+          flex: "1",
+          minWidth: "0",
           gap: "12px",
-          opacity: 1,
         }}
       >
         <div 
@@ -32,29 +32,27 @@ export const HeroSearchCard = () => {
             height: "40px",
             backgroundColor: "#E7DCFF",
             borderRadius: "15px",
-            opacity: 1,
           }}
         >
           <MapPin className="w-5 h-5 text-primary" />
         </div>
 
-        <div className="flex flex-col justify-center" style={{ width: "100px", height: "44px" }}>
-          <label className="font-hanken font-light text-[14px] leading-[24px] text-[#666666]">
+        <div className="flex flex-col justify-center min-w-0">
+          <label className="font-hanken font-light text-[14px] leading-[20px] text-[#666666]">
             Location
           </label>
-          <span className="font-hanken font-bold text-[16px] leading-[20px] text-[#1A1A1A]">
+          <span className="font-hanken font-bold text-[16px] leading-[24px] text-[#1A1A1A] whitespace-nowrap">
             California, US
           </span>
         </div>
       </div>
 
       <div 
-        className="flex items-center"
+        className="flex items-center max-[900px]:w-full max-[900px]:pb-4 max-[900px] max-[900px]:border-gray-100"
         style={{
-          width: "170px",
-          height: "44px",
+          flex: "1",
+          minWidth: "0",
           gap: "12px",
-          opacity: 1,
         }}
       >
         <div 
@@ -64,29 +62,27 @@ export const HeroSearchCard = () => {
             height: "40px",
             backgroundColor: "#E7DCFF",
             borderRadius: "15px",
-            opacity: 1,
           }}
         >
           <DollarSign className="w-5 h-5 text-primary" />
         </div>
 
-        <div className="flex flex-col justify-center" style={{ width: "100px", height: "44px" }}>
-          <label className="font-hanken font-light text-[14px] leading-[24px] text-[#666666]">
+        <div className="flex flex-col justify-center min-w-0">
+          <label className="font-hanken font-light text-[14px] leading-[20px] text-[#666666]">
             Price
           </label>
-          <span className="font-hanken font-bold text-[16px] leading-[20px] text-[#1A1A1A]">
+          <span className="font-hanken font-bold text-[16px] leading-[24px] text-[#1A1A1A] whitespace-nowrap">
             $1500-$2500
           </span>
         </div>
       </div>
 
       <div 
-        className="flex items-center"
+        className="flex items-center max-[900px]:w-full max-[900px]:pb-4 max-[900px] max-[900px]:border-gray-100"
         style={{
-          width: "170px",
-          height: "44px",
+          flex: "1",
+          minWidth: "0",
           gap: "12px",
-          opacity: 1,
         }}
       >
         <div 
@@ -96,33 +92,32 @@ export const HeroSearchCard = () => {
             height: "40px",
             backgroundColor: "#E7DCFF",
             borderRadius: "15px",
-            opacity: 1,
           }}
         >
           <Home className="w-5 h-5 text-primary" />
         </div>
 
-        <div className="flex flex-col justify-center" style={{ width: "100px", height: "44px" }}>
-          <label className="font-hanken font-light text-[14px] leading-[24px] text-[#666666]">
+        <div className="flex flex-col justify-center min-w-0">
+          <label className="font-hanken font-light text-[14px] leading-[20px] text-[#666666]">
             Type of Property
           </label>
-          <span className="font-hanken font-bold text-[16px] leading-[20px] text-[#1A1A1A]">
+          <span className="font-hanken font-bold text-[16px] leading-[24px] text-[#1A1A1A] whitespace-nowrap">
             Apartment
           </span>
         </div>
       </div>
 
       <button 
-        className="font-hanken font-bold transition-all duration-300 hover:bg-[#333333] flex-shrink-0"
+        className="font-hanken font-bold transition-all duration-300 hover:bg-[#333333] flex-shrink-0 max-[900px]:w-full max-[900px]:mt-2"
         style={{
           backgroundColor: "#1A1A1A",
           color: "#FFFFFF",
           padding: "16px 32px",
           borderRadius: "15px",
           fontSize: "16px",
-          lineHeight: "20px",
+          lineHeight: "24px",
           height: "56px",
-          width: "128px"
+          minWidth: "128px"
         }}
       >
         Browse

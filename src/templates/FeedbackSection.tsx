@@ -60,7 +60,7 @@ export const FeedbackSection = () => {
 
         <div className="flex gap-6 relative z-20">
           <button 
-            className="w-[60px] h-[60px] bg-[#1A1A1A] rounded-[15px] flex items-center justify-center hover:bg-[#7052FF] transition-all group shadow-lg mr-[20px]"
+            className="w-[60px] h-[60px] bg-[#1A1A1A] rounded-[15px] flex items-center justify-center hover:bg-[#CFB9FD] transition-all group shadow-lg mr-[20px]"
             aria-label="Previous"
           >
             <div className="transition-transform group-hover:-translate-x-1">
@@ -74,7 +74,7 @@ export const FeedbackSection = () => {
           </button>
 
           <button 
-            className="w-[60px] h-[60px] bg-[#1A1A1A] rounded-[15px] flex items-center justify-center hover:bg-[#7052FF] transition-all group shadow-lg ml-[20px]"
+            className="w-[60px] h-[60px] bg-[#1A1A1A] rounded-[15px] flex items-center justify-center hover:bg-[#CFB9FD] transition-all group shadow-lg ml-[20px]"
             aria-label="Next"
           >
             <div className="transition-transform group-hover:translate-x-1">

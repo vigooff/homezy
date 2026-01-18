@@ -30,6 +30,17 @@ const config: Config = {
       letterSpacing: {
         tighter: "-0.04em",
       },
+      fontSize: {
+        'hero-xs': '2rem',
+        'hero-sm': '2.5rem',
+        'hero-md': '3rem',
+        'hero-lg': '3.5rem',
+        'hero-xl': '4.5rem',
+        'body-xs': '0.875rem',
+        'body-sm': '1rem',
+        'body-md': '1.125rem',
+        'body-lg': '1.25rem',
+      },
     },
   },
   plugins: [],

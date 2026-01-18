@@ -1,7 +1,6 @@
 import React from "react";
 import { Bed, Bath, Maximize, Home } from "lucide-react";
 
-// Badge Component - Design Foto 2
 interface BadgeProps {
   text: string;
   variant?: "featured" | "default";
@@ -25,7 +24,6 @@ export const Badge: React.FC<BadgeProps> = ({ text, variant = "default" }) => {
   );
 };
 
-// PropertyFeature Component - RESPONSIVE
 interface PropertyFeatureProps {
   type: "bedrooms" | "bathrooms" | "squareArea" | "design";
   label: string;
@@ -38,7 +36,7 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
   value,
 }) => {
   const getIcon = () => {
-    const iconClass = "w-4 h-4 sm:w-5 sm:h-5 text-[#1A1A1A] flex-shrink-0";
+    const iconClass = "w-5 h-5 text-[#1A1A1A] flex-shrink-0";
     switch (type) {
       case "bedrooms":
         return <Bed className={iconClass} />;
@@ -52,25 +50,21 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-1.5 sm:gap-2 min-w-0">
+    <div className="flex flex-col gap-2 min-w-0">
       <span 
-        className="font-hanken text-[#666666] truncate"
+        className="font-hanken text-[#666666] text-[14px] leading-[20px]"
         style={{
-          fontWeight: 300,
-          fontSize: 'clamp(12px, 2vw, 13px)',
-          lineHeight: 'tight'
+          fontWeight: 300
         }}
       >
         {label}
       </span>
-      <div className="flex items-center gap-1.5 sm:gap-2">
+      <div className="flex items-center gap-2">
         {getIcon()}
         <span 
-          className="font-hanken text-foreground truncate"
+          className="font-hanken text-foreground text-[16px] leading-[20px]"
           style={{
-            fontWeight: 700,
-            fontSize: 'clamp(14px, 2.5vw, 16px)',
-            lineHeight: 'tight'
+            fontWeight: 700
           }}
         >
           {value}

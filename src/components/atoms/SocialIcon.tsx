@@ -6,21 +6,16 @@ interface SocialIconProps {
 }
 
 export const SocialIcon = ({ type }: SocialIconProps) => {
-  const renderIcon = () => {
-    switch (type) {
-      case "phone": return <Phone size={16} color="white" />;
-      case "instagram": return <Instagram size={16} color="white" />;
-      case "facebook": return <Facebook size={16} color="white" />;
-      case "twitter": return <Twitter size={16} color="white" />;
-      default: return null;
-    }
-  };
+  const iconSize = 14; 
 
   return (
     <div 
-      className="w-[32px] h-[32px] rounded-full flex items-center justify-center bg-[#1A1A1A] cursor-pointer hover:bg-purple-600 transition-colors flex-shrink-0"
+      className="w-[24px] h-[24px] rounded-full flex items-center justify-center bg-[#1A1A1A] cursor-pointer hover:bg-purple-600 transition-all flex-shrink-0 relative z-10"
     >
-      {renderIcon()}
+      {type === "phone" && <Phone size={iconSize} color="#FFFFFF" />}
+      {type === "instagram" && <Instagram size={iconSize} color="#FFFFFF" />}
+      {type === "facebook" && <Facebook size={iconSize} color="#FFFFFF" />}
+      {type === "twitter" && <Twitter size={iconSize} color="#FFFFFF" />}
     </div>
   );
 };

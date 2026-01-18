@@ -7,6 +7,7 @@ import { Footer } from "../components/organisms/Footer";
 const hankenGrotesk = localFont({
   src: "../assets/fonts/HankenGrotesk-VariableFont_wght.ttf",
   variable: "--font-hanken",
+  display: "swap",
 });
 
 const soehne = localFont({
@@ -23,15 +24,19 @@ const soehne = localFont({
     },
   ],
   variable: "--font-soehne",
+  display: "swap",
 });
 
 const satoshi = localFont({
   src: "../assets/fonts/Satoshi-Variable.ttf",
   variable: "--font-satoshi",
+  display: "swap",
 });
+
 const syne = localFont({
   src: "../assets/fonts/Syne-VariableFont_wght.ttf",
   variable: "--font-syne",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -45,12 +50,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${hankenGrotesk.variable} ${soehne.variable} ${satoshi.variable} ${syne.variable} antialiased font-hanken`}
+        className={`
+          ${hankenGrotesk.variable} 
+          ${soehne.variable} 
+          ${satoshi.variable} 
+          ${syne.variable} 
+          antialiased 
+          font-hanken
+          overflow-x-hidden
+        `}
       >
         <Navbar />
-        {children}
+        <main className="w-full min-h-screen">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

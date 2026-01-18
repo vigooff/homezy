@@ -14,16 +14,16 @@ export const SubscribeForm = () => {
         opacity: 1,
       }}
     >
-     <input
-         type="email"
-         placeholder="Enter Your Email Address"
+      <input
+        type="email"
+        placeholder="Enter Your Email Address"
         className="outline-none border-none bg-transparent font-hanken font-light text-[#666666] placeholder:text-[#B7B8C1]"
         style={{
-         width: "180px",
-         height: "26px",
-         fontSize: "16px",
-         lineHeight: "26px",
-         letterSpacing: "0%",
+          width: "180px",
+          height: "26px",
+          fontSize: "16px",
+          lineHeight: "26px",
+          letterSpacing: "0%",
         }}
         required
       />      
