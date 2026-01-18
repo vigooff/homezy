@@ -11,7 +11,7 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
   return (
     <div
       className="
-        bg-white
+        bg-[#FFFFFF]
         rounded-[20px]
         border border-[#E8E1FF]
         shadow-[0_2px_8px_rgba(0,0,0,0.04)]

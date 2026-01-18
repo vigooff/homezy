@@ -35,7 +35,7 @@ export const ValueSection = () => {
   return (
     <section className="w-full bg-[#FBFAFF]">
       <Container className="py-[100px]">
-        <div className="flex justify-between items-start gap-10 mb-20 max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10">
+        <div className="flex justify-between items-start gap-10 ml-[20px] mb-20 max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10">
           <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
             Comfort Is Our Top Priority For You
           </h2>
@@ -60,7 +60,7 @@ export const ValueSection = () => {
           <div className="flex gap-6"> 
             <button 
               onClick={handlePrev}
-              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] mr-[15px] mt-[20px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
+              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] mr-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -68,7 +68,7 @@ export const ValueSection = () => {
             </button>
             <button 
               onClick={handleNext}
-              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] ml-[15px] mt-[20px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
+              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] ml-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>

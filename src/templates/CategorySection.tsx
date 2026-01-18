@@ -22,7 +22,7 @@ export const CategorySection = () => {
   return (
     <section className="w-full bg-[#FBFAFF] py-[100px]">
       <div className="max-w-[1200px] mx-auto px-4">
-        <div className="flex justify-between items-center mb-[60px] max-[900px]:flex-col max-[900px]:gap-4 max-[900px]:text-center">
+        <div className="flex justify-between items-center mb-[60px] ml-[20px] mr-[10px] max-[900px]:flex-col max-[900px]:gap-4 max-[900px]:text-center">
           <h2 className="font-syne font-bold text-[40px] leading-tight text-[#1A1A1A] max-[600px]:text-[32px]">
             Featured Categories
           </h2>
