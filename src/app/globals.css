@@ -201,7 +201,7 @@ body {
   }
 }
 
-@media (max-width: 1400px) {
+@media (min-width: 901px) and (max-width: 1400px) {
   .hero-title { 
     font-size: 60px; 
     line-height: 68px; 
@@ -365,9 +365,10 @@ body {
     margin-left: 10% !important;
   }
 
-  .navbar-hamburger-container,
-  .mobile-menu-trigger {
+  .navbar-hamburger-container {
     margin-right: 10% !important;
+    display: flex !important;
+    align-items: center !important;
   }
 
   .subscribe-section-wrapper {

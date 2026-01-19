@@ -9,8 +9,8 @@ export const Navbar = () => {
   
   return (
     <nav className="w-full h-[100px] bg-white relative z-[100]">
-      <Container className="h-full flex items-center justify-between">
-        <div className="flex-shrink-0">
+      <div className="h-full flex items-center justify-between w-full">
+        <div className="navbar-logo-container flex-shrink-0">
           <Logo />
         </div>
         
@@ -28,8 +28,9 @@ export const Navbar = () => {
             <NavLink href="#" label="Pages" hasDropdown />
           </div>
         </div>
-        <div className="flex-shrink-0">
-          <div className="hidden min-[901px]:block">
+
+        <div className="flex-shrink-0 flex items-center">
+          <div className="navbar-contact-container hidden min-[901px]:block">
             <Button 
               variant="outline" 
               className="w-[145px] h-[52px] rounded-xl border border-black text-black hover:bg-black hover:text-white transition-all font-medium"
@@ -37,14 +38,18 @@ export const Navbar = () => {
               Contact Us
             </Button>
           </div>
-          <button 
-            className="min-[901px]:hidden flex p-2 text-black items-center justify-center transition-transform active:scale-95 bg-transparent border-0 outline-none"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={32} strokeWidth={2} /> : <Menu size={32} strokeWidth={2} />}
-          </button>
+          
+          <div className="navbar-hamburger-container min-[901px]:hidden flex items-center">
+            <button 
+              className="flex p-2 text-black items-center justify-center transition-transform active:scale-95 bg-transparent border-0 outline-none"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={32} strokeWidth={2} /> : <Menu size={32} strokeWidth={2} />}
+            </button>
+          </div>
         </div>
-      </Container>
+      </div>
+
       {isOpen && (
         <div className="absolute top-[100px] left-0 w-full bg-white border-b border-gray-100 min-[901px]:hidden shadow-xl">
           <Container className="py-8">
