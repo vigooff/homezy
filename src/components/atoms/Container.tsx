@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 interface ContainerProps {
@@ -27,10 +28,8 @@ export const Container = ({
         sm:px-8
         md:px-10
         lg:px-12
-        xl:px-16
-        2xl:px-20
         ${className}
-      `.trim().replace(/\s+/g, ' ')}
+      `.trim()}
     >
       {children}
     </div>

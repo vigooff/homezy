@@ -1,4 +1,4 @@
-
+"use client";
 import React from "react";
 import { Bed, Bath, Maximize, Home } from "lucide-react";
 
@@ -23,6 +23,8 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
         return <Maximize className="w-5 h-5" />;
       case "design":
         return <Home className="w-5 h-5" />;
+      default:
+        return null;
     }
   };
 
@@ -38,12 +40,11 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
       >
         {label}
       </span>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 text-[#101828]">
         {getIcon()}
         <span
-          className="font-hanken text-foreground"
+          className="font-hanken font-bold"
           style={{
-            fontWeight: 700,
             fontSize: "16px",
             lineHeight: "20px",
           }}

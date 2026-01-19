@@ -14,7 +14,7 @@ export const NavLink = ({
   className = "",
 }: NavLinkProps) => {
   return (
-    <div className={`flex items-center gap-2 cursor-pointer group whitespace-nowrap ${className}`}>
+    <div className={`flex items-center gap-2 cursor-pointer group whitespace-nowrap px-6 ${className}`}>
       <a
         href={href}
         className="text-[16px] font-hanken font-medium text-[#101828] group-hover:text-purple-600 transition-colors no-underline"

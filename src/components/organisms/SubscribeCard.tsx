@@ -6,81 +6,45 @@ import { SubscribeForm } from "../molecules/SubscribeForm";
 export const SubscribeCard = () => {
   return (
     <div 
-      className="relative bg-[#CFB9FD] border-[#E8E1FF] overflow-hidden flex items-center"
+      className="subscribe-card-wrapper relative bg-[#CFB9FD] border-[2px] border-black overflow-hidden flex items-center transition-all duration-300 mx-auto"
       style={{
-        width: "1160px",
-        height: "380px",
         borderRadius: "15px",
-        borderWidth: "2px",
-        padding: "56px 72px",
         opacity: 1,
       }}
     >
       <div 
-        className="absolute top-0 h-full pointer-events-none"
+        className="pattern-overlay absolute top-0 h-full pointer-events-none z-0"
         style={{ 
           left: "50%",
           right: 0,
-          height: "100%", 
-          opacity: 1 
         }}
       >
-        <Image 
-          src="/images/subscribe.svg" 
-          alt="pattern" 
-          fill 
-          className="object-cover object-center brightness-0 invert opacity-100" 
-          priority
-        />
+        <div className="relative w-full h-full">
+          <Image 
+            src="/images/subscribe.svg" 
+            alt="pattern" 
+            fill 
+            className="object-cover object-center" 
+            priority
+            style={{
+              filter: 'brightness(0) invert(1)',
+              opacity: 0.25 
+            }}
+          />
+        </div>
       </div>
 
-      <div 
-        className="relative z-10 flex flex-col"
-        style={{
-          width: "416px",
-          height: "268px",
-          gap: "24px",
-          opacity: 1,
-        }}
-      >
-        <div 
-          className="flex flex-col relative -top-[100px]"
-          style={{
-            width: "416px",
-            height: "176px",
-            gap: "8px",
-            opacity: 1,
-          }}
-        >
-          <h2 
-            className="font-syne font-semibold text-[#FFFFFF]"
-            style={{
-              width: "358px",
-              height: "112px",
-              fontSize: "48px",
-              lineHeight: "56px",
-              letterSpacing: "-4%",
-            }}
-          >
+      <div className="relative z-10 flex flex-col gap-6 w-full subscribe-content">
+        <div className="flex flex-col gap-2">
+          <h2 className="font-syne font-semibold text-[#FFFFFF] text-[48px] leading-[56px] tracking-tight">
             Subscribe To Our Newsletter
           </h2>
-          <p 
-            className="font-hanken font-light text-[#E7DCFF]"
-            style={{
-              width: "416px",
-              height: "56px",
-              fontSize: "18px",
-              lineHeight: "28px",
-              opacity: 1,
-            }}
-          >
+          <p className="font-hanken font-light text-[#E7DCFF] text-[18px] leading-[28px]">
             Join our newsletter to stay up to date on features and releases.
           </p>
         </div>
 
-        <div className="relative -mb-[250px]">
-            <SubscribeForm />
-        </div>
+        <SubscribeForm />
       </div>
     </div>
   );

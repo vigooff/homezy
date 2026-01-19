@@ -1,13 +1,57 @@
 "use client";
 import React from "react";
-import { SubscribeCard } from "../components/organisms/SubscribeCard";
+import { Container } from '../components/atoms/Container';
+import { SubscribeCard } from '../components/organisms/SubscribeCard';
 
 export const SubscribeSection = () => {
   return (
-    <section className="w-full bg-[#FBFAFF] py-[100px] flex justify-center">
-      <div className="max-w-[1440px] px-4 flex justify-center">
-        <SubscribeCard />
-      </div>
+    <section className="w-full bg-[#FBFAFF] py-[100px] flex justify-center items-center">
+      <Container>
+        <div className="subscribe-section-wrapper w-full flex justify-center items-center">
+          <SubscribeCard />
+        </div>
+      </Container>
     </section>
+  );
+};
+
+export const SubscribeFormInternal = () => {
+  return (
+    <form 
+      className="flex items-center bg-[#FFFFFF] border border-[#E8E1FF] transition-all duration-300 origin-left
+                 max-[1400px]:scale-[0.8] max-[1200px]:scale-[0.7] max-[900px]:scale-[1]"
+      style={{
+        width: "414px",
+        height: "68px",
+        padding: "8px 8px 8px 24px",
+        borderRadius: "15px",
+      }}
+    >
+      <input
+        type="email"
+        placeholder="Enter Your Email Address"
+        className="outline-none border-none bg-transparent font-hanken font-light text-[#666666] placeholder:text-[#B7B8C1]"
+        style={{
+          width: "180px",
+          height: "26px",
+          fontSize: "16px",
+        }}
+        required
+      />      
+      
+      <button
+        type="submit"
+        className="bg-[#1A1A1A] ml-auto text-white font-hanken font-bold transition-all hover:bg-[#333333] border-none"
+        style={{
+          width: "130px",
+          height: "52px",
+          borderRadius: "15px",
+          fontSize: "16px",
+          cursor: "pointer"
+        }}
+      >
+        Subscribe
+      </button>
+    </form>
   );
 };
