@@ -28,14 +28,14 @@ export const SubscribeCard = () => {
             priority
             style={{
               filter: 'brightness(0) invert(1)',
-              opacity: 0.25 
+              opacity: 0.55 
             }}
           />
         </div>
       </div>
 
       <div className="relative z-10 flex flex-col gap-6 w-full subscribe-content">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 content-text-wrapper"> 
           <h2 className="font-syne font-semibold text-[#FFFFFF] text-[48px] leading-[56px] tracking-tight">
             Subscribe To Our Newsletter
           </h2>

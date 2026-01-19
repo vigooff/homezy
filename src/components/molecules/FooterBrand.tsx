@@ -7,19 +7,21 @@ const footerData = (footerDataJson as unknown) as FooterData;
 
 export const FooterBrand = () => {
   return (
-    <div className="flex flex-col opacity-100" style={{ width: '358px', height: '208px', gap: '24px' }}>
-      <div style={{ width: '190px', height: '50px' }}>
+    <div className="footer-brand-container flex flex-col opacity-100" style={{ width: '358px', gap: '24px' }}>
+      <div className="footer-logo-wrapper" style={{ width: '190px', height: '50px' }}>
         <Logo />
       </div>
       
-      <p className="font-hanken font-light text-base text-[#475467]" 
-         style={{ width: '358px', height: '78px', lineHeight: '26px' }}>
+      <p className="footer-brand-desc font-hanken font-light text-base text-[#475467]" 
+         style={{ width: '358px', lineHeight: '26px' }}>
         {footerData.brand.description}
       </p>
 
-      <div className="flex items-center" style={{ width: '200px', height: '32px', gap: '24px' }}>
+      <div className="footer-social-wrapper flex items-center" style={{ gap: '24px' }}>
         {footerData.brand.socials.map((type: string) => (
-          <SocialIcon key={type} type={type} />
+          <div key={type} className="footer-social-icon-item">
+            <SocialIcon type={type} />
+          </div>
         ))}
       </div>
     </div>

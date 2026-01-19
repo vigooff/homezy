@@ -9,12 +9,14 @@ const footerData = (footerDataJson as unknown) as FooterData;
 export const Footer = () => {
   return (
     <footer className="w-full bg-white flex flex-col items-center">
-      <div className="w-full max-w-[1160px] px-[1%] pt-[8%] pb-[4%]">
-        <div className="flex justify-between items-start w-full min-h-[330px]">
-          <FooterBrand />
+      <div className="w-full max-w-[1160px] px-[1%] pt-[8%] pb-[4%] footer-main-container">
+        <div className="flex justify-between items-start w-full min-h-[330px] footer-content-row">
+          <div className="footer-brand-wrapper">
+            <FooterBrand />
+          </div>
 
           <div 
-            className="flex opacity-100" 
+            className="flex opacity-100 footer-nav-wrapper" 
             style={{ width: '576px', gap: '104px' }}
           >
             {footerData.sections.map((section: FooterSection) => (
