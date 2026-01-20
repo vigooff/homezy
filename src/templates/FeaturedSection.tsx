@@ -22,7 +22,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
 
   return (
     <section className="w-full bg-[#FBFAFF]" style={{ padding: "100px 0" }}>
-      <div className="max-w-[1440px] mx-auto px-[10%]">
+      <div className="max-w-[1440px] mx-auto px-[5%] lg:px-[10%]">
         
         <div className="w-full flex items-center justify-between mb-8 relative">
           <h2 className="font-syne font-bold text-[48px] max-[1200px]:text-[32px]">
@@ -40,7 +40,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
           </button>
         </div>
 
-        <div className="flex flex-col mx-[50px] gap-[40px]">
+        <div className="flex flex-col items-center gap-[40px] w-full">
           <PropertyCardLarge property={featuredMain} />
 
           {otherFeatured.length > 0 && (
@@ -49,10 +49,9 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
                 grid
                 grid-cols-3
                 max-[900px]:grid-cols-1
-                gap-[30px]
-                min-[1600px]:gap-[0px]
-                min-[1600px]:pl-[7px]
+                gap-[24px]
                 w-full
+                max-w-[1200px]
               "
             >
               {otherFeatured.map((property) => (

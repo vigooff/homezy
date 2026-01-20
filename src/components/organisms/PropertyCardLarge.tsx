@@ -11,8 +11,8 @@ interface PropertyCardLargeProps {
 
 export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
   return (
-    <div className="w-full flex flex-col items-center max-[1200px]:px-[8%]">
-      <div className="flex bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-visible min-h-[420px] relative max-[1200px]:flex-col max-[1200px]:h-auto w-full max-w-[1200px] mx-auto">
+    <div className="w-full flex justify-center items-center">
+      <div className="flex bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-visible min-h-[420px] relative max-[1200px]:flex-col max-[1200px]:h-auto w-full max-w-[1200px]">
         
         {property.isFeatured && (
           <div
@@ -34,27 +34,8 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
               boxShadow: "2px 2px 10px rgba(0,0,0,0.1)" 
             }}
           >
-            <span
-              style={{
-                color: "#FFFFFF",
-                fontSize: "14px",
-                lineHeight: 1,
-                fontWeight: 700
-              }}
-            >
-              ✦
-            </span>
-            <span
-              style={{
-                color: "#FFFFFF",
-                fontSize: "10px",
-                lineHeight: 1,
-                fontWeight: 900,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                whiteSpace: "nowrap"
-              }}
-            >
+            <span style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1, fontWeight: 700 }}>✦</span>
+            <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
               FEATURED
             </span>
           </div>
@@ -82,7 +63,6 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
                   /{property.priceType === "month" ? "month" : "sale"}
                 </span>
               </div>
-
               <h2 className="font-syne font-semibold text-[24px] leading-[1.2] tracking-[-0.04em] text-[#1A1A1A] mt-2">
                 {property.title}
               </h2>
@@ -90,28 +70,14 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
 
             <div className="flex items-center gap-[12px]">
               <div className="relative w-[40px] h-[40px] bg-[#CFB9FD] rounded-full overflow-hidden flex-shrink-0">
-                <Image 
-                  src="/images/userfeatured.png" 
-                  alt={property.agent.name} 
-                  fill
-                  className="object-cover" 
-                />
+                <Image src="/images/userfeatured.png" alt={property.agent.name} fill className="object-cover" />
               </div>
               <div className="flex flex-col">
-                <h4 className="font-hanken font-bold text-[15px] leading-tight text-[#1A1A1A]">
-                  {property.agent.name}
-                </h4>
-                <p className="font-hanken font-light text-[13px] text-[#666666]">
-                  {property.agent.role}
-                </p>
+                <h4 className="font-hanken font-bold text-[15px] leading-tight text-[#1A1A1A]">{property.agent.name}</h4>
+                <p className="font-hanken font-light text-[13px] text-[#666666]">{property.agent.role}</p>
               </div>
               <div className="ml-2 w-[36px] h-[36px] flex items-center justify-center rounded-full bg-[#F7F2FF] cursor-pointer hover:bg-[#E8E1FF] transition-all">
-                <Image 
-                  src="/images/telpon.svg" 
-                  alt="Phone" 
-                  width={18} 
-                  height={18}
-                />
+                <Image src="/images/telpon.svg" alt="Phone" width={18} height={18} />
               </div>
             </div>
           </div>
@@ -123,7 +89,6 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
                 {property.address}, {property.city}
               </span>
             </div>
-
             <p className="font-hanken font-light text-[16px] leading-[1.6] text-[#666666] max-w-[550px]">
               {property.description.substring(0, 100)}...{" "}
               <span className="text-black font-bold cursor-pointer underline">Read More</span>
@@ -131,18 +96,10 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
           </div>
 
           <div className="bg-[#F7F2FF] rounded-[15px] p-[20px] grid grid-cols-4 min-[1200px]:max-[1580px]:grid-cols-2 max-[600px]:grid-cols-2 gap-4 items-center">
-            <div className="flex justify-start">
-              <PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} />
-            </div>
-            <div className="flex justify-start">
-              <PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} />
-            </div>
-            <div className="flex justify-start">
-              <PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} />
-            </div>
-            <div className="flex justify-start">
-              <PropertyFeature type="design" label="Type Property" value={property.design} />
-            </div>
+            <div className="flex justify-start"><PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} /></div>
+            <div className="flex justify-start"><PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} /></div>
+            <div className="flex justify-start"><PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} /></div>
+            <div className="flex justify-start"><PropertyFeature type="design" label="Type Property" value={property.design} /></div>
           </div>
         </div>
       </div>

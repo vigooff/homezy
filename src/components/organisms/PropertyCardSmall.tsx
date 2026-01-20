@@ -23,8 +23,6 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
         relative
         max-[900px]:max-w-[400px]
         max-[900px]:mx-auto
-        min-[1200px]:max-w-[370px]
-        min-[1600px]:mx-[15px]
       "
     >
       <div className="relative w-full h-[240px] rounded-t-[15px]">
@@ -83,24 +81,17 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
 
         <div
           className="
-            flex pt-[10px] pb-[10px] items-center 
-            min-[900px]:max-[1200px]:flex-col 
-            min-[900px]:max-[1200px]:justify-center 
-            min-[900px]:max-[1200px]:items-center 
-            min-[900px]:max-[1200px]:gap-3 
-            flex-nowrap
+            flex pt-[15px] pb-[15px] items-center justify-between mx-auto w-[90%]
+            max-[900px]:justify-center max-[900px]:gap-[clamp(60px,9vw,100px)]
           "
           style={{
             borderTop: "1px solid #F7F2FF",
-            marginLeft: "15px",
-            marginRight: "15px"
           }}
         >
           <div 
-            className="flex items-center flex-shrink-0 min-[900px]:max-[1200px]:ml-0 min-[900px]:max-[1200px]:justify-center"
+            className="flex items-center flex-shrink-0 justify-center"
             style={{ 
-              gap: 'clamp(4px, 0.5vw, 8px)',
-              marginLeft: 'clamp(5px, 0.8vw, 10px)'
+              gap: 'clamp(4px, 1vw, 8px)',
             }}
           >
             <Bed className="text-[#666666] flex-shrink-0" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
@@ -110,10 +101,9 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
           </div>
 
           <div 
-            className="flex items-center flex-shrink-0 min-[900px]:max-[1200px]:ml-0 min-[900px]:max-[1200px]:justify-center"
+            className="flex items-center flex-shrink-0 justify-center"
             style={{ 
-              gap: 'clamp(4px, 0.5vw, 8px)',
-              marginLeft: 'clamp(10px, 2.5vw, 40px)' 
+              gap: 'clamp(4px, 1vw, 8px)',
             }}
           >
             <Bath className="text-[#666666] flex-shrink-0" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
@@ -123,10 +113,9 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
           </div>
 
           <div 
-            className="flex items-center flex-shrink-0 min-[900px]:max-[1200px]:ml-0 min-[900px]:max-[1200px]:justify-center"
+            className="flex items-center flex-shrink-0 justify-center"
             style={{ 
-              gap: 'clamp(4px, 0.5vw, 8px)',
-              marginLeft: 'clamp(10px, 2.5vw, 40px)' 
+              gap: 'clamp(4px, 1vw, 8px)',
             }}
           >
             <Maximize className="text-[#666666] flex-shrink-0" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
