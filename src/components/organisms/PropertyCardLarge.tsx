@@ -12,9 +12,55 @@ interface PropertyCardLargeProps {
 export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
   return (
     <div className="w-full flex flex-col items-center max-[1200px]:px-[8%]">
-      <div className="flex bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-visible h-[420px] relative max-[1200px]:flex-col max-[1200px]:h-auto w-full max-w-[1200px] mx-auto">
-      
-        <div className="relative w-[500px] h-full flex-shrink-0 rounded-l-[15px] overflow-hidden max-[1200px]:w-full max-[1200px]:h-[300px] max-[1200px]:rounded-t-[15px] max-[1200px]:rounded-l-none">
+      <div className="flex bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-visible min-h-[420px] relative max-[1200px]:flex-col max-[1200px]:h-auto w-full max-w-[1200px] mx-auto">
+        
+        {property.isFeatured && (
+          <div
+            className="absolute top-[20px] left-[-5px] z-[100] 
+                       max-[1400px]:scale-90 max-[1400px]:origin-left"
+            style={{
+              width: "auto",
+              minWidth: "80px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              backgroundColor: "#000000",
+              borderRadius: "8px",
+              paddingLeft: "12px",
+              paddingRight: "12px",
+              height: "34px",
+              flexShrink: 0,
+              boxShadow: "2px 2px 10px rgba(0,0,0,0.1)" 
+            }}
+          >
+            <span
+              style={{
+                color: "#FFFFFF",
+                fontSize: "14px",
+                lineHeight: 1,
+                fontWeight: 700
+              }}
+            >
+              ✦
+            </span>
+            <span
+              style={{
+                color: "#FFFFFF",
+                fontSize: "10px",
+                lineHeight: 1,
+                fontWeight: 900,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                whiteSpace: "nowrap"
+              }}
+            >
+              FEATURED
+            </span>
+          </div>
+        )}
+
+        <div className="relative w-[500px] min-h-full flex-shrink-0 rounded-l-[15px] overflow-hidden max-[1200px]:w-full max-[1200px]:h-[300px] max-[1200px]:rounded-t-[15px] max-[1200px]:rounded-l-none">
           <Image
             src={property.image}
             alt={property.title}
@@ -23,28 +69,6 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             className="object-cover"
             priority
           />
-          
-          {property.isFeatured && (
-            <div style={{
-              width: '80px',
-              height: '24px',
-              position: 'absolute',
-              top: '20px',
-              left: '20px',
-              backgroundColor: '#1A1A1A',
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              zIndex: 50
-            }}>
-              <span style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>✦</span>
-              <span style={{ color: '#FFFFFF', fontSize: '9px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                FEATURED
-              </span>
-            </div>
-          )}
         </div>
       
         <div className="flex-1 p-[32px] flex flex-col justify-between max-[1200px]:p-[24px]">
@@ -106,7 +130,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </p>
           </div>
 
-          <div className="bg-[#F7F2FF] rounded-[15px] p-[20px] grid grid-cols-4 max-[600px]:grid-cols-2 gap-4 items-center">
+          <div className="bg-[#F7F2FF] rounded-[15px] p-[20px] grid grid-cols-4 min-[1200px]:max-[1580px]:grid-cols-2 max-[600px]:grid-cols-2 gap-4 items-center">
             <div className="flex justify-start">
               <PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} />
             </div>
