@@ -6,25 +6,22 @@ import { CitySection } from "../templates/CitySection";
 import { AgentSection } from "../templates/AgentSection";
 import { FeedbackSection } from "../templates/FeedbackSection";
 import { SubscribeSection } from "../templates/SubscribeSection";
-import { Navbar } from "../components/molecules/Navbar";
+import { propertiesData } from "../data/properties";
 
-async function getProperties() {
-  const res = await fetch("http://localhost:3000/api/properties", {
-    cache: "no-store",
-  });
-  if (!res.ok) return [];
-  const json = await res.json();
-  return json.data || [];
-}
-
-export default async function Home() {
-  const properties = await getProperties();
+export default function Home() {
+  const properties = propertiesData;
 
   return (
     <main className="w-full min-h-screen overflow-hidden bg-[#FBFAFF]">
       <HeroSection />
-      <div className="flex flex-col w-full">
-        {properties.length > 0 && <FeaturedSection properties={properties} />}
+      <div className="flex flex-col w-full relative z-0">
+        {properties && properties.length > 0 ? (
+          <FeaturedSection properties={properties} />
+        ) : (
+          <div className="py-20 text-center text-gray-500">
+            No properties available at the moment.
+          </div>
+        )}
         <ValueSection />
         <CategorySection />
         <CitySection />

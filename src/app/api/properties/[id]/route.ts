@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Property, PropertiesData } from "../../../../types/properties";
-import propertiesDataJson from "../../../../data/properties.json";
+import propertiesDataJson from "../../../../data/properties";
 
 const propertiesData = (propertiesDataJson as unknown) as PropertiesData;
 

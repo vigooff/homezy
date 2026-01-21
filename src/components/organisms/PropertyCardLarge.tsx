@@ -16,8 +16,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
         
         {property.isFeatured && (
           <div
-            className="absolute top-[20px] left-[-5px] z-[100] 
-                       max-[1400px]:scale-90 max-[1400px]:origin-left"
+            className="absolute top-[20px] left-[-5px] z-[100] max-[1400px]:scale-90 max-[1400px]:origin-left"
             style={{
               width: "auto",
               minWidth: "80px",
@@ -52,12 +51,12 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
           />
         </div>
       
-        <div className="flex-1 p-[32px] flex flex-col justify-between max-[1200px]:p-[24px]">
+        <div className="flex-1 p-[32px] flex flex-col gap-5 max-[1200px]:p-[24px]">
           <div className="flex justify-between items-start max-[1200px]:flex-col max-[1200px]:gap-4">
             <div className="flex flex-col gap-[4px]">
               <div className="flex items-baseline gap-1">
                 <span className="font-syne font-semibold text-[32px] leading-[1] tracking-[-0.04em] text-[#1A1A1A] max-[1200px]:text-[28px]">
-                 ${property.price.toLocaleString('en-US')}
+                  ${property.price.toLocaleString('en-US')}
                 </span>
                 <span className="font-hanken font-light text-[16px] text-[#666666]">
                   /{property.priceType === "month" ? "month" : "sale"}
@@ -70,19 +69,30 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
 
             <div className="flex items-center gap-[12px]">
               <div className="relative w-[40px] h-[40px] bg-[#CFB9FD] rounded-full overflow-hidden flex-shrink-0">
-                <Image src="/images/userfeatured.png" alt={property.agent.name} fill className="object-cover" />
+                <Image 
+                  src="/images/userfeatured.png" 
+                  alt={property.agent.name} 
+                  fill 
+                  className="object-cover" 
+                />
               </div>
-              <div className="flex flex-col">
-                <h4 className="font-hanken font-bold text-[15px] leading-tight text-[#1A1A1A]">{property.agent.name}</h4>
-                <p className="font-hanken font-light text-[13px] text-[#666666]">{property.agent.role}</p>
+              
+              <div className="flex flex-col justify-center h-[40px]">
+                <h4 className="font-syne font-bold text-[15px] leading-none text-[#1A1A1A] m-0 p-0 mb-[4px]">
+                  {property.agent.name}
+                </h4>
+                <p className="font-hanken font-light text-[13px] leading-none text-[#666666] m-0 p-0">
+                  {property.agent.role}
+                </p>
               </div>
-              <div className="ml-2 w-[36px] h-[36px] flex items-center justify-center rounded-full bg-[#F7F2FF] cursor-pointer hover:bg-[#E8E1FF] transition-all">
+
+              <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full bg-[#F7F2FF] cursor-pointer hover:bg-[#E8E1FF] transition-all flex-shrink-0">
                 <Image src="/images/telpon.svg" alt="Phone" width={18} height={18} />
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-[8px] my-4">
+          <div className="flex flex-col gap-[8px]">
             <div className="flex items-center gap-[6px]">
               <MapPin size={16} className="text-[#666666]" />
               <span className="font-hanken font-light text-[16px] text-[#666666]">
@@ -95,7 +105,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </p>
           </div>
 
-          <div className="bg-[#F7F2FF] rounded-[15px] p-[20px] grid grid-cols-4 min-[1200px]:max-[1580px]:grid-cols-2 max-[600px]:grid-cols-2 gap-4 items-center">
+          <div className="mt-auto bg-[#F7F2FF] rounded-[15px] p-[20px] grid grid-cols-4 min-[1200px]:max-[1580px]:grid-cols-2 max-[600px]:grid-cols-2 gap-4 items-center">
             <div className="flex justify-start"><PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} /></div>
             <div className="flex justify-start"><PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} /></div>
             <div className="flex justify-start"><PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} /></div>
