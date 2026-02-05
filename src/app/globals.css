@@ -11,31 +11,36 @@
 
 html {
   scroll-behavior: smooth;
+  height: auto !important;
 }
 
-/* GANTI BAGIAN INI DI global.css */
 html, body {
-  height: auto !important; /* Jangan kunci tinggi di 100% */
+  /* Jangan gunakan flex di sini jika menyebabkan pemotongan */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
   overflow-y: auto !important;
-  display: flex;
-  flex-direction: column;
 }
 
 main {
-  flex: 1 0 auto; /* Ini kunci agar footer terdorong */
-  display: block;
+  /* flow-root memaksa main membungkus konten yang meluap */
+  display: flow-root !important; 
+  width: 100%;
   position: relative;
   overflow: visible !important;
-  min-height: calc(100vh - 80px); /* Kurangi tinggi rata-rata navbar */
+  /* Tambahkan padding bawah ekstra sebagai zona aman sebelum footer */
+  padding-bottom: 150px; 
 }
 
 footer {
-  flex-shrink: 0; /* Jangan biarkan footer menciut */
+  display: block;
   width: 100%;
   position: relative;
+  /* clear: both memastikan footer tidak naik ke area konten di atasnya */
+  clear: both !important; 
   z-index: 50;
-  margin-top: auto; /* Paksa ke paling bawah jika konten sedikit */
+  background: white;
 }
 
 body {

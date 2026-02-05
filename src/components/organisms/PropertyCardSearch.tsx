@@ -11,7 +11,7 @@ interface PropertyCardSearchProps {
 export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property }) => {
   return (
     <div 
-      className="flex bg-white overflow-hidden hover:shadow-md transition-all group"
+      className="flex bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
       style={{ 
         width: "564px",
         height: "226px",
@@ -20,7 +20,6 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
         opacity: 1
       }}
     >
-      {/* Image Section */}
       <div className="relative w-[200px] h-full flex-shrink-0 overflow-hidden">
         <Image
           src={property.image}
@@ -32,11 +31,8 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
         />
       </div>
 
-      {/* Content Section */}
       <div className="flex-1 flex flex-col justify-between min-w-0" style={{ paddingLeft: "10px", paddingRight: "20px", paddingTop: "20px", paddingBottom: "16px" }}>
-        {/* Top Content */}
         <div className="flex flex-col">
-          {/* Price */}
           <div className="flex items-baseline gap-1">
             <span className="font-syne font-bold text-[28px] leading-none text-[#1A1A1A]">
               ${property.price.toLocaleString('en-US')}
@@ -48,18 +44,15 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
             )}
           </div>
 
-          {/* Title - 5px gap from price */}
           <h3 className="font-syne font-semibold text-[20px] leading-tight text-[#1A1A1A] truncate" style={{ marginTop: "5px" }}>
             {property.title}
           </h3>
 
-          {/* Address - 8px gap from title */}
           <p className="font-hanken text-[13px] text-[#999999] truncate" style={{ marginTop: "8px" }}>
             {property.address}
           </p>
         </div>
 
-        {/* Bottom Categories - reduced gap (60% of original) */}
         <div className="flex items-center flex-shrink-0" style={{ gap: "clamp(12px, 1.5vw, 20px)", marginTop: "12px" }}>
           <PropertyFeature type="bedrooms" value={property.bedrooms} />
           <PropertyFeature type="bathrooms" value={property.bathrooms} />

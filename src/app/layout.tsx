@@ -53,23 +53,14 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body
         className={`
-          ${hankenGrotesk.variable} 
-          ${soehne.variable} 
-          ${satoshi.variable} 
-          ${syne.variable} 
-          antialiased 
-          font-hanken
-          bg-[#FBFAFF]
-          /* KODE NUKLIR START */
-          min-h-screen
-          flex
-          flex-col
-          relative
-          /* KODE NUKLIR END */
+          ${hankenGrotesk.variable} ${soehne.variable} 
+          ${satoshi.variable} ${syne.variable} 
+          antialiased font-hanken bg-[#FBFAFF]
+          min-h-screen flex flex-col
         `}
       >
         <Navbar />
-        <main className="flex-1 w-full relative overflow-visible">
+       <main className="w-full relative flex-1" style={{ minHeight: '100vh', display: 'block', overflow: 'visible' }}>
           {children}
         </main>
         <Footer />

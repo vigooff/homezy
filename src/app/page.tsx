@@ -12,7 +12,7 @@ export default function Home() {
   const properties = propertiesData;
 
   return (
-    <main className="w-full min-h-screen overflow-hidden bg-[#FBFAFF]">
+    <div className="w-full bg-[#FBFAFF]">
       <HeroSection />
       <div className="flex flex-col w-full relative z-0">
         {properties && properties.length > 0 ? (
@@ -29,6 +29,6 @@ export default function Home() {
         <FeedbackSection />
         <SubscribeSection />
       </div>
-    </main>
+    </div>
   );
 }
