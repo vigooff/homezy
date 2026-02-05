@@ -1,8 +1,14 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation"; // Import router
 import { MapPin, DollarSign, Home } from "lucide-react";
 
 export const HeroSearchCard = () => {
+  const router = useRouter();
+  const handleSearch = () => {
+  router.push("/search");
+  };
+
   return (
     <div 
       className="flex max-[900px]:flex-col items-center border border-[#E8E1FF] shadow-sm bg-[#FFFFFF] mx-auto"
@@ -16,7 +22,7 @@ export const HeroSearchCard = () => {
         gap: "32px", 
         opacity: 1,
       }}
-    >
+      >
       <div 
         className="flex items-center max-[900px]:w-full max-[900px]:pb-4 max-[900px] max-[900px]:border-gray-100"
         style={{
@@ -108,6 +114,7 @@ export const HeroSearchCard = () => {
       </div>
 
       <button 
+        onClick={handleSearch}
         className="font-hanken font-bold transition-all duration-300 hover:bg-[#333333] flex-shrink-0 max-[900px]:w-full max-[900px]:mt-2"
         style={{
           backgroundColor: "#1A1A1A",

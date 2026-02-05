@@ -1,11 +1,13 @@
-import { Agent } from "./agent";
-
 export interface Property {
   id: string;
   title: string;
   price: number;
   priceType: "month" | "sale";
   address: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
   city: string;
   state: string;
   zipCode: string;
@@ -16,9 +18,11 @@ export interface Property {
   bathrooms: number;
   squareArea: number;
   design: string;
-  agent: Agent;
-}
-
-export interface PropertiesData {
-  properties: Property[];
+  agent: {
+    id: string;
+    name: string;
+    role: string;
+    avatar: string;
+    phone?: string;
+  };
 }

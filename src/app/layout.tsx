@@ -60,12 +60,11 @@ export default function RootLayout({
           antialiased 
           font-hanken
           overflow-x-hidden
+          bg-[#FBFAFF]
         `}
       >
         <Navbar />
-        <main className="w-full min-h-screen">
-          {children}
-        </main>
+        {children}
         <Footer />
       </body>
     </html>

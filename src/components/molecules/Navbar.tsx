@@ -9,7 +9,7 @@ export const Navbar = () => {
   
   return (
     <nav className="w-full h-[100px] bg-white relative z-[100] flex justify-center">
-      <div className="w-full max-w-[1440px] px-[5%] md:px-[10%] h-full flex items-center justify-between">
+      <div className="w-full max-w-[1440px] ml-[5%] px-[5%] md:px-[10%] h-full flex items-center justify-between">
         <div className="flex-shrink-0">
           <Logo />
         </div>
@@ -19,7 +19,7 @@ export const Navbar = () => {
           <NavLink href="#" label="Agents" />
           <NavLink href="#" label="Pages" hasDropdown />
         </div>
-        <div className="flex-shrink-0 flex items-center">
+        <div className="flex-shrink-0 flex items-center mr-[5%]">
           <div className="hidden min-[901px]:block">
             <Button 
               variant="outline" 
