@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { SearchPropertiesCard } from "../components/organisms/SearchPropertiesCard";
 import { PropertyCardSearch } from "../components/organisms/PropertyCardSearch";
@@ -22,12 +22,66 @@ interface SearchTemplateProps {
 export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   const memoizedProperties = useMemo(() => properties, [properties]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const [containerHeight, setContainerHeight] = useState<number>(1200);
   
+  // Refs untuk mengukur tinggi actual
+  const propertyListRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+  
+  const itemsPerPage = 3;
   const totalPages = Math.ceil(properties.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentProperties = properties.slice(startIndex, endIndex);
+
+  useEffect(() => {
+  const calculateHeight = () => {
+    if (propertyListRef.current && mapRef.current) {
+      // 1. Ukur tinggi murni konten
+      const propertyListHeight = propertyListRef.current.scrollHeight;
+      
+      // 2. Ambil elemen pendukung
+      const mainElement = document.querySelector('main');
+      const footer = document.querySelector('footer');
+      
+      console.group("🔍 DIAGNOSIS TINGGI & FOOTER");
+      
+      // 3. Tambahkan Margin/Jarak Vertikal (Y)
+      // Kita tambahkan gap sebesar 160px (bukan lagi 100px) agar ada nafas antara pagination & footer
+      const verticalGap = 160; 
+      const maxHeight = Math.max(propertyListHeight + verticalGap, 600);
+      
+      // 4. Update State Tinggi
+      setContainerHeight(maxHeight);
+
+      // LOG DIAGNOSIS UNTUKMU
+      console.log("📏 Tinggi List Properti:", propertyListHeight, "px");
+      console.log("🚀 SETTING CONTAINER TO:", maxHeight, "px (Termasuk Gap)");
+      
+      if (footer && mainElement) {
+        // Cek apakah footer terdorong cukup jauh
+        const mainBottom = mainElement.getBoundingClientRect().bottom;
+        const footerTop = footer.getBoundingClientRect().top;
+        console.log("Main Bottom vs Footer Top:", mainBottom, "vs", footerTop);
+        
+        if (mainBottom > footerTop) {
+           console.warn("🚨 MASIH TABRAKAN: Tambah verticalGap!");
+        } else {
+           console.log("✅ STATUS: Jarak sudah optimal.");
+        }
+      }
+      console.groupEnd();
+    }
+  };
+
+  const timer = setTimeout(calculateHeight, 500);
+  window.addEventListener('resize', calculateHeight);
+  
+  return () => {
+    clearTimeout(timer);
+    window.removeEventListener('resize', calculateHeight);
+  };
+}, [currentProperties, properties]);
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
@@ -51,7 +105,8 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col bg-[#FBFAFF] min-h-screen">
+    <div className="w-full flex flex-col bg-[#FBFAFF] relative">
+      {/* HEADER SECTION */}
       <header className="w-full pt-16 pb-12 bg-white border-b border-[#E8E1FF]">
         <div className="max-w-[1440px] mb-[3%] mx-auto px-[2%] lg:px-[2%] flex flex-col gap-10">
           <h1 className="font-syne font-bold text-[clamp(40px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
@@ -69,50 +124,104 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
         </div>
       </header>
 
-      <div className="w-full bg-[#FBFAFF] py-10">
-        <div className="max-w-[1440px] mx-auto px-[2%] lg:px-[2%] flex flex-row gap-[40px] items-start">
-          
-          {/* KOLOM KIRI: MAP (Sticky & Fixed Height) */}
-          <section className="w-[45%] sticky top-10 flex-shrink-0">
-            <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF] relative" 
-                 style={{ height: 'calc(100vh - 80px)', minHeight: '600px' }}>
-              <MapComponent properties={memoizedProperties} />
-            </div>
-          </section>
+      {/* MAIN CONTENT SECTION */}
+<div className="w-full bg-[#FBFAFF]">
+  <div className="max-w-[1440px] mx-auto px-[2%] lg:px-[2%] py-10">
+    
+    {/* HAPUS: style={{ minHeight: `${containerHeight}px` }}
+      GANTI DENGAN: items-start agar kolom kiri dan kanan mandiri 
+    */}
+    <div className="flex flex-row gap-[40px] items-start relative">
+      
+      {/* LEFT COLUMN: MAP */}
+      <section className="w-[45%] sticky top-10 flex-shrink-0">
+        <div 
+          ref={mapRef}
+          className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF] relative"
+          style={{ 
+            // Map mengikuti tinggi layar (viewport) agar tetap sticky saat scroll
+            height: 'calc(100vh - 80px)', 
+            minHeight: '600px'
+          }}
+        >
+          <MapComponent properties={memoizedProperties} />
+        </div>
+      </section>
 
-          {/* KOLOM KANAN: LIST (Scroll Alami) */}
-          <section className="flex-1 flex flex-col min-w-0">
-            <div className="flex justify-between items-end mb-6">
-               <div>
-                  <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">{properties.length} Results</h2>
-                  <p className="font-hanken text-[#666666]">Properties in California, US</p>
-               </div>
-               <div className="flex bg-[#E7DCFF]/50 p-1.5 rounded-xl gap-1">
-                  <button className="p-2 bg-white rounded-lg shadow-sm"><LayoutGrid size={20}/></button>
-                  <button className="p-2 text-[#666666]"><List size={20}/></button>
-               </div>
-            </div>
-            
-            <div className="flex flex-col gap-6 mb-10">
-              {currentProperties.map((item) => (
-                <PropertyCardSearch key={item.id} property={item} />
-              ))}
-            </div>
-            
-            <div className="flex items-center justify-center gap-2 pb-20">
-              <button onClick={() => currentPage > 1 && goToPage(currentPage - 1)} disabled={currentPage === 1} className={`w-10 h-10 flex items-center justify-center rounded-lg border border-[#E8E1FF] ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-[#F7F2FF]'}`}>
-                <ChevronLeft size={20} />
-              </button>
-              {getPageNumbers().map((page, index) => (
-                <button key={index} onClick={() => typeof page === 'number' && goToPage(page)} className={`w-10 h-10 rounded-lg font-medium border border-[#E8E1FF] ${currentPage === page ? 'bg-[#1A1A1A] text-white' : 'hover:bg-[#F7F2FF]'}`}>
-                  {page}
+            {/* RIGHT COLUMN: PROPERTY LIST */}
+      <section 
+        ref={propertyListRef}
+        className="flex-1 flex flex-col min-w-0"
+      >
+        <div className="flex justify-between items-end mb-6">
+          <div>
+            <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">
+              {properties.length} Results
+            </h2>
+            <p className="font-hanken text-[#666666]">
+              Properties in California, US
+            </p>
+          </div>
+                <div className="flex bg-[#E7DCFF]/50 p-1.5 rounded-xl gap-1">
+                  <button className="p-2 bg-white rounded-lg shadow-sm">
+                    <LayoutGrid size={20}/>
+                  </button>
+                  <button className="p-2 text-[#666666]">
+                    <List size={20}/>
+                  </button>
+                </div>
+              </div>
+              
+              {/* Property Cards */}
+              <div className="flex flex-col gap-6 mb-10">
+          {currentProperties.map((item) => (
+            <PropertyCardSearch key={item.id} property={item} />
+          ))}
+              </div>
+              
+              {/* Pagination */}
+              <div className="flex items-center justify-center gap-2 mt-[500px]">
+                <button 
+                  onClick={() => currentPage > 1 && goToPage(currentPage - 1)} 
+                  disabled={currentPage === 1} 
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg border border-[#E8E1FF] ${
+                    currentPage === 1 
+                      ? 'opacity-30 cursor-not-allowed' 
+                      : 'hover:bg-[#F7F2FF]'
+                  }`}
+                >
+                  <ChevronLeft size={20} />
                 </button>
-              ))}
-              <button onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} disabled={currentPage === totalPages} className={`w-10 h-10 flex items-center justify-center rounded-lg border border-[#E8E1FF] ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : 'hover:bg-[#F7F2FF]'}`}>
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          </section>
+                {getPageNumbers().map((page, index) => (
+                  <button 
+                    key={index} 
+                    onClick={() => typeof page === 'number' && goToPage(page)} 
+                    disabled={typeof page !== 'number'}
+                    className={`w-10 h-10 rounded-lg font-medium border border-[#E8E1FF] ${
+                      currentPage === page 
+                        ? 'bg-[#1A1A1A] text-white' 
+                        : typeof page === 'number' 
+                          ? 'hover:bg-[#F7F2FF]' 
+                          : 'cursor-default'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+                <button 
+                  onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} 
+                  disabled={currentPage === totalPages} 
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg border border-[#E8E1FF] ${
+                    currentPage === totalPages 
+                      ? 'opacity-30 cursor-not-allowed' 
+                      : 'hover:bg-[#F7F2FF]'
+                  }`}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>

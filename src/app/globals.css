@@ -13,11 +13,29 @@ html {
   scroll-behavior: smooth;
 }
 
+/* GANTI BAGIAN INI DI global.css */
 html, body {
-  height: auto !important;
-  min-height: 100%;
+  height: auto !important; /* Jangan kunci tinggi di 100% */
   overflow-x: hidden;
-  overflow-y: visible !important;
+  overflow-y: auto !important;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto; /* Ini kunci agar footer terdorong */
+  display: block;
+  position: relative;
+  overflow: visible !important;
+  min-height: calc(100vh - 80px); /* Kurangi tinggi rata-rata navbar */
+}
+
+footer {
+  flex-shrink: 0; /* Jangan biarkan footer menciut */
+  width: 100%;
+  position: relative;
+  z-index: 50;
+  margin-top: auto; /* Paksa ke paling bawah jika konten sedikit */
 }
 
 body {

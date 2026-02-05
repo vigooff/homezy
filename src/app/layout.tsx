@@ -59,12 +59,19 @@ export default function RootLayout({
           ${syne.variable} 
           antialiased 
           font-hanken
-          overflow-x-hidden
           bg-[#FBFAFF]
+          /* KODE NUKLIR START */
+          min-h-screen
+          flex
+          flex-col
+          relative
+          /* KODE NUKLIR END */
         `}
       >
         <Navbar />
-        {children}
+        <main className="flex-1 w-full relative overflow-visible">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
