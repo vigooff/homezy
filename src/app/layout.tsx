@@ -60,7 +60,7 @@ export default function RootLayout({
         `}
       >
         <Navbar />
-       <main className="w-full relative flex-1" style={{ minHeight: '100vh', display: 'block', overflow: 'visible' }}>
+        <main className="w-full relative flex-1">
           {children}
         </main>
         <Footer />

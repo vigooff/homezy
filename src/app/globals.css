@@ -15,29 +15,21 @@ html {
 }
 
 html, body {
-  /* Jangan gunakan flex di sini jika menyebabkan pemotongan */
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  /* ... */
   overflow-y: auto !important;
 }
 
 main {
-  /* flow-root memaksa main membungkus konten yang meluap */
-  display: flow-root !important; 
+  display: block !important; 
   width: 100%;
   position: relative;
-  overflow: visible !important;
-  /* Tambahkan padding bawah ekstra sebagai zona aman sebelum footer */
-  padding-bottom: 150px; 
 }
 
 footer {
   display: block;
   width: 100%;
   position: relative;
-  /* clear: both memastikan footer tidak naik ke area konten di atasnya */
   clear: both !important; 
   z-index: 50;
   background: white;

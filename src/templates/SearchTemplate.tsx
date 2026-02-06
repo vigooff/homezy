@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { SearchPropertiesCard } from "../components/organisms/SearchPropertiesCard";
 import { PropertyCardSearch } from "../components/organisms/PropertyCardSearch";
 import { Property } from "../types/properties";
-import { LayoutGrid, List, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const MapComponent = dynamic(
@@ -21,52 +21,23 @@ interface SearchTemplateProps {
 }
 
 export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
-  const memoizedProperties = useMemo(() => properties, [properties]);
   const [currentPage, setCurrentPage] = useState(1);
-  
   const itemsPerPage = 3;
+  
+  const memoizedProperties = useMemo(() => properties, [properties]);
+  
   const totalPages = Math.ceil(properties.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  
   const currentProperties = properties.slice(startIndex, endIndex);
-
-  // === KODE NUKLIR & DEBUG ===
-  useEffect(() => {
-    console.log("=== PAGINATION DEBUG STATUS ===");
-    console.log("Total Data:", properties.length);
-    console.log("Current Page:", currentPage);
-
-    // Paksa semua parent dari level main ke atas supaya tidak nge-cut konten
-    const forceStyles = () => {
-      const elementsToFix = document.querySelectorAll('main, body, html, #__next');
-      elementsToFix.forEach((el) => {
-        if (el instanceof HTMLElement) {
-          el.style.height = 'auto';
-          el.style.minHeight = '100vh';
-          el.style.overflow = 'visible';
-          el.style.display = 'block';
-        }
-      });
-      
-      // Cek apakah element pagination ada di DOM
-      const paginationEl = document.getElementById('pagination-trigger');
-      if (paginationEl) {
-        const rect = paginationEl.getBoundingClientRect();
-        console.log("Pagination Position Y:", rect.top + window.scrollY);
-      } else {
-        console.error("Pagination element NOT FOUND in DOM!");
-      }
-    };
-
-    forceStyles();
-    // Re-run setelah sedikit delay untuk memastikan Next.js selesai render
-    const timeout = setTimeout(forceStyles, 500);
-    return () => clearTimeout(timeout);
-  }, [currentPage, properties.length]);
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const element = document.getElementById('results-start');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const getPageNumbers = () => {
@@ -86,16 +57,20 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col bg-[#FBFAFF]" style={{ isolation: 'isolate' }}>
-      <header className="w-full pt-16 pb-12 bg-white">
+    <div className="w-full flex flex-col bg-[#FBFAFF]">
+      
+      {/* HEADER N SEARCH BAR */}
+      <header className="w-full pt-16 pb-12 bg-white border-[#E8E1FF]/50">
         <div className="max-w-[1440px] mb-[3%] mx-auto px-[2%] flex flex-col gap-10">
           <h1 className="font-syne font-bold text-[clamp(40px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
             Search Properties
           </h1>        
           <div className="flex items-center w-full gap-[5%]">   
             <div className="flex-1 min-w-0">
+              {/* SEARCH CARD COMPONENT */}
               <SearchPropertiesCard />
             </div>
+            {/* FILTER BUTTON */}
             <button className="bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center gap-2 hover:bg-[#DBCBFF] transition-all flex-shrink-0" style={{ width: "120px", height: "96px" }}>
               <Image src="/icons/candle.svg" alt="Filter" width={24} height={24} />
               <span className="font-hanken font-bold text-[14px]">More Filter</span>
@@ -104,81 +79,128 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
         </div>
       </header>
 
-      <div className="w-full">
+      <div id="results-start" className="w-full">
         <div className="max-w-[1440px] mx-auto px-[2%] py-10">
           <div className="flex flex-row gap-[40px] items-start relative">
             
-            {/* LEFT COLUMN: MAP */}
-            <section className="w-[45%] flex-shrink-0">
-              <div className="sticky top-24 w-full">
-                 <div 
-                   className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]"
-                   style={{ height: 'calc(100vh - 120px)', minHeight: '500px' }}
-                 >
-                  <MapComponent properties={memoizedProperties} />
-                </div>
+            {/* MAP */}
+            <section className="w-[45%] flex-shrink-0 sticky top-10">
+              <div 
+                className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" 
+                style={{ height: '930px' }}
+              >
+                <MapComponent properties={memoizedProperties} />
               </div>
             </section>
 
-            {/* RIGHT COLUMN: LIST */}
-            <section className="flex-1 min-w-0 flex flex-col">
-              <div className="flex justify-between items-end mb-6">
-                <div>
+            {/* RIGHT COLUMN */}
+              <section className="flex-1 min-w-0 flex-col">
+
+                <div className="flex justify-between items-end mb-6">
                   <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">
                     {properties.length} Results
                   </h2>
+
+                  <div 
+                  className="flex items-center gap-3 relative" 
+                  style={{ 
+                    top: '-32px',
+                    right: '80px'
+                  }}
+                >
+                  {/* Tombol Grid */}
+                  <button 
+                    className="flex items-center justify-center bg-[#F0EBFF] border border-[#1A1A1A] transition-all"
+                    style={{ 
+                      width: '36px', 
+                      height: '36px', 
+                      padding: '8px', 
+                      borderRadius: '8px',
+                      gap: '8px'
+                    }}
+                  >
+                    <Image 
+                      src="/icons/menu-search.svg" 
+                      alt="Grid View" 
+                      width={20} 
+                      height={20} 
+                    />
+                  </button>
+                  
+                  {/* Tombol List */}
+                  <button 
+                    className="flex items-center justify-center bg-transparent border-none transition-all"
+                    style={{ 
+                      width: '36px', 
+                      height: '36px', 
+                      padding: '8px',
+                      opacity: 1
+                    }}
+                  >
+                    <Image 
+                      src="/icons/menu-search2.svg" 
+                      alt="List View" 
+                      width={20} 
+                      height={20} 
+                    />
+                  </button>
                 </div>
-              </div>
+                </div>
               
+              {/* CARD PROPERTY CONTAINER */}
               <div className="flex flex-col gap-[32px] mb-12">
                 {currentProperties.map((item) => (
                   <PropertyCardSearch key={item.id} property={item} />
                 ))}
               </div>
               
-              {/* PAGINATION - Gue kasih ID buat di-track console log */}
-              <div 
-                id="pagination-trigger"
-                className="flex flex-col items-center justify-center gap-6 py-20 border-t border-[#E8E1FF] mt-20"
-                style={{ minHeight: '200px', width: '100%', clear: 'both' }}
-              >
+              {/* PAGINATION SECTION */}
+              <div className="flex flex-col items-center justify-center gap-6 pt-10 pb-20 border-[#E8E1FF] mt-4 pb-[40px]">
+                {/* DATA AMOUNT */}
                 <p className="font-hanken text-sm text-[#868893]">
                   Showing <span className="font-bold text-[#1A1A1A]">{startIndex + 1}</span> to <span className="font-bold text-[#1A1A1A]">{Math.min(endIndex, properties.length)}</span> of <span className="font-bold text-[#1A1A1A]">{properties.length}</span> properties
                 </p>
 
-                <div className="flex items-center gap-[16px]">
+                {/* Navigasi Tombol Angka */}
+                <div className="flex items-center gap-4">
+                  {/* PREVIOUS BUTTON */}
                   <button 
                     onClick={() => currentPage > 1 && goToPage(currentPage - 1)} 
-                    disabled={currentPage === 1} 
-                    className={`p-2 transition-all ${currentPage === 1 ? 'opacity-20' : 'text-[#1A1A1A]'}`}
+                    disabled={currentPage === 1}
+                    className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
                   >
-                    <ChevronLeft size={20} />
+                    <ChevronLeft size={24} />
                   </button>
 
-                  <div className="flex items-center gap-[12px]">
+                  {/* PAGE NUMBER */}
+                  <div className="flex items-center gap-4">
                     {getPageNumbers().map((page, index) => (
                       <button 
                         key={index} 
                         onClick={() => typeof page === 'number' && goToPage(page)} 
-                        className={`min-w-[44px] h-[44px] rounded-[12px] ${currentPage === page ? 'bg-[#1A1A1A] text-white' : 'text-[#868893]'}`}
+                        className={`min-w-[44px] h-[44px] rounded-[12px] font-hanken font-bold transition-all border-none outline-none ring-0
+                          ${currentPage === page 
+                            ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md'
+                            : 'bg-transparent text-[#868893] hover:text-[#1A1A1A]'
+                          }`}
                       >
                         {page}
                       </button>
                     ))}
                   </div>
 
+                  {/* NEXT BUTTON */}
                   <button 
                     onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} 
-                    disabled={currentPage === totalPages} 
-                    className={`p-2 transition-all ${currentPage === totalPages ? 'opacity-20' : 'text-[#1A1A1A]'}`}
+                    disabled={currentPage === totalPages}
+                    className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
                   >
-                    <ChevronRight size={20} />
+                    <ChevronRight size={24} />
                   </button>
                 </div>
               </div>
-              {/* Spacer tambahan biar bener-bener gak ketutup footer */}
-              <div className="h-[100px] w-full"></div>
-            </section> section
+            </section>
+
           </div>
         </div>
       </div>

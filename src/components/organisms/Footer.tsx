@@ -8,8 +8,8 @@ const footerData = (footerDataJson as unknown) as FooterData;
 
 export const Footer = () => {
   return (
-    <footer className="w-full bg-[#FBFAFF] flex flex-col items-center">
-      <div className="w-full max-w-[1160px] px-[1%] pt-[8%] pb-[4%] footer-main-container">
+    <footer className="w-full bg-[#FBFAFF] flex flex-col items-center relative z-10">
+      <div className="w-full max-w-[1160px] px-[1%] pt-10 pb-[4%] footer-main-container">
         <div className="flex justify-between items-start w-full min-h-[330px] footer-content-row">
           <div className="footer-brand-wrapper">
             <FooterBrand />
