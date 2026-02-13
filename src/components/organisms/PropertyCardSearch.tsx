@@ -13,7 +13,7 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
     <div 
       className="flex bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
       style={{ 
-        width: "564px",
+        width: "615px",
         height: "226px",
         borderRadius: "15px",
         border: "1px solid #E8E1FF",

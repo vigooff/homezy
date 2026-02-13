@@ -18,6 +18,7 @@ export interface Property {
   bathrooms: number;
   squareArea: number;
   design: string;
+  yearBuilt: number;
   agent: {
     id: string;
     name: string;

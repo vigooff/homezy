@@ -5,14 +5,16 @@ import dynamic from "next/dynamic";
 import { SearchPropertiesCard } from "../components/organisms/SearchPropertiesCard";
 import { PropertyCardSearch } from "../components/organisms/PropertyCardSearch";
 import { Property } from "../types/properties";
+import { PopupFilter, FilterOptions } from "../components/molecules/PopupFilter";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { filterProperties } from "../utils/filterUtils"; // ← IMPORT INI!
 
 const MapComponent = dynamic(
   () => import("../components/organisms/MapProvider").then((mod) => mod.default),
-  { 
-    ssr: false, 
-    loading: () => <div className="h-full w-full bg-[#E7DCFF]/10 animate-pulse rounded-[24px]" /> 
+  {
+    ssr: false,
+    loading: () => <div className="h-full w-full bg-[#E7DCFF]/10 animate-pulse rounded-[24px]" />
   }
 );
 
@@ -22,15 +24,51 @@ interface SearchTemplateProps {
 
 export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  
+  // ✅ NEW: State untuk filtered properties
+  const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties);
+  const [activeFilters, setActiveFilters] = useState<FilterOptions | null>(null);
+  
   const itemsPerPage = 3;
-  
-  const memoizedProperties = useMemo(() => properties, [properties]);
-  
-  const totalPages = Math.ceil(properties.length / itemsPerPage);
+ 
+  // ✅ CHANGED: Use filteredProperties instead of properties
+  const memoizedProperties = useMemo(() => filteredProperties, [filteredProperties]);
+ 
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  
-  const currentProperties = properties.slice(startIndex, endIndex);
+ 
+  const currentProperties = filteredProperties.slice(startIndex, endIndex);
+
+  // ✅ NEW: Handle apply filter
+  const handleApplyFilter = (filters: FilterOptions) => {
+    console.log('🎯 SearchTemplate: Filters received:', filters);
+    
+    try {
+      // Apply filters to original properties data
+      const filtered = filterProperties(properties, filters);
+      
+      console.log('✅ Filtered results:', filtered.length, 'properties');
+      console.log('📊 Original count:', properties.length);
+      
+      setFilteredProperties(filtered);
+      setActiveFilters(filters);
+      setCurrentPage(1); // Reset to page 1
+      
+      console.log('✅ Filter applied successfully!');
+    } catch (error) {
+      console.error('❌ Error applying filter:', error);
+    }
+  };
+
+  // ✅ NEW: Clear all filters
+  const handleClearFilters = () => {
+    console.log('🔄 Clearing all filters...');
+    setFilteredProperties(properties);
+    setActiveFilters(null);
+    setCurrentPage(1);
+  };
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
@@ -56,37 +94,87 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
     return pages;
   };
 
+  // ✅ NEW: Count active filters
+  const getActiveFilterCount = () => {
+    if (!activeFilters) return 0;
+    
+    let count = 0;
+    if (activeFilters.category !== 'Category') count++;
+    if (activeFilters.bedrooms !== 'Select') count++;
+    if (activeFilters.bathrooms !== 'Select') count++;
+    if (activeFilters.priceRange !== 'Select') count++;
+    if (activeFilters.minYear !== 'Min Year') count++;
+    if (activeFilters.maxYear !== 'Max Year') count++;
+    
+    return count;
+  };
+
   return (
     <div className="w-full flex flex-col bg-[#FBFAFF]">
-      
+     
       {/* HEADER N SEARCH BAR */}
       <header className="w-full pt-16 pb-12 bg-white border-[#E8E1FF]/50">
-        <div className="max-w-[1440px] mb-[3%] mx-auto px-[2%] flex flex-col gap-10">
+        <div className="max-w-[1440px] mb-[3%] mx-auto px-[10%] flex flex-col gap-10">
           <h1 className="font-syne font-bold text-[clamp(40px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
             Search Properties
           </h1>        
-          <div className="flex items-center w-full gap-[5%]">   
+          <div className="flex items-center w-full gap-[5%]">  
             <div className="flex-1 min-w-0">
-              {/* SEARCH CARD COMPONENT */}
               <SearchPropertiesCard />
             </div>
-            {/* FILTER BUTTON */}
-            <button className="bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center gap-2 hover:bg-[#DBCBFF] transition-all flex-shrink-0" style={{ width: "120px", height: "96px" }}>
-              <Image src="/icons/candle.svg" alt="Filter" width={24} height={24} />
-              <span className="font-hanken font-bold text-[14px]">More Filter</span>
-            </button>
+
+            {/* CONTAINER UNTUK FILTER & POPUP */}
+            <div className="relative flex justify-end"> 
+              
+              {/* FILTER BUTTON */}
+              <button
+                onClick={() => {
+                  console.log('🖱️ Filter button clicked, opening popup...');
+                  setIsFilterOpen(!isFilterOpen);
+                }}
+                className="bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center gap-2 hover:bg-[#DBCBFF] transition-all flex-shrink-0 relative z-[101]"
+                style={{ width: "120px", height: "96px" }}
+              >
+                <Image src="/icons/candle.svg" alt="Filter" width={24} height={24} />
+                <span className="font-hanken font-bold text-[14px]">More Filter</span>
+                {getActiveFilterCount() > 0 && (
+                  <span className="absolute top-2 right-2 bg-[#1A1A1A] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                    {getActiveFilterCount()}
+                  </span>
+                )}
+              </button>
+
+              {/* POPUP FILTER - FIX POSITIONING */}
+              {isFilterOpen && (
+                <div 
+                  className="absolute top-[110%] right-0 z-[100]"
+                  style={{ 
+                    width: '441px',
+                    filter: 'drop-shadow(0px 20px 50px rgba(0,0,0,0.1))' 
+                  }}
+                >
+                  <PopupFilter 
+                    onClose={() => {
+                      console.log('🚪 Closing filter popup...');
+                      setIsFilterOpen(false);
+                    }}
+                    onApplyFilter={handleApplyFilter}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
 
       <div id="results-start" className="w-full">
-        <div className="max-w-[1440px] mx-auto px-[2%] py-10">
+        <div className="max-w-[1440px] mx-auto px-[10%] py-10">
           <div className="flex flex-row gap-[40px] items-start relative">
-            
+           
             {/* MAP */}
             <section className="w-[45%] flex-shrink-0 sticky top-10">
-              <div 
-                className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" 
+              <div
+                className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]"
                 style={{ height: '930px' }}
               >
                 <MapComponent properties={memoizedProperties} />
@@ -94,111 +182,135 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
             </section>
 
             {/* RIGHT COLUMN */}
-              <section className="flex-1 min-w-0 flex-col">
+            <section className="flex-1 min-w-0 flex-col">
 
-                <div className="flex justify-between items-end mb-6">
+              <div className="flex justify-between items-end mb-6">
+                <div className="flex flex-col gap-2">
                   <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">
-                    {properties.length} Results
+                    {filteredProperties.length} Results
                   </h2>
+                  
+                  {/* ✅ NEW: Active Filters Display */}
+                  {activeFilters && getActiveFilterCount() > 0 && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-[#868893]">
+                        {getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active
+                      </span>
+                      <button
+                        onClick={handleClearFilters}
+                        className="text-sm text-[#1A1A1A] underline hover:text-[#E7DCFF] transition-colors"
+                      >
+                        Clear all
+                      </button>
+                    </div>
+                  )}
+                </div>
 
-                  <div 
-                  className="flex items-center gap-3 relative" 
-                  style={{ 
+                <div
+                  className="flex items-center gap-3 relative"
+                  style={{
                     top: '-32px',
-                    right: '80px'
+                    right: '0px'
                   }}
                 >
-                  {/* Tombol Grid */}
-                  <button 
+                  <button
                     className="flex items-center justify-center bg-[#F0EBFF] border border-[#1A1A1A] transition-all"
-                    style={{ 
-                      width: '36px', 
-                      height: '36px', 
-                      padding: '8px', 
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      padding: '8px',
                       borderRadius: '8px',
                       gap: '8px'
                     }}
                   >
-                    <Image 
-                      src="/icons/menu-search.svg" 
-                      alt="Grid View" 
-                      width={20} 
-                      height={20} 
+                    <Image
+                      src="/icons/menu-search.svg"
+                      alt="Grid View"
+                      width={20}
+                      height={20}
                     />
                   </button>
-                  
-                  {/* Tombol List */}
-                  <button 
+                 
+                  <button
                     className="flex items-center justify-center bg-transparent border-none transition-all"
-                    style={{ 
-                      width: '36px', 
-                      height: '36px', 
+                    style={{
+                      width: '36px',
+                      height: '36px',
                       padding: '8px',
                       opacity: 1
                     }}
                   >
-                    <Image 
-                      src="/icons/menu-search2.svg" 
-                      alt="List View" 
-                      width={20} 
-                      height={20} 
+                    <Image
+                      src="/icons/menu-search2.svg"
+                      alt="List View"
+                      width={20}
+                      height={20}
                     />
                   </button>
                 </div>
-                </div>
-              
+              </div>
+             
               {/* CARD PROPERTY CONTAINER */}
               <div className="flex flex-col gap-[32px] mb-12">
-                {currentProperties.map((item) => (
-                  <PropertyCardSearch key={item.id} property={item} />
-                ))}
-              </div>
-              
-              {/* PAGINATION SECTION */}
-              <div className="flex flex-col items-center justify-center gap-6 pt-10 pb-20 border-[#E8E1FF] mt-4 pb-[40px]">
-                {/* DATA AMOUNT */}
-                <p className="font-hanken text-sm text-[#868893]">
-                  Showing <span className="font-bold text-[#1A1A1A]">{startIndex + 1}</span> to <span className="font-bold text-[#1A1A1A]">{Math.min(endIndex, properties.length)}</span> of <span className="font-bold text-[#1A1A1A]">{properties.length}</span> properties
-                </p>
-
-                {/* Navigasi Tombol Angka */}
-                <div className="flex items-center gap-4">
-                  {/* PREVIOUS BUTTON */}
-                  <button 
-                    onClick={() => currentPage > 1 && goToPage(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                    className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-
-                  {/* PAGE NUMBER */}
-                  <div className="flex items-center gap-4">
-                    {getPageNumbers().map((page, index) => (
-                      <button 
-                        key={index} 
-                        onClick={() => typeof page === 'number' && goToPage(page)} 
-                        className={`min-w-[44px] h-[44px] rounded-[12px] font-hanken font-bold transition-all border-none outline-none ring-0
-                          ${currentPage === page 
-                            ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md'
-                            : 'bg-transparent text-[#868893] hover:text-[#1A1A1A]'
-                          }`}
-                      >
-                        {page}
-                      </button>
-                    ))}
+                {currentProperties.length > 0 ? (
+                  currentProperties.map((item) => (
+                    <PropertyCardSearch key={item.id} property={item} />
+                  ))
+                ) : (
+                  <div className="text-center py-20">
+                    <p className="text-xl text-[#868893] mb-4">No properties match your filters</p>
+                    <button
+                      onClick={handleClearFilters}
+                      className="px-6 py-3 bg-[#1A1A1A] text-white rounded-[12px] hover:bg-[#000000] transition-all"
+                    >
+                      Clear Filters
+                    </button>
                   </div>
-
-                  {/* NEXT BUTTON */}
-                  <button 
-                    onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                    className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </div>
+                )}
               </div>
+             
+              {/* PAGINATION SECTION */}
+              {currentProperties.length > 0 && (
+                <div className="flex flex-col items-center justify-center gap-6 pt-10 pb-20 border-[#E8E1FF] mt-4 pb-[40px]">
+                  <p className="font-hanken text-sm text-[#868893]">
+                    Showing <span className="font-bold text-[#1A1A1A]">{startIndex + 1}</span> to <span className="font-bold text-[#1A1A1A]">{Math.min(endIndex, filteredProperties.length)}</span> of <span className="font-bold text-[#1A1A1A]">{filteredProperties.length}</span> properties
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+
+                    <div className="flex items-center gap-4">
+                      {getPageNumbers().map((page, index) => (
+                        <button
+                          key={index}
+                          onClick={() => typeof page === 'number' && goToPage(page)}
+                          className={`min-w-[44px] h-[44px] rounded-[12px] font-hanken font-bold transition-all border-none outline-none ring-0
+                            ${currentPage === page
+                              ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md'
+                              : 'bg-transparent text-[#868893] hover:text-[#1A1A1A]'
+                            }`}
+                        >
+                          {page}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => currentPage < totalPages && goToPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                  </div>
+                </div>
+              )}
             </section>
 
           </div>
