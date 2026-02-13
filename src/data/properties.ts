@@ -508,3 +508,6 @@ export const propertiesData: Property[] = [
     },
   },
 ];
+
+const dataExport = { properties: propertiesData };
+export default dataExport;

@@ -27,3 +27,7 @@ export interface Property {
     phone?: string;
   };
 }
+
+export interface PropertiesData {
+  properties: Property[];
+}

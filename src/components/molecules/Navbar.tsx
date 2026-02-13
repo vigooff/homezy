@@ -23,7 +23,7 @@ export const Navbar = () => {
           <div className="hidden min-[901px]:block">
             <Button 
               variant="outline" 
-              className="w-[145px] h-[52px] rounded-xl border border-black text-black hover:bg-black hover:text-white transition-all font-medium"
+              className="w-[145px] h-[52px] rounded-xl border border-black text-black hover:bg-black hover:text-[#FFFFFF] transition-all font-medium"
             >
               Contact Us
             </Button>

@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Property, PropertiesData } from "../../../types/properties";
+import type { Property, PropertiesData } from "../../../types/properties"; 
 import propertiesDataJson from "../../../data/properties";
 
-const propertiesData = (propertiesDataJson as unknown) as PropertiesData;
+const propertiesData = propertiesDataJson as PropertiesData;
 
 export async function GET(request: NextRequest) {
+  
   const searchParams = request.nextUrl.searchParams;
   
   const location = searchParams.get("location")?.toLowerCase();
@@ -71,4 +72,5 @@ export async function GET(request: NextRequest) {
     count: filteredProperties.length,
     data: filteredProperties,
   });
+
 }

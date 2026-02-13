@@ -63,13 +63,17 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
       <div className="p-4 sm:p-5 lg:p-6 mt-[24px]">
         <div className="flex flex-col gap-[8px]">
           <div className="flex items-baseline gap-1 flex-wrap pl-[20px]">
-            <span className="font-syne text-[#1A1A1A] text-[32px]" style={{ fontWeight: 600, lineHeight: "1.25", letterSpacing: "-0.04em" }}>
-              ${property.price.toLocaleString()}
-            </span>
-            <span className="font-hanken text-[#666666] text-[16px]" style={{ fontWeight: 300, lineHeight: "1.25" }}>
-              /{property.priceType}
-            </span>
-          </div>
+          <span 
+            suppressHydrationWarning 
+            className="font-syne text-[#1A1A1A] text-[32px]" 
+            style={{ fontWeight: 600, lineHeight: "1.25", letterSpacing: "-0.04em" }}
+          >
+            ${property.price.toLocaleString('id-ID')}
+          </span>
+          <span className="font-hanken text-[#666666] text-[16px]" style={{ fontWeight: 300, lineHeight: "1.25" }}>
+            /{property.priceType}
+          </span>
+        </div>
           <h3 className="font-syne text-[#1A1A1A] pl-[20px] text-[24px]" style={{ fontWeight: 600, lineHeight: "1.33", letterSpacing: "-0.04em" }}>
             {property.title}
           </h3>

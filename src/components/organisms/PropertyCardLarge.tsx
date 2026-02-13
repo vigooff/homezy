@@ -99,17 +99,17 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
                 {property.address}, {property.city}
               </span>
             </div>
-            <p className="font-hanken font-light text-[16px] leading-[1.6] text-[#666666] max-w-[550px]">
+            <p className="font-hanken font-light text-[16px] leading-[1.6] text-[#000000] max-w-[550px]">
               {property.description.substring(0, 100)}...{" "}
               <span className="text-black font-bold cursor-pointer underline">Read More</span>
             </p>
           </div>
 
-          <div className="mt-auto bg-[#F7F2FF] rounded-[15px] p-[20px] grid grid-cols-4 min-[1200px]:max-[1580px]:grid-cols-2 max-[600px]:grid-cols-2 gap-4 items-center">
-            <div className="flex justify-start"><PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} /></div>
-            <div className="flex justify-start"><PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} /></div>
-            <div className="flex justify-start"><PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} /></div>
-            <div className="flex justify-start"><PropertyFeature type="design" label="Type Property" value={property.design} /></div>
+          <div className="mt-auto bg-[#F7F2FF] rounded-[15px] p-[24px] grid grid-cols-4 gap-4 items-start">
+          <PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} />
+          <PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} />
+          <PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} />
+          <PropertyFeature type="design" label="Type Property" value={property.design} />
           </div>
         </div>
       </div>

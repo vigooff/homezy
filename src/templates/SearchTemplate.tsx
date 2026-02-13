@@ -8,7 +8,7 @@ import { Property } from "../types/properties";
 import { PopupFilter, FilterOptions } from "../components/molecules/PopupFilter";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { filterProperties } from "../utils/filterUtils"; // ← IMPORT INI!
+import { filterProperties } from "../utils/filterUtils";
 
 const MapComponent = dynamic(
   () => import("../components/organisms/MapProvider").then((mod) => mod.default),
@@ -26,13 +26,11 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   
-  // ✅ NEW: State untuk filtered properties
   const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties);
   const [activeFilters, setActiveFilters] = useState<FilterOptions | null>(null);
   
   const itemsPerPage = 3;
  
-  // ✅ CHANGED: Use filteredProperties instead of properties
   const memoizedProperties = useMemo(() => filteredProperties, [filteredProperties]);
  
   const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
@@ -41,28 +39,25 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
  
   const currentProperties = filteredProperties.slice(startIndex, endIndex);
 
-  // ✅ NEW: Handle apply filter
   const handleApplyFilter = (filters: FilterOptions) => {
     console.log('🎯 SearchTemplate: Filters received:', filters);
     
     try {
-      // Apply filters to original properties data
       const filtered = filterProperties(properties, filters);
       
-      console.log('✅ Filtered results:', filtered.length, 'properties');
-      console.log('📊 Original count:', properties.length);
+      console.log('Filtered results:', filtered.length, 'properties');
+      console.log('Original count:', properties.length);
       
       setFilteredProperties(filtered);
       setActiveFilters(filters);
-      setCurrentPage(1); // Reset to page 1
+      setCurrentPage(1);
       
-      console.log('✅ Filter applied successfully!');
+      console.log('Filter applied successfully!');
     } catch (error) {
-      console.error('❌ Error applying filter:', error);
+      console.error('Error applying filter:', error);
     }
   };
 
-  // ✅ NEW: Clear all filters
   const handleClearFilters = () => {
     console.log('🔄 Clearing all filters...');
     setFilteredProperties(properties);
@@ -94,7 +89,6 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
     return pages;
   };
 
-  // ✅ NEW: Count active filters
   const getActiveFilterCount = () => {
     if (!activeFilters) return 0;
     
@@ -190,7 +184,7 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
                     {filteredProperties.length} Results
                   </h2>
                   
-                  {/* ✅ NEW: Active Filters Display */}
+                  {/* Active Filters Display */}
                   {activeFilters && getActiveFilterCount() > 0 && (
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-[#868893]">
