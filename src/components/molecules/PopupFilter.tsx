@@ -99,9 +99,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
                 paddingBottom: '16px',
                 gap: '8px',
                 display: 'flex',
-                
                 flexDirection: 'column'
-                
               }}
             >
               {options.map((opt) => {
@@ -165,12 +163,11 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
 
   return (
     <div
-      className="bg-[#FFFFFF] shadow-2xl flex flex-col border border-[#E8E1FF] z-50 animate-in fade-in zoom-in duration-200"
+      className="bg-[#FFFFFF] shadow-2xl flex flex-col border border-[#E8E1FF] z-50 animate-in fade-in zoom-in duration-200 w-full"
       style={{
-        width: '441px',
+        maxWidth: '441px',
         height: 'auto',
         padding: '24px',
-        
         borderRadius: '15px',
         gap: '24px',
         position: 'relative'
@@ -184,47 +181,46 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
         </button>
       </div>
 
-      {/* STATUS TOGGLE  */}
+      {/* STATUS TOGGLE */}
       <div 
-  className="flex items-center justify-between bg-[#F7F5FF]"
-  style={{
-    width: '430px',
-    height: '64px',
-    borderRadius: '15px',
-    padding: '6px',
-  }}
->
-  <button 
-    onClick={() => setSelectedStatus('Sale')}
-    className="flex items-center justify-center font-hanken font-bold text-[16px] transition-all"
-    style={{
-      flex: 1,
-      height: '52px',
-      borderRadius: '15px',
-      backgroundColor: selectedStatus === 'Sale' ? '#1A1A1A' : 'transparent',
-      color: selectedStatus === 'Sale' ? '#FFFFFF' : '#1A1A1A',
-      marginRight: '3px'
-    }}
-  >
-    For Sale
-  </button>
-  
-  <button 
-    onClick={() => setSelectedStatus('Rent')}
-    className="flex items-center justify-center gap-[8px] font-hanken font-bold text-[16px] transition-all"
-    style={{
-      flex: 1,
-      height: '52px',
-      borderRadius: '15px',
-      backgroundColor: selectedStatus === 'Rent' ? '#1A1A1A' : 'transparent',
-      color: selectedStatus === 'Rent' ? '#FFFFFF' : '#1A1A1A',
-      marginLeft: '3px'
-    }}
-  >
-    <Image src="/icons/gallery.svg" alt="Rent" width={20} height={20} className={selectedStatus === 'Rent' ? '' : 'opacity-50'} />
-    For Rent
-  </button>
-</div>
+        className="flex items-center justify-between bg-[#F7F5FF] w-full"
+        style={{
+          height: '64px',
+          borderRadius: '15px',
+          padding: '6px',
+        }}
+      >
+        <button 
+          onClick={() => setSelectedStatus('Sale')}
+          className="flex items-center justify-center font-hanken font-bold text-[16px] transition-all"
+          style={{
+            flex: 1,
+            height: '52px',
+            borderRadius: '15px',
+            backgroundColor: selectedStatus === 'Sale' ? '#1A1A1A' : 'transparent',
+            color: selectedStatus === 'Sale' ? '#FFFFFF' : '#1A1A1A',
+            marginRight: '3px'
+          }}
+        >
+          For Sale
+        </button>
+        
+        <button 
+          onClick={() => setSelectedStatus('Rent')}
+          className="flex items-center justify-center gap-[8px] font-hanken font-bold text-[16px] transition-all"
+          style={{
+            flex: 1,
+            height: '52px',
+            borderRadius: '15px',
+            backgroundColor: selectedStatus === 'Rent' ? '#1A1A1A' : 'transparent',
+            color: selectedStatus === 'Rent' ? '#FFFFFF' : '#1A1A1A',
+            marginLeft: '3px'
+          }}
+        >
+          <Image src="/icons/gallery.svg" alt="Rent" width={20} height={20} className={selectedStatus === 'Rent' ? '' : 'opacity-50'} />
+          For Rent
+        </button>
+      </div>
 
       {/* CATEGORY FIELD */}
       <CustomDropdown

@@ -5,7 +5,7 @@ import { Bed, Bath, Maximize, Home } from "lucide-react";
 interface PropertyFeatureProps {
   type: "bedrooms" | "bathrooms" | "squareArea" | "design";
   value: string | number;
-  label?: string; // Label tetap opsional
+  label?: string;
 }
 
 export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
@@ -14,8 +14,7 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
   label,
 }) => {
   const getIcon = () => {
-    const iconStyle = "text-[#1A1A1A] flex-shrink-0 w-[24px] h-[24px]"; // Sesuaikan ukuran icon agar lebih tegas
-    
+    const iconStyle = "text-[#1A1A1A] w-[20px] h-[20px] flex-shrink-0";
     switch (type) {
       case "bedrooms": return <Bed className={iconStyle} />;
       case "bathrooms": return <Bath className={iconStyle} />;
@@ -25,19 +24,31 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
     }
   };
 
+  if (!label) {
   return (
-    <div className="flex flex-col gap-[12px] w-full"> 
-      {/* 1. Menampilkan Title Categories (Label) yang hilang */}
-      <span className="font-hanken font-light text-[16px] text-[#666666] whitespace-nowrap">
-        {label}
+    <div 
+      className="flex items-center" 
+      style={{ 
+        width: "auto",
+        height: "24px", 
+        gap: "8px",
+        opacity: 1 
+      }}
+    >
+      {getIcon()}
+      <span className="font-hanken text-[14px] text-[#868893] whitespace-nowrap">
+        {value}
       </span>
+    </div>
+  );
+}
 
-      {/* 2. Menampilkan Icon dan Value di bawahnya */}
-      <div className="flex items-center gap-[10px]">
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="font-hanken font-light text-[14px] text-[#666666]">{label}</span>
+      <div className="flex items-center gap-2">
         {getIcon()}
-        <span className="font-syne font-bold text-[18px] text-[#1A1A1A] whitespace-nowrap">
-          {value}
-        </span>
+        <span className="font-syne font-bold text-[16px] text-[#1A1A1A]">{value}</span>
       </div>
     </div>
   );
