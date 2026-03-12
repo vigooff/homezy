@@ -33,12 +33,11 @@ export const SearchPropertiesCard = () => {
           className="flex flex-col border border-[#E8E1FF] shadow-sm bg-[#FFFFFF]"
           style={{
             width: "100%",
-            maxWidth: "335px",
             height: "318px",
             borderRadius: "15px",
             padding: "16px",
             gap: "32px",
-            margin: "0 auto"
+            boxSizing: "border-box"
           }}
         >
           {/* Location Field */}

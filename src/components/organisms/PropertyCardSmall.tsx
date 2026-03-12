@@ -37,8 +37,7 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
 
       {property.isFeatured && (
         <div
-          className="absolute top-[222px] left-[-4px] z-[100]
-                     max-[1400px]:scale-90 max-[1400px]:origin-left"
+          className="absolute top-[222px] left-[-4px] z-[100] max-[1400px]:scale-90 max-[1400px]:origin-left"
           style={{
             width: "80px",
             display: "inline-flex",
@@ -53,7 +52,7 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
             flexShrink: 0
           }}
         >
-          <span style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1, fontWeight: 700 }}>✦</span>
+          <img src="/icons/star.svg" alt="" style={{ width: '14px', height: '14px', flexShrink: 0 }} />
           <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
             FEATURED
           </span>
@@ -63,17 +62,17 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
       <div className="p-4 sm:p-5 lg:p-6 mt-[24px]">
         <div className="flex flex-col gap-[8px]">
           <div className="flex items-baseline gap-1 flex-wrap pl-[20px]">
-          <span 
-            suppressHydrationWarning 
-            className="font-syne text-[#1A1A1A] text-[32px]" 
-            style={{ fontWeight: 600, lineHeight: "1.25", letterSpacing: "-0.04em" }}
-          >
-            ${property.price.toLocaleString('id-ID')}
-          </span>
-          <span className="font-hanken text-[#666666] text-[16px]" style={{ fontWeight: 300, lineHeight: "1.25" }}>
-            /{property.priceType}
-          </span>
-        </div>
+            <span 
+              suppressHydrationWarning 
+              className="font-syne text-[#1A1A1A] text-[32px]" 
+              style={{ fontWeight: 600, lineHeight: "1.25", letterSpacing: "-0.04em" }}
+            >
+              ${property.price.toLocaleString('id-ID')}
+            </span>
+            <span className="font-hanken text-[#666666] text-[16px]" style={{ fontWeight: 300, lineHeight: "1.25" }}>
+              /{property.priceType}
+            </span>
+          </div>
           <h3 className="font-syne text-[#1A1A1A] pl-[20px] text-[24px]" style={{ fontWeight: 600, lineHeight: "1.33", letterSpacing: "-0.04em" }}>
             {property.title}
           </h3>
@@ -88,40 +87,23 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
             flex pt-[15px] pb-[15px] items-center justify-between mx-auto w-[90%]
             max-[900px]:justify-center max-[900px]:gap-[clamp(60px,9vw,100px)]
           "
-          style={{
-            borderTop: "1px solid #F7F2FF",
-          }}
+          style={{ borderTop: "1px solid #F7F2FF" }}
         >
-          <div 
-            className="flex items-center flex-shrink-0 justify-center"
-            style={{ 
-              gap: 'clamp(4px, 1vw, 8px)',
-            }}
-          >
+          <div className="flex items-center flex-shrink-0 justify-center" style={{ gap: 'clamp(4px, 1vw, 8px)' }}>
             <Bed className="text-[#666666] flex-shrink-0" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
             <span className="font-hanken font-medium whitespace-nowrap" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>
               {property.bedrooms} Beds
             </span>
           </div>
 
-          <div 
-            className="flex items-center flex-shrink-0 justify-center"
-            style={{ 
-              gap: 'clamp(4px, 1vw, 8px)',
-            }}
-          >
+          <div className="flex items-center flex-shrink-0 justify-center" style={{ gap: 'clamp(4px, 1vw, 8px)' }}>
             <Bath className="text-[#666666] flex-shrink-0" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
             <span className="font-hanken font-medium whitespace-nowrap" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>
               {property.bathrooms} Baths
             </span>
           </div>
 
-          <div 
-            className="flex items-center flex-shrink-0 justify-center"
-            style={{ 
-              gap: 'clamp(4px, 1vw, 8px)',
-            }}
-          >
+          <div className="flex items-center flex-shrink-0 justify-center" style={{ gap: 'clamp(4px, 1vw, 8px)' }}>
             <Maximize className="text-[#666666] flex-shrink-0" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
             <span className="font-hanken font-medium whitespace-nowrap" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>
               5x7 m²

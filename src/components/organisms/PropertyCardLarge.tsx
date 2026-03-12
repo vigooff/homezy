@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { PropertyFeature } from "../atoms/PropertyFeature";
@@ -10,6 +10,20 @@ interface PropertyCardLargeProps {
 }
 
 export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMidRange = isMounted && windowWidth <= 1200 && windowWidth > 600;
+  const isSmall    = isMounted && windowWidth <= 600;
+
   return (
     <div className="w-full flex justify-center items-center">
       <div className="flex bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-visible min-h-[420px] relative max-[1200px]:flex-col max-[1200px]:h-auto w-full max-w-[1200px]">
@@ -33,7 +47,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
               boxShadow: "2px 2px 10px rgba(0,0,0,0.1)" 
             }}
           >
-            <span style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1, fontWeight: 700 }}>✦</span>
+            <img src="/icons/star.svg" alt="" style={{ width: '14px', height: '14px', flexShrink: 0 }} />
             <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
               FEATURED
             </span>
@@ -51,7 +65,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
           />
         </div>
       
-        <div className="flex-1 p-[32px] flex flex-col gap-5 max-[1200px]:p-[24px]">
+        <div className="flex-1 p-[32px] flex flex-col max-[1200px]:p-[24px]" style={{ gap: isMidRange || isSmall ? '20px' : '16px' }}>
           <div className="flex justify-between items-start max-[1200px]:flex-col max-[1200px]:gap-4">
             <div className="flex flex-col gap-[4px]">
               <div className="flex items-baseline gap-1">
@@ -77,11 +91,11 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
                 />
               </div>
               
-              <div className="flex flex-col justify-center h-[40px]">
-                <h4 className="font-syne font-bold text-[15px] leading-none text-[#1A1A1A] m-0 p-0 mb-[4px]">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                <h4 className="font-syne font-bold text-[15px] text-[#1A1A1A]" style={{ margin: 0, padding: 0, lineHeight: 1.2 }}>
                   {property.agent.name}
                 </h4>
-                <p className="font-hanken font-light text-[13px] leading-none text-[#666666] m-0 p-0">
+                <p className="font-hanken font-light text-[13px] text-[#666666]" style={{ margin: 0, padding: 0, lineHeight: 1.2 }}>
                   {property.agent.role}
                 </p>
               </div>
@@ -92,7 +106,11 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-[8px]">
+          {/* Gap tambahan di mid range antara agent info dan alamat */}
+          <div
+            className="flex flex-col gap-[8px]"
+            style={{ marginTop: isMidRange ? '12px' : isSmall ? '8px' : '0' }}
+          >
             <div className="flex items-center gap-[6px]">
               <MapPin size={16} className="text-[#666666]" />
               <span className="font-hanken font-light text-[16px] text-[#666666]">
@@ -105,11 +123,20 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </p>
           </div>
 
-          <div className="mt-auto bg-[#F7F2FF] rounded-[15px] p-[24px] grid grid-cols-4 gap-4 items-start">
-          <PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} />
-          <PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} />
-          <PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} />
-          <PropertyFeature type="design" label="Type Property" value={property.design} />
+          {/* PropertyFeature: 4 kolom di desktop, 2x2 di ≤600px */}
+          <div
+            className="mt-auto bg-[#F7F2FF] rounded-[15px] p-[24px]"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: isSmall ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: isSmall ? '16px' : '16px',
+              alignItems: 'start',
+            }}
+          >
+            <PropertyFeature type="bedrooms" label="Bedrooms" value={property.bedrooms} />
+            <PropertyFeature type="bathrooms" label="Bathrooms" value={property.bathrooms} />
+            <PropertyFeature type="squareArea" label="Square Area" value={`${property.squareArea}x8 m²`} />
+            <PropertyFeature type="design" label="Type Property" value={property.design} />
           </div>
         </div>
       </div>

@@ -26,8 +26,68 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
   // Don't render anything until mounted (avoid hydration mismatch)
   if (!isMounted) return null;
 
+  // ─── Breakpoints ─────────────────────────────────────────────────────────
+  const isMidRange = windowWidth >= 768 && windowWidth < 1200;
+  // ──────────────────────────────────────────────────────────────────────────
+
   return (
     <>
+      {/* MID-RANGE VERSION - Vertical Card - 768px-1199px (untuk grid 2x2) */}
+      {isMidRange && (
+        <div
+          className="flex flex-col bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
+          style={{
+            width: "100%",
+            borderRadius: "15px",
+            border: "1px solid #E8E1FF",
+          }}
+        >
+          {/* Image Section */}
+          <div className="relative w-full overflow-hidden" style={{ height: "200px" }}>
+            <Image
+              src={property.image}
+              alt={property.title}
+              fill
+              priority
+              sizes="(max-width: 1200px) 50vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+
+          {/* Content Section */}
+          <div className="flex flex-col" style={{ padding: "16px", gap: "10px" }}>
+            {/* PRICE SECTION */}
+            <div className="flex items-baseline gap-1">
+              <span className="font-syne font-bold text-[22px] leading-[26px] text-[#1A1A1A]">
+                ${property.price.toLocaleString('en-US')}
+              </span>
+              {property.priceType && (
+                <span className="font-hanken text-[14px] text-[#666666]">
+                  /{property.priceType}
+                </span>
+              )}
+            </div>
+
+            {/* TITLE SECTION */}
+            <h3 className="font-syne font-bold text-[16px] leading-[22px] text-[#1A1A1A] line-clamp-2">
+              {property.title}
+            </h3>
+
+            {/* ADDRESS SECTION */}
+            <p className="font-hanken text-[12px] text-[#999999] leading-[18px] truncate">
+              {property.address}
+            </p>
+
+            {/* FEATURE SECTION */}
+            <div className="flex items-center justify-between border-t border-[#E8E1FF] pt-[12px]">
+              <PropertyFeature type="bedrooms" value={`${property.bedrooms} Beds`} />
+              <PropertyFeature type="bathrooms" value={`${property.bathrooms} Baths`} />
+              <PropertyFeature type="squareArea" value="5x7 m²" />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* MOBILE VERSION - Vertical Layout - Only <768px */}
       {windowWidth < 768 && (
         <div 
@@ -98,8 +158,8 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
         </div>
       )}
 
-      {/* DESKTOP VERSION - Horizontal Layout - Only ≥768px */}
-      {windowWidth >= 768 && (
+      {/* DESKTOP VERSION - Horizontal Layout - Only ≥1200px */}
+      {windowWidth >= 1200 && (
         <div 
           className="flex bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
           style={{ 

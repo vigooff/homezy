@@ -3,7 +3,7 @@ import React from "react";
 
 interface FeaturedBadgeProps {
   className?: string;
-  style?: React.CSSProperties; // Tambahkan ini agar bisa menerima posisi dinamis
+  style?: React.CSSProperties;
 }
 
 export const FeaturedBadge = ({ className = "", style }: FeaturedBadgeProps) => {
@@ -25,16 +25,11 @@ export const FeaturedBadge = ({ className = "", style }: FeaturedBadgeProps) => 
         ...style,
       }}
     >
-      <span 
-        style={{ 
-          color: "#FFFFFF",
-          fontSize: "14px", 
-          lineHeight: 1, 
-          fontWeight: 700 
-        }}
-      >
-        ✦
-      </span>
+      <img
+        src="/icons/star.svg"
+        alt=""
+        style={{ width: '14px', height: '14px', flexShrink: 0 }}
+      />
       <span 
         style={{ 
           color: "#FFFFFF",

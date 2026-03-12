@@ -1,61 +1,111 @@
 "use client";
-import React, { useState } from "react";
-import { Logo, NavLink, Button } from "../atoms";
+import React, { useState, useEffect } from "react";
+import { Logo, NavLink } from "../atoms";
 import { Menu, X } from "lucide-react";
-import { Container } from "../atoms/Container";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
-  return (
-    <nav className="w-full h-[100px] bg-white relative z-[100] flex justify-center">
-      <div className="w-full max-w-[1440px] ml-[5%] px-[5%] md:px-[10%] h-full flex items-center justify-between">
-        <div className="flex-shrink-0">
-          <Logo />
-        </div>
-        <div className="hidden min-[901px]:flex items-center justify-center flex-1 gap-[20px]">
-          <NavLink href="#" label="Home" />
-          <NavLink href="#" label="Properties" />
-          <NavLink href="#" label="Agents" />
-          <NavLink href="#" label="Pages" hasDropdown />
-        </div>
-        <div className="flex-shrink-0 flex items-center mr-[5%]">
-          <div className="hidden min-[901px]:block">
-            <Button 
-              variant="outline" 
-              className="w-[145px] h-[52px] rounded-xl border border-black text-black hover:bg-black hover:text-[#FFFFFF] transition-all font-medium"
-            >
-              Contact Us
-            </Button>
-          </div>
-          <div className="min-[901px]:hidden">
-            <button 
-              className="flex p-2 text-black items-center justify-center transition-transform active:scale-95 bg-transparent border-0 outline-none"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X size={32} strokeWidth={2} /> : <Menu size={32} strokeWidth={2} />}
-            </button>
-          </div>
-        </div>
-      </div>
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
-      {isOpen && (
-        <div className="absolute top-[100px] left-0 w-full bg-white border-b border-gray-100 min-[901px]:hidden shadow-xl">
-          <Container className="py-8">
-            <div className="flex flex-col gap-8 items-center text-center">
-              <NavLink href="#" label="Home" />
-              <NavLink href="#" label="Properties" />
-              <NavLink href="#" label="Agents" />
-              <NavLink href="#" label="Pages" />
-              <div className="pt-6 border-t border-gray-100 w-full">
-                <Button className="w-full h-[52px] border-black text-black rounded-xl">
-                  Contact Us
-                </Button>
-              </div>
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setIsAnimating(true));
+      });
+    } else {
+      setIsAnimating(false);
+      const timer = setTimeout(() => setShouldRender(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  return (
+    <>
+      <style>{`
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+          from { opacity: 1; transform: translateY(0); }
+          to   { opacity: 0; transform: translateY(-16px); }
+        }
+        .nav-dropdown-enter { animation: slideDown 0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+        .nav-dropdown-exit  { animation: slideUp  0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+      `}</style>
+
+      <nav style={{ width: '100%', height: '100px', backgroundColor: '#FBFAFF', position: 'relative', zIndex: 100, display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '1440px', paddingLeft: '5%', paddingRight: '5%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          
+          <a href="/" style={{ flexShrink: 0, textDecoration: 'none' }}>
+            <Logo />
+          </a>
+
+          {/* Desktop nav */}
+          <div className="hidden min-[901px]:flex" style={{ alignItems: 'center', justifyContent: 'center', flex: 1, gap: '20px' }}>
+            <NavLink href="#" label="Home" />
+            <NavLink href="#" label="Properties" />
+            <NavLink href="#" label="Agents" />
+            <NavLink href="#" label="Pages" hasDropdown />
+          </div>
+
+          <div style={{ flexShrink: 0 }}>
+            {/* Desktop button */}
+            <div className="hidden min-[901px]:block">
+              <button
+                style={{ width: '145px', height: '52px', borderRadius: '12px', border: '1px solid #000000', backgroundColor: 'transparent', color: '#000000', fontWeight: 500, fontSize: '16px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#000000'; (e.currentTarget as HTMLButtonElement).style.color = '#FFFFFF'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#000000'; }}
+              >
+                Contact Us
+              </button>
             </div>
-          </Container>
+
+            {/* Hamburger */}
+            <div className="min-[901px]:hidden">
+              <button 
+                style={{ display: 'flex', padding: '8px', color: '#000000', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none', outline: 'none', cursor: 'pointer', transition: 'transform 0.2s' }}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? <X size={32} strokeWidth={2} /> : <Menu size={32} strokeWidth={2} />}
+              </button>
+            </div>
+          </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile dropdown */}
+        {shouldRender && (
+          <div
+            className={`min-[901px]:hidden ${isAnimating ? 'nav-dropdown-enter' : 'nav-dropdown-exit'}`}
+            style={{
+              position: 'absolute',
+              top: '100px',
+              left: 0,
+              width: '100%',
+              backgroundColor: '#FFFFFF',
+              borderBottomLeftRadius: '24px',
+              borderBottomRightRadius: '24px',
+              boxShadow: '0 16px 32px -4px rgba(0,0,0,0.12)',
+            clipPath: 'inset(0 -40px -40px -40px)',
+              zIndex: 99,
+            }}
+          >
+            <div style={{ padding: '32px 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px' }}>
+              <NavLink href="#" label="Home" className="!text-[22px]" />
+              <NavLink href="#" label="Properties" className="!text-[22px]" />
+              <NavLink href="#" label="Agents" className="!text-[22px]" />
+              <NavLink href="#" label="Pages" className="!text-[22px]" />
+              <button
+                style={{ width: '100%', height: '52px', borderRadius: '12px', backgroundColor: '#000000', color: '#FFFFFF', fontWeight: 500, fontSize: '16px', border: 'none', cursor: 'pointer' }}
+              >
+                Contact Us
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
+    </>
   );
 };

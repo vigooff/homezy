@@ -5,6 +5,7 @@ interface NavLinkProps {
   label: string;
   hasDropdown?: boolean;
   className?: string;
+  noPadding?: boolean;
 }
 
 export const NavLink = ({
@@ -12,9 +13,13 @@ export const NavLink = ({
   label,
   hasDropdown,
   className = "",
+  noPadding = false,
 }: NavLinkProps) => {
   return (
-    <div className={`flex items-center gap-2 cursor-pointer group whitespace-nowrap px-6 ${className}`}>
+    <div
+      className={`flex items-center gap-2 cursor-pointer group whitespace-nowrap ${noPadding ? '' : 'px-6'} ${className}`}
+      style={noPadding ? { paddingLeft: 0, paddingRight: 0 } : {}}
+    >
       <a
         href={href}
         className="text-[16px] font-hanken font-medium text-[#101828] group-hover:text-purple-600 transition-colors no-underline"
