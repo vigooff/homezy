@@ -25,30 +25,25 @@ export const PropertyFeature: React.FC<PropertyFeatureProps> = ({
   };
 
   if (!label) {
-  return (
-    <div 
-      className="flex items-center" 
-      style={{ 
-        width: "auto",
-        height: "24px", 
-        gap: "8px",
-        opacity: 1 
-      }}
-    >
-      {getIcon()}
-      <span className="font-hanken text-[14px] text-[#868893] whitespace-nowrap">
-        {value}
-      </span>
-    </div>
-  );
-}
+    return (
+      <div 
+        className="flex items-center" 
+        style={{ width: "auto", height: "24px", gap: "8px", opacity: 1 }}
+      >
+        {getIcon()}
+        <span className="font-hanken text-[14px] text-[#868893] whitespace-nowrap">
+          {value}
+        </span>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col gap-2">
-      <span className="font-hanken font-light text-[14px] text-[#666666]">{label}</span>
-      <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-3">
+      <span className="font-hanken font-light text-[14px] text-[#666666]" style={{ marginBottom: '4px' }}>{label}</span>
+      <div className="flex items-center">
         {getIcon()}
-        <span className="font-syne font-bold text-[16px] text-[#1A1A1A]">{value}</span>
+        <span className="font-syne font-bold text-[16px] text-[#1A1A1A]" style={{ marginLeft: '10px' }}>{value}</span>
       </div>
     </div>
   );
