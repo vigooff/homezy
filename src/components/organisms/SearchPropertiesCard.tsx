@@ -33,11 +33,12 @@ export const SearchPropertiesCard = () => {
           className="flex flex-col border border-[#E8E1FF] shadow-sm bg-[#FFFFFF]"
           style={{
             width: "100%",
+            maxWidth: "335px",
             height: "318px",
             borderRadius: "15px",
             padding: "16px",
             gap: "32px",
-            boxSizing: "border-box"
+            margin: "0 auto"
           }}
         >
           {/* Location Field */}
@@ -98,15 +99,15 @@ export const SearchPropertiesCard = () => {
       <div 
         className="flex flex-col border border-[#E8E1FF] shadow-sm bg-[#FFFFFF]"
         style={{ 
-          width: "100%",
-          height: "100%",
+          width: "100%", // UBAH INI dari 740px ke 100%
+          height: "auto", // UBAH INI agar container mengikuti isi
+          minHeight: "318px", 
           borderRadius: "24px",
-          padding: "24px",
-          boxSizing: "border-box"
+          padding: "24px"
         }}
       >
           {/* Location Field */}
-          <div className="flex items-center" style={{ gap: "16px", paddingTop: "14px", paddingBottom: "14px" }}>
+          <div className="flex items-center flex-1" style={{ gap: "16px", paddingTop: "12px", paddingBottom: "12px" }}>
             <div className="flex items-center justify-center flex-shrink-0"
               style={{ width: "48px", height: "48px", backgroundColor: "#E7DCFF", borderRadius: "12px" }}>
               <Image src="/icons/location.svg" alt="Location" width={20} height={20} />
@@ -118,10 +119,8 @@ export const SearchPropertiesCard = () => {
           </div>
 
           {/* Horizontal Divider */}
-          <div className="w-full h-[1px] bg-[#E8E1FF] flex-shrink-0" />
-
           {/* Price Field */}
-          <div className="flex items-center" style={{ gap: "16px", paddingTop: "14px", paddingBottom: "14px" }}>
+          <div className="flex items-center flex-1" style={{ gap: "16px", paddingTop: "12px", paddingBottom: "12px" }}>
             <div className="flex items-center justify-center flex-shrink-0"
               style={{ width: "48px", height: "48px", backgroundColor: "#E7DCFF", borderRadius: "12px" }}>
               <Image src="/icons/price.svg" alt="Price" width={20} height={20} />
@@ -133,10 +132,8 @@ export const SearchPropertiesCard = () => {
           </div>
 
           {/* Horizontal Divider */}
-          <div className="w-full h-[1px] bg-[#E8E1FF] flex-shrink-0" />
-
           {/* Property Type Field */}
-          <div className="flex items-center" style={{ gap: "16px", paddingTop: "14px", paddingBottom: "14px" }}>
+          <div className="flex items-center flex-1" style={{ gap: "16px", paddingTop: "12px", paddingBottom: "12px" }}>
             <div className="flex items-center justify-center flex-shrink-0"
               style={{ width: "48px", height: "48px", backgroundColor: "#E7DCFF", borderRadius: "12px" }}>
               <Image src="/icons/house.svg" alt="House" width={20} height={20} />

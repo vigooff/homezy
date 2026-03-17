@@ -283,7 +283,7 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
               <div className="flex-1 min-w-0">
                 <SearchPropertiesCard />
               </div>
-              <div className="relative flex justify-end flex-shrink-0" style={{ marginRight: "40px" }}>
+              <div className="relative flex justify-end flex-shrink-0" style={{ marginLeft: "24px" }}>
                 <button
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
                   className="bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center gap-2 hover:bg-[#DBCBFF] transition-all relative z-[101]"
@@ -557,7 +557,7 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
                 </div>
               </section>
 
-              <section className="flex-1 min-w-0 flex-col">
+              <section className="flex-1 min-w-0 flex-col" style={{ maxWidth: "55%" }}>
 
                 <div className="flex justify-between items-end mb-6">
                   <div className="flex flex-col gap-2">

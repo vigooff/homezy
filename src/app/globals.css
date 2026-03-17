@@ -13,6 +13,7 @@ html {
   scroll-behavior: smooth;
   height: auto !important;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 html, body {

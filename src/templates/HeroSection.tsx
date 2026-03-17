@@ -25,7 +25,7 @@ export const HeroSection = () => {
             
             <div className="relative mt-[5.5rem] max-[1400px]:mt-[4rem] max-md:mt-[3rem] w-full">
 
-              <div className="w-full max-[900px]:px-[30px] flex justify-center">
+              <div className="w-full flex justify-center">
                 <HeroSearchCard />
               </div>
               
