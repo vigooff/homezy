@@ -5,7 +5,7 @@ export const Logo = () => {
   return (
     <div className="flex items-center gap-3">
       <Image 
-        src="/icons/logo.svg" 
+        src="/icons/Logo.svg" 
         alt="Homezy Logo" 
         width={32} 
         height={32} 
