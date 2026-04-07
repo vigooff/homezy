@@ -83,11 +83,12 @@ export const HeroVisualSection = () => {
           style={{ width: '248px', height: '350px' }}
         >
           <Image 
-            src="/images/rumahherokanan.jpg" 
-            alt="Sub Property" 
-            fill 
-            className="object-cover" 
-          />
+          src="/images/rumahherokanan.jpg" 
+          alt="Sub Property" 
+          fill 
+          className="object-cover"
+          priority
+        />
         </div>
       </div>
     </div>

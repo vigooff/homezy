@@ -47,7 +47,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
               boxShadow: "2px 2px 10px rgba(0,0,0,0.1)" 
             }}
           >
-            <img src="/icons/star.svg" alt="" style={{ width: '14px', height: '14px', flexShrink: 0 }} />
+            <Image src="/icons/Star.svg" alt="Featured" width={14} height={14} style={{ flexShrink: 0 }} />
             <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
               FEATURED
             </span>
@@ -61,7 +61,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             fill
             sizes="(max-width: 1200px) 100vw, 500px"
             className="object-cover"
-            priority
+            loading="lazy"
           />
         </div>
       

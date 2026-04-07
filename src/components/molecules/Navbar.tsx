@@ -66,6 +66,7 @@ export const Navbar = () => {
             {/* Hamburger */}
             <div className="min-[901px]:hidden">
               <button 
+              aria-label={isOpen ? "Close menu" : "Open menu"}
                 style={{ display: 'flex', padding: '8px', color: '#000000', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none', outline: 'none', cursor: 'pointer', transition: 'transform 0.2s' }}
                 onClick={() => setIsOpen(!isOpen)}
               >
