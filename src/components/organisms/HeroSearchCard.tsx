@@ -86,6 +86,7 @@ export const HeroSearchCard = () => {
 
       <button 
         onClick={handleSearch}
+        aria-label="Search properties"
         className="font-hanken font-bold transition-all duration-300 hover:bg-[#333333]"
         style={{
           backgroundColor: '#1A1A1A',

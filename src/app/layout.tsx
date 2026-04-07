@@ -5,20 +5,21 @@ import { Navbar } from "../components/molecules";
 import { Footer } from "../components/organisms/Footer";
 
 const hankenGrotesk = localFont({
-  src: "../assets/fonts/HankenGrotesk-VariableFont_wght.ttf",
+  src: "../assets/fonts/HankenGrotesk-VariableFont_wght.woff2",
   variable: "--font-hanken",
   display: "swap",
+  preload: true,
 });
 
 const soehne = localFont({
   src: [
     {
-      path: "../assets/fonts/TestSohneBreit-Leicht.otf",
+      path: "../assets/fonts/TestSohneBreit-Leicht.woff2",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../assets/fonts/TestSohneBreit-Buch.otf",
+      path: "../assets/fonts/TestSohneBreit-Buch.woff2",
       weight: "400",
       style: "normal",
     },
@@ -28,15 +29,16 @@ const soehne = localFont({
 });
 
 const satoshi = localFont({
-  src: "../assets/fonts/Satoshi-Variable.ttf",
+  src: "../assets/fonts/Satoshi-Variable.woff2",
   variable: "--font-satoshi",
   display: "swap",
 });
 
 const syne = localFont({
-  src: "../assets/fonts/Syne-VariableFont_wght.ttf",
+  src: "../assets/fonts/Syne-VariableFont_wght.woff2",
   variable: "--font-syne",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {

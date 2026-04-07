@@ -38,7 +38,7 @@ export const FooterBrand = () => {
       </div>
       
       <p
-        className="footer-brand-desc font-hanken font-light text-base text-[#475467]"
+        className="footer-brand-desc font-hanken font-light text-base text-[#344054]"
         style={{ width: descWidth, lineHeight: '26px' }}
       >
         {footerData.brand.description}
