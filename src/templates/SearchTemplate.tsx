@@ -167,18 +167,16 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
             </h1>
             <SearchPropertiesCard />
             <button
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#DBCBFF] transition-all relative"
-              style={{ height: "52px", marginTop: "8px", marginBottom: "8px" }}
-            >
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center hover:bg-[#DBCBFF] transition-all relative"
+            style={{ height: "52px", marginTop: "8px", marginBottom: "8px" }}
+          >
+            <div className="flex items-center justify-center gap-3 pointer-events-none">
               <Image src="/icons/candle.svg" alt="Filter" width={18} height={18} />
               <span className="font-hanken font-bold text-[13px]">More Filter</span>
-              {getActiveFilterCount() > 0 && (
-                <span className="absolute top-2 right-2 bg-[#1A1A1A] text-white rounded-full w-5 h-5 flex items-center justify-center text-[11px] font-bold" style={{ pointerEvents: 'none' }}>
-                  {getActiveFilterCount()}
-                </span>
-              )}
-            </button>
+            </div>
+            
+          </button>
           </div>
         )}
 
@@ -190,18 +188,15 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
             </h1>
             <SearchPropertiesCard />
             <button
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#DBCBFF] transition-all relative"
-              style={{ height: "58px", paddingTop: "20px", paddingBottom: "20px", paddingLeft: "32px", paddingRight: "32px", marginTop: "16px" }}
-            >
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center hover:bg-[#DBCBFF] transition-all relative"
+            style={{ height: "58px", paddingTop: "20px", paddingBottom: "20px", paddingLeft: "32px", paddingRight: "32px", marginTop: "16px" }}
+          >
+            <div className="flex items-center justify-center gap-3 pointer-events-none">
               <Image src="/icons/candle.svg" alt="Filter" width={20} height={20} />
               <span className="font-hanken font-bold text-[14px]">More Filter</span>
-              {getActiveFilterCount() > 0 && (
-                <span className="absolute top-2 right-2 bg-[#1A1A1A] text-white rounded-full w-6 h-6 flex items-center justify-center text-[12px] font-bold" style={{ pointerEvents: 'none' }}>
-                  {getActiveFilterCount()}
-                </span>
-              )}
-            </button>
+            </div>
+          </button>
           </div>
         )}
 
@@ -212,41 +207,33 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
             style={{ 
               paddingLeft: '7.5%', 
               paddingRight: '7.5%', 
-              paddingBottom: '80px' // Ditambah agar jarak ke Map di bawah lebih lega
+              paddingBottom: '80px'
             }}
           >
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
               Search Properties
             </h1>
 
-            {/* Container: items-stretch agar Filter Button tingginya = Search Card
-                TIDAK pakai overflow-hidden — biarkan card tumbuh natural ke bawah */}
             <div className="flex items-stretch w-full">
 
-              {/* Search Card Wrapper: width 75%, display flex agar card bisa height 100% */}
               <div style={{ width: '75%', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
                 <SearchPropertiesCard />
               </div>
 
-              {/* GAP: Eksplisit 5% dari container */}
               <div style={{ width: '5%' }} className="flex-shrink-0" />
 
               {/* Filter Button: Lebar 20% — wrapper relative sebagai anchor popup */}
               <div className="relative flex-shrink-0" style={{ width: '20%' }}>
+                {/* ✅ FIX: Wrap icon+teks dalam div tersendiri agar badge tidak masuk ke flex flow */}
                 <button
-                  onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="w-full h-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center gap-3 hover:bg-[#DBCBFF] transition-all relative"
-                >
-                  {/* Tidak pakai scale-110 agar tidak menciptakan stacking context */}
-                  <div className="flex flex-col items-center justify-center gap-2">
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}                  
+                  className="w-full h-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center hover:bg-[#DBCBFF] transition-all relative"
+                  >
+                  <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
                     <Image src="/icons/candle.svg" alt="Filter" width={28} height={28} />
                     <span className="font-hanken font-bold text-[16px] text-[#1A1A1A]">More Filter</span>
                   </div>
-                  {getActiveFilterCount() > 0 && (
-                    <span className="absolute top-3 right-3 bg-[#1A1A1A] text-white rounded-full w-6 h-6 flex items-center justify-center text-[12px] font-bold" style={{ pointerEvents: 'none' }}>
-                      {getActiveFilterCount()}
-                    </span>
-                  )}
+                  
                 </button>
 
                 {/* POPUP — absolute anchored ke bawah button, rata kanan, lebar fixed 441px */}
@@ -284,18 +271,17 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
                 <SearchPropertiesCard />
               </div>
               <div className="relative flex justify-end flex-shrink-0" style={{ marginLeft: "24px" }}>
+                {/* ✅ FIX: Wrap icon+teks dalam div tersendiri agar badge tidak masuk ke flex flow */}
                 <button
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center gap-2 hover:bg-[#DBCBFF] transition-all relative z-[101]"
+                  className="bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center hover:bg-[#DBCBFF] transition-all relative z-[101]"
                   style={{ width: "120px", height: "96px" }}
                 >
-                  <Image src="/icons/candle.svg" alt="Filter" width={24} height={24} />
-                  <span className="font-hanken font-bold text-[14px]">More Filter</span>
-                  {getActiveFilterCount() > 0 && (
-                    <span className="absolute top-2 right-2 bg-[#1A1A1A] text-white rounded-full w-6 h-6 flex items-center justify-center text-[12px] font-bold" style={{ pointerEvents: 'none' }}>
-                      {getActiveFilterCount()}
-                    </span>
-                  )}
+                  <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
+                    <Image src="/icons/candle.svg" alt="Filter" width={24} height={24} />
+                    <span className="font-hanken font-bold text-[14px]">More Filter</span>
+                  </div>
+                  
                 </button>
                 {isFilterOpen && (
                   <div
@@ -359,11 +345,11 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
               <div className="flex flex-col gap-2">
                 <h2 className="font-syne font-bold text-[20px] text-[#1A1A1A]">{filteredProperties.length} Results</h2>
                 {activeFilters && getActiveFilterCount() > 0 && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-[#868893]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
-                    <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#000000] transition-colors bg-transparent border-none">Clear all</button>
-                  </div>
-                )}
+                <div className="flex items-center gap-2" style={{ marginTop: '-4px' }}>
+                  <span className="text-sm text-[#000000]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
+                  <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#bba1f7] transition-colors bg-transparent border-none">Clear all</button>
+                </div>
+              )}
               </div>
               <div className="flex flex-col gap-[20px]">
                 {currentProperties.length > 0 ? (
@@ -416,11 +402,11 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
               <div className="flex flex-col gap-2">
                 <h2 className="font-syne font-bold text-[24px] text-[#1A1A1A]">{filteredProperties.length} Results</h2>
                 {activeFilters && getActiveFilterCount() > 0 && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-[#868893]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
-                    <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#000000] transition-colors bg-transparent border-none">Clear all</button>
-                  </div>
-                )}
+                <div className="flex items-center gap-2" style={{ marginTop: '-4px' }}>
+                  <span className="text-sm text-[#000000]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
+                  <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#bba1f7] transition-colors bg-transparent border-none">Clear all</button>
+                </div>
+              )}
               </div>
 
               <div className="flex flex-col gap-[24px]">
@@ -462,12 +448,6 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
         )}
 
         {/* ── MID-RANGE LAYOUT (768px - 1199px) ─────────────────────────── */}
-        {/*
-          Map jadi "minimap" — 30% lebar saja.
-          List properti dapat 70% ruang (via flex-1).
-          Padding container sama dengan header: 7.5% kiri-kanan.
-          Gap map vs list: 40px tetap dijaga.
-        */}
         {isMidRange && (
           <div
             className="max-w-[1440px] mx-auto py-10 mb-[8%]"
@@ -487,11 +467,11 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
                 <div className="flex flex-col gap-2">
                   <h2 className="font-syne font-bold text-[28px] text-[#1A1A1A]">{filteredProperties.length} Results</h2>
                   {activeFilters && getActiveFilterCount() > 0 && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-[#868893]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
-                      <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#000000] transition-colors bg-transparent border-none">Clear all</button>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2" style={{ marginTop: '-4px' }}>
+                    <span className="text-sm text-[#000000]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
+                    <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#bba1f7] transition-colors bg-transparent border-none">Clear all</button>
+                  </div>
+                )}
                 </div>
                 <div className="flex items-center gap-3">
                   <button className="flex items-center justify-center bg-[#F0EBFF] border border-[#1A1A1A] transition-all" style={{ width: '36px', height: '36px', padding: '8px', borderRadius: '8px' }}>
@@ -563,11 +543,11 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
                   <div className="flex flex-col gap-2">
                     <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">{filteredProperties.length} Results</h2>
                     {activeFilters && getActiveFilterCount() > 0 && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-[#868893]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
-                        <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#000000] transition-colors bg-transparent border-none">Clear all</button>
-                      </div>
-                    )}
+                  <div className="flex items-center gap-2" style={{ marginTop: '-4px' }}>
+                    <span className="text-sm text-[#000000]">{getActiveFilterCount()} filter{getActiveFilterCount() > 1 ? 's' : ''} active</span>
+                    <button onClick={handleClearFilters} className="text-sm text-[#1A1A1A] underline hover:text-[#bba1f7] transition-colors bg-transparent border-none">Clear all</button>
+                  </div>
+                )}
                   </div>
                   <div className="flex items-center gap-3 relative" style={{ top: '-32px', right: '0px' }}>
                     <button className="flex items-center justify-center bg-[#F0EBFF] border border-[#1A1A1A] transition-all" style={{ width: '36px', height: '36px', padding: '8px', borderRadius: '8px', gap: '8px' }}>

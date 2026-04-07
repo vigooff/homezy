@@ -91,17 +91,17 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
           <ChevronDown className="ml-auto" style={{ marginRight: '4px', color: '#1A1A1A' }} size={20} />
           
           {isOpen && (
-            <div 
-              className="absolute left-[0px] w-full bg-[#FFFFFF] shadow-xl rounded-[15px] border border-[#E8E1FF] z-20"
-              style={{
-                top: '90px',
-                paddingTop: '16px',
-                paddingBottom: '16px',
-                gap: '8px',
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
+          <div 
+            className="absolute left-[0px] w-full bg-[#FFFFFF] shadow-xl rounded-[15px] border border-[#E8E1FF] z-20"
+            style={{
+              top: '54px',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+              gap: '8px',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
               {options.map((opt) => {
                 const optionValue = typeof opt === 'string' ? opt : opt.label;
                 const isSelected = value === optionValue;
