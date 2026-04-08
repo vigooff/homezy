@@ -13,7 +13,7 @@ const feedbacks = [
 export const FeedbackSection = () => {
   return (
     <section className="w-full bg-[#FBFAFF] relative overflow-hidden py-[100px] max-[900px]:py-[60px]">
-      <div className="max-w-[1440px] mx-auto flex flex-col items-center">
+      <div className="max-w-100 mx-auto flex flex-col items-center">
         <h2 className="font-syne font-semibold text-[48px] leading-[56px] tracking-[-0.04em] text-[#1A1A1A] text-center mb-[60px] px-4 max-[1200px]:text-[38px] max-[900px]:text-[30px] max-[900px]:leading-[38px]">
           Kind Words From Our Customers
         </h2>

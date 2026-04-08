@@ -29,30 +29,43 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
       <div className="flex bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-visible min-h-[420px] relative max-[1200px]:flex-col max-[1200px]:h-auto w-full max-w-[1200px]">
         
         {property.isFeatured && (
-          <div
-            className="absolute top-[20px] left-[-5px] z-[100] max-[1400px]:scale-90 max-[1400px]:origin-left"
-            style={{
-              width: "auto",
-              minWidth: "80px",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              backgroundColor: "#000000",
-              borderRadius: "8px",
-              paddingLeft: "12px",
-              paddingRight: "12px",
-              height: "34px",
-              flexShrink: 0,
-              boxShadow: "2px 2px 10px rgba(0,0,0,0.1)" 
-            }}
-          >
-            <Image src="/icons/Star.svg" alt="Featured" width={14} height={14} style={{ flexShrink: 0 }} />
-            <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
+        <div
+          className="absolute top-[20px] left-[-8px] z-[100] max-[1400px]:scale-90 max-[1400px]:origin-left"
+          style={{
+            backgroundColor: "#000000",
+            borderRadius: "8px 8px 8px 0px", // Pojok kiri bawah tajam
+            height: "34px",
+            minWidth: "80px",
+            display: "flex", // Tetap pakai flex untuk centering konten
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 12px",
+            boxShadow: "2px 2px 10px rgba(0,0,0,0.1)",
+            position: "absolute", // Ini penting agar lipatan punya patokan
+          }}
+        >
+          {/* Konten Utama (Bintang + Tulisan) */}
+          <div className="flex items-center gap-2">
+            <Image src="/icons/Star.svg" alt="Featured" width={14} height={14} className="shrink-0" />
+            <span className="text-[#FFFFFF] text-[10px] font-[900] uppercase tracking-[0.08em] whitespace-nowrap leading-none">
               FEATURED
             </span>
           </div>
-        )}
+
+          {/* SEGITIGA LIPATAN (Diletakkan di luar flex flow) */}
+          <div 
+            className="absolute"
+            style={{
+              top: "100%", // Tepat di bawah badge
+              left: "0",    // Rata kiri badge
+              width: "0",
+              height: "0",
+              borderTop: "8px solid #B7B8C1",    // Warna lipatan gelap
+              borderLeft: "8px solid transparent", // Membuat siku-siku miring
+            }}
+          />
+        </div>
+      )}
 
         <div className="relative w-[500px] min-h-full flex-shrink-0 rounded-l-[15px] overflow-hidden max-[1200px]:w-full max-[1200px]:h-[300px] max-[1200px]:rounded-t-[15px] max-[1200px]:rounded-l-none">
           <Image
