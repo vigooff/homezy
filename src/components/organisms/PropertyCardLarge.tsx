@@ -59,7 +59,7 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             src={property.image}
             alt={property.title}
             fill
-            sizes="(max-width: 1200px) 100vw, 500px"
+            sizes="(max-width: 1200px) 100vw, 500px" 
             className="object-cover"
             loading="lazy"
           />
@@ -92,9 +92,9 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                <h4 className="font-syne font-bold text-[15px] text-[#1A1A1A]" style={{ margin: 0, padding: 0, lineHeight: 1.2 }}>
+                <h3 className="font-syne font-bold text-[15px] text-[#1A1A1A]" style={{ margin: 0, padding: 0, lineHeight: 1.2 }}>
                   {property.agent.name}
-                </h4>
+                </h3>
                 <p className="font-hanken font-light text-[13px] text-[#666666]" style={{ margin: 0, padding: 0, lineHeight: 1.2 }}>
                   {property.agent.role}
                 </p>

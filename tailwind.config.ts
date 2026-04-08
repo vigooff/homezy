@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 const config: Config = {
   content: [
@@ -6,8 +7,17 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/templates/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx}", // Tambahan dari Claude untuk safety
   ],
   theme: {
+    // Breakpoints sesuai instruksi Telegram & Claude
+    screens: {
+      'sm': '640px',
+      'md': '768px',   // Tablet / Design Desktop Start
+      'lg': '1024px',  // Desktop awal
+      'xl': '1280px',  // Desktop mid
+      '2xl': '1440px', // Figma reference width
+    },
     extend: {
       colors: {
         background: "#FBFAFF",
@@ -16,6 +26,8 @@ const config: Config = {
         secondary: "#E8E1FF",
       },
       fontFamily: {
+        // Menggabungkan font custom kamu dengan fallback default sans
+        sans: ['Satoshi', 'Hanken Grotesk', ...defaultTheme.fontFamily.sans],
         hanken: ["var(--font-hanken)", "sans-serif"],
         soehne: ["var(--font-soehne)", "sans-serif"],
         satoshi: ["var(--font-satoshi)", "sans-serif"],
@@ -27,8 +39,11 @@ const config: Config = {
         semibold: "600",
         bold: "700",
       },
+      // Menggabungkan letter spacing lama & baru dari Figma
       letterSpacing: {
         tighter: "-0.04em",
+        'tight-figma': '-0.02em',
+        'wide-figma': '0.04em',
       },
       fontSize: {
         'hero-xs': '2rem',
@@ -40,6 +55,19 @@ const config: Config = {
         'body-sm': '1rem',
         'body-md': '1.125rem',
         'body-lg': '1.25rem',
+      },
+      // Detail Presisi Figma dari Claude
+      maxWidth: {
+        'container': '1440px', // Bisa dipakai via max-w-container
+      },
+      borderRadius: {
+        'card': '12px',
+        'badge': '6px',
+        'hero': '20px',
+      },
+      boxShadow: {
+        'card': '0 2px 12px 0 rgba(0,0,0,0.08)',
+        'card-hover': '0 8px 24px 0 rgba(0,0,0,0.12)',
       },
     },
   },

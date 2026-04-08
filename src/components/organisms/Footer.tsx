@@ -71,7 +71,7 @@ export const Footer = () => {
 
       <div className="w-full px-[4%] pb-8 flex flex-col items-center">
         <div className="w-full max-w-[1160px] border-t border-[#EAECF0]">
-          <p className="font-hanken font-light text-[#98A2B3] py-[30px] text-sm text-center">
+          <p className="font-hanken font-light text-[#667085] py-[30px] text-sm text-center">
             ©2023 Homezy. All rights reserved
           </p>
         </div>

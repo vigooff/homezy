@@ -39,7 +39,7 @@ export const SubscribeCard = () => {
           <h2 className="font-syne font-semibold text-[#FFFFFF] text-[48px] leading-[56px] tracking-tight">
             Subscribe To Our Newsletter
           </h2>
-          <p className="font-hanken font-light text-[#E7DCFF] text-[18px] leading-[28px]">
+          <p className="font-hanken font-light text-[#FFFFFF] text-[18px] leading-[28px]">
             Join our newsletter to stay up to date on features and releases.
           </p>
         </div>
