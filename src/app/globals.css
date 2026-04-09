@@ -125,12 +125,36 @@ body {
   padding-left: 80px;
 }
 
+@media (max-width: 1200px) {
+  .feedback-carousel-wrapper {
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 770px) {
+  .feedback-carousel-wrapper {
+    padding-left: 20px;
+  }
+}
+
 .feedback-carousel-track {
   display: flex;
   gap: 32px;
   width: max-content;
   animation: scroll-continuous 60s linear infinite;
   will-change: transform;
+}
+
+@media (max-width: 1200px) {
+  .feedback-carousel-track {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 770px) {
+  .feedback-carousel-track {
+    gap: 16px;
+  }
 }
 
 .feedback-carousel-track:hover {
@@ -142,9 +166,36 @@ body {
   width: 480px;
 }
 
+/* Ini yang jadi masalah utama — harus ikut ukuran card */
+@media (max-width: 1200px) {
+  .feedback-carousel-slide {
+    width: 360px;
+  }
+}
+
+@media (max-width: 770px) {
+  .feedback-carousel-slide {
+    width: 300px;
+  }
+}
+
 @keyframes scroll-continuous {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-512px * 5)); }
+}
+
+@media (max-width: 1200px) {
+  @keyframes scroll-continuous {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-384px * 5)); }
+  }
+}
+
+@media (max-width: 770px) {
+  @keyframes scroll-continuous {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-316px * 5)); }
+  }
 }
 
 .line-clamp-4 {

@@ -15,14 +15,10 @@ export const HeroVisualSection = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Scale hanya aktif di 600-900px
-  // Di atas 900px: tidak diubah (scale 1)
-  // Di bawah 600px: globals.css sudah handle scale-65
   const getScale = () => {
     if (!isMounted) return 1;
     if (windowWidth >= 900) return 1;
-    if (windowWidth < 600) return 1; // globals.css yang handle
-    // Proporsional: 900px = scale 1, 600px = scale ~0.65
+    if (windowWidth < 600) return 1; 
     return Math.max(0.65, windowWidth / 900);
   };
 
@@ -31,10 +27,10 @@ export const HeroVisualSection = () => {
 
   return (
     <div
-      className="hero-visual-section relative flex-shrink-0 max-[1400px]:flex max-[1400px]:justify-center"
+      className="hero-visual-section relative flex-shrink-0"
       style={{
-        width: isScaled ? `${608 * scale}px` : undefined,
-        height: isScaled ? `${600 * scale}px` : undefined,
+        width: isScaled ? `${500 * scale}px` : '500px', // Dikecilkan dari 608
+        height: isScaled ? `${550 * scale}px` : '550px',
         display: 'flex',
         justifyContent: 'center',
       }}
@@ -42,19 +38,20 @@ export const HeroVisualSection = () => {
       <div
         className="relative max-lg:scale-90 max-md:scale-80 max-sm:scale-70"
         style={{
-          width: '608px',
-          height: '600px',
+          width: '500px',
+          height: '550px',
           transformOrigin: 'top center',
           transform: isScaled ? `scale(${scale})` : undefined,
           flexShrink: 0,
         }}
       >
-        <div className="absolute top-[50px] left-[40px] z-30 flex flex-col scale-110">
+        {/* Gambar Kiri: Scale dihapus agar tidak off-side */}
+        <div className="absolute top-[40px] left-[40px] z-30 flex flex-col">
           <div 
             className="border-[2px] border-black overflow-hidden bg-white shadow-lg"
             style={{
-              width: '248px',
-              height: '264.8px',
+              width: '210px', // Dikecilkan sedikit
+              height: '230px',
               borderTopLeftRadius: '40px',
               borderTopRightRadius: '40px',
               borderBottomLeftRadius: '0px',
@@ -74,21 +71,23 @@ export const HeroVisualSection = () => {
           <InfoBox />
         </div>
 
-        <div className="absolute top-[80px] left-[260px] z-50 scale-110">
+        {/* Card Tengah: Posisi left disesuaikan */}
+        <div className="absolute top-[60px] left-[180px] z-50">
           <PropertyCardSmall />
         </div>
 
+        {/* Gambar Kanan: Dikecilkan & Posisi disesuaikan */}
         <div 
-          className="absolute top-[280px] left-[340px] border-[2px] border-black rounded-[50px] overflow-hidden bg-white z-20 shadow-xl scale-110"
-          style={{ width: '248px', height: '350px' }}
+          className="absolute top-[240px] left-[260px] border-[2px] border-black rounded-[50px] overflow-hidden bg-white z-20 shadow-xl mt-[-40px]"
+          style={{ width: '190px', height: '280px' }}
         >
           <Image 
-          src="/images/rumahherokanan.jpg" 
-          alt="Sub Property" 
-          fill 
-          className="object-cover"
-          priority
-        />
+            src="/images/rumahherokanan.jpg" 
+            alt="Sub Property" 
+            fill 
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export const InfoBox = () => {
         className="absolute bg-transparent"
         style={{
           top: "-40px", 
-          right: "-2px", 
+          right: "0px", 
           width: "40px",
           height: "40px",
           borderBottomRightRadius: "35px", 
@@ -19,8 +19,8 @@ export const InfoBox = () => {
       <div 
         className="relative bg-[#1A1A1A] flex items-center justify-center shadow-lg border-x-[2px] border-b-[2px] border-black"
         style={{
-          width: "200px",
-          height: "100px",
+          width: "160px",
+          height: "60px",
           padding: "20px 24px",
           borderBottomLeftRadius: "40px",
           borderBottomRightRadius: "40px",

@@ -38,32 +38,35 @@ export const HeroSearchCard = () => {
     <div 
       style={{
         width: '100%',
-        maxWidth: '763px',
+        maxWidth: '100%', // Sudah diubah ke 900px
         height: 'auto',
         minHeight: '96px',
         borderRadius: '15px',
         padding: '28px 32px',
         gap: '32px',
         opacity: 1,
-        border: '1px solid #E8E1FF',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+        border: '1px solid #000000',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.05)', // Shadow diperhalus agar premium
         backgroundColor: '#FFFFFF',
-        margin: '0 auto',
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',
-        alignItems: isMobile ? 'center' : 'center',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        boxSizing: 'border-box'
       }}
     >
+      {/* Location */}
       <div style={rowStyle}>
         <div style={{ width: '40px', height: '40px', backgroundColor: '#E7DCFF', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <MapPin className="w-5 h-5 text-primary" />
         </div>
         <div className="flex flex-col justify-center min-w-0">
-        <span className="font-hanken font-light text-[14px] leading-[20px] text-[#475467]">Location</span> 
-        <span className="font-hanken font-bold text-[16px] leading-[24px] text-[#1A1A1A] whitespace-nowrap">California, US</span>
-       </div>
+          <span className="font-hanken font-light text-[14px] leading-[20px] text-[#475467]">Location</span> 
+          <span className="font-hanken font-bold text-[16px] leading-[24px] text-[#1A1A1A] whitespace-nowrap">California, US</span>
+        </div>
       </div>
 
+      {/* Price */}
       <div style={rowStyle}>
         <div style={{ width: '40px', height: '40px', backgroundColor: '#E7DCFF', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <DollarSign className="w-5 h-5 text-primary" />
@@ -74,6 +77,7 @@ export const HeroSearchCard = () => {
         </div>
       </div>
 
+      {/* Type of Property */}
       <div style={{ ...rowStyle, borderBottom: 'none', paddingBottom: '0' }}>
         <div style={{ width: '40px', height: '40px', backgroundColor: '#E7DCFF', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Home className="w-5 h-5 text-primary" />
@@ -84,26 +88,27 @@ export const HeroSearchCard = () => {
         </div>
       </div>
 
+      {/* Button Browse */}
       <button 
-      onClick={handleSearch}
-      aria-label="Search properties"
-      className="font-hanken font-bold transition-all duration-300 hover:bg-[#333333]"
-      style={{
-        backgroundColor: '#1A1A1A',
-        color: '#FFFFFF',
-        padding: '16px 32px',
-        borderRadius: '15px',
-        fontSize: '16px',
-        lineHeight: '24px',
-        height: '56px',
-        minWidth: '128px',
-        width: isMobile ? '100%' : undefined,
-        flexShrink: 0,
-        marginTop: isMobile ? '8px' : '0px', 
-      }}
-    >
-      Browse
-    </button>
+        onClick={handleSearch}
+        aria-label="Search properties"
+        className="font-hanken font-bold transition-all duration-300 hover:bg-[#333333]"
+        style={{
+          backgroundColor: '#1A1A1A',
+          color: '#FFFFFF',
+          padding: '16px 32px',
+          borderRadius: '15px',
+          fontSize: '16px',
+          lineHeight: '24px',
+          height: '56px',
+          minWidth: '128px',
+          width: isMobile ? '100%' : undefined,
+          flexShrink: 0,
+          marginTop: isMobile ? '8px' : '0px', 
+        }}
+      >
+        Browse
+      </button>
     </div>
   );
 };
