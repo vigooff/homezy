@@ -20,13 +20,17 @@ export const SearchPropertiesCard = () => {
   if (!isMounted) return null;
 
   // ─── Breakpoints ──────────────────────────────────────────────────────────
-  const isMobile   = windowWidth < 768;
-  const isMidRange = windowWidth >= 768 && windowWidth < 1200;
+  const isMobile   = windowWidth < 600;
+  const isMidRange = windowWidth >= 600 && windowWidth < 1200;
   const isDesktop  = windowWidth >= 1200;
+  console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, 'isMidRange:', isMidRange);
   // ─────────────────────────────────────────────────────────────────────────
-
+console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, 'isMidRange:', isMidRange);
   return (
     <>
+    {isMobile && console.log('RENDERING MOBILE CARD')}
+    {isMidRange && console.log('RENDERING MIDRANGE CARD')}
+    {isDesktop && console.log('RENDERING DESKTOP CARD')}
       {/* ── MOBILE VERSION (<768px) ── Vertical Stack ─────────────────────── */}
       {isMobile && (
         <div 

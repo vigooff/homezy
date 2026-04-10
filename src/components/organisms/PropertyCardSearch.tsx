@@ -160,16 +160,14 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
 
       {/* DESKTOP VERSION - Horizontal Layout - Only ≥1200px */}
       {windowWidth >= 1200 && (
-        <div 
-          className="flex bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
-          style={{ 
-            width: "615px",
-            height: "216px",
-            borderRadius: "15px",
-            border: "1px solid #E8E1FF",
-            opacity: 1
-          }}
-        >
+      <div 
+        className="flex bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group w-full"
+        style={{ 
+          height: "216px",
+          borderRadius: "15px",
+          border: "1px solid #E8E1FF",
+        }}
+      >
           <div className="relative w-[200px] h-full flex-shrink-0 overflow-hidden">
             <Image
               src={property.image}

@@ -6,12 +6,13 @@ import { Bed, Bath, Maximize } from "lucide-react";
 
 interface PropertyCardSmallProps {
   property: Property;
+  className?: string;
 }
 
-export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }) => {
+export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property, className = "" }) => {
   return (
     <div
-      className="
+      className={`
         bg-[#FFFFFF]
         rounded-[20px]
         border border-[#E8E1FF]
@@ -23,7 +24,8 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property }
         relative
         max-[900px]:max-w-[400px]
         max-[900px]:mx-auto
-      "
+        ${className}
+      `}
     >
       <div className="relative w-full h-[240px] rounded-t-[15px]">
         <Image

@@ -50,8 +50,8 @@ export const HeroVisualSection = () => {
           <div 
             className="border-[2px] border-black overflow-hidden bg-white shadow-lg"
             style={{
-              width: '210px', // Dikecilkan sedikit
-              height: '230px',
+              width: '248px', // Dikecilkan sedikit
+              height: '264px',
               borderTopLeftRadius: '40px',
               borderTopRightRadius: '40px',
               borderBottomLeftRadius: '0px',

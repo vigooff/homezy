@@ -35,16 +35,17 @@ export const ValueSection = () => {
   return (
     <section className="w-full bg-[#FBFAFF]">
       <Container className="py-[100px]">
-        <div className="flex justify-between items-start gap-10 ml-[20px] mb-20 max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10">
-          <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
-            Comfort Is Our Top Priority For You
-          </h2>
+        <div className="flex justify-between items-start gap-10 ml-[20px] mb-20 max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10 max-[900px]:items-center max-[900px]:text-center max-[900px]:ml-0">
+        <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
+          Comfort Is Our Top<br/>
+          Priority For You
+        </h2>
 
-          <p className="font-hanken text-[#666666] max-w-[420px] text-[16px] leading-[1.6] mt-[24px] max-[900px]:mt-0">
-            We guarantee that the products we sell will make our customers happy
-            because we are very concerned about our consumer satisfaction.
-          </p>
-        </div>
+        <p className="font-hanken text-[#666666] max-w-[420px] text-[16px] leading-[1.6] mt-[24px] max-[900px]:mt-0 max-[900px]:text-center">
+          We guarantee that the products we sell will make our customers happy
+          because we are very concerned about our consumer satisfaction.
+        </p>
+      </div>
 
         <div className="hidden min-[901px]:grid grid-cols-3 gap-[32px]">
           {values.map((item, index) => (

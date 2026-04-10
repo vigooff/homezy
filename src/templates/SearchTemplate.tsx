@@ -66,8 +66,8 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   // ─── Breakpoint helpers ─────────────────────────────────────────────────
   // Harus dideklarasi SEBELUM itemsPerPage karena itemsPerPage bergantung padanya
   const isSmallMobile = isMounted && windowWidth <= 500;
-  const isMobile      = isMounted && windowWidth > 500 && windowWidth < 768;
-  const isMidRange    = isMounted && windowWidth >= 768 && windowWidth < 1200;
+  const isMobile      = isMounted && windowWidth > 500 && windowWidth < 600;
+  const isMidRange    = isMounted && windowWidth >= 600 && windowWidth < 1200;
   const isDesktop     = isMounted && windowWidth >= 1200;
   // ─────────────────────────────────────────────────────────────────────────
 
@@ -214,27 +214,25 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
               Search Properties
             </h1>
 
-            <div className="flex items-stretch w-full">
+            <div className="flex items-stretch w-full gap-[16px]">
 
               <div style={{ width: '75%', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
                 <SearchPropertiesCard />
               </div>
 
-              <div style={{ width: '5%' }} className="flex-shrink-0" />
+              <div style={{ width: '10%' }} className="flex-shrink-0" />
 
               {/* Filter Button: Lebar 20% — wrapper relative sebagai anchor popup */}
               <div className="relative flex-shrink-0" style={{ width: '20%' }}>
-                {/* ✅ FIX: Wrap icon+teks dalam div tersendiri agar badge tidak masuk ke flex flow */}
                 <button
-                  onClick={() => setIsFilterOpen(!isFilterOpen)}                  
-                  className="w-full h-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center hover:bg-[#DBCBFF] transition-all relative"
-                  >
-                  <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
-                    <Image src="/icons/candle.svg" alt="Filter" width={28} height={28} />
-                    <span className="font-hanken font-bold text-[16px] text-[#1A1A1A]">More Filter</span>
-                  </div>
-                  
-                </button>
+                onClick={() => setIsFilterOpen(!isFilterOpen)}                  
+                className="w-full h-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex flex-col items-center justify-center hover:bg-[#DBCBFF] transition-all relative"
+              >
+                <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
+                  <Image src="/icons/candle.svg" alt="Filter" width={28} height={28} />
+                  <span className="font-hanken font-bold text-[16px] text-[#1A1A1A]">More Filter</span>
+                </div>
+              </button>
 
                 {/* POPUP — absolute anchored ke bawah button, rata kanan, lebar fixed 441px */}
                 {isFilterOpen && (
@@ -262,11 +260,11 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
 
         {/* ── DESKTOP LAYOUT (≥1200px) ───────────────────── */}
         {isDesktop && (
-          <div className="max-w-[1440px] mb-[3%] mx-auto px-[10%] flex flex-col gap-10">
-            <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
-              Search Properties
-            </h1>
-            <div className="flex items-center w-full gap-[5%]">
+        <div className="max-w-[1440px] mb-[3%] mx-auto px-[60px] max-[1300px]:px-[40px] flex flex-col gap-10">
+          <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
+            Search Properties
+          </h1>
+          <div className="flex items-center w-full gap-[5%]">
               <div className="flex-1 min-w-0">
                 <SearchPropertiesCard />
               </div>
@@ -528,16 +526,16 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
 
         {/* ── DESKTOP LAYOUT (≥1200px) — tidak diubah ───────────────────── */}
         {isDesktop && (
-          <div className="max-w-[1440px] mx-auto px-[10%] py-10 mb-[8%]">
-            <div className="flex flex-row gap-[40px] items-start relative">
+        <div className="max-w-[1440px] mx-auto px-[60px] max-[1300px]:px-[40px] py-10 mb-[8%]">
+          <div className="flex flex-row gap-[40px] max-[1300px]:gap-[24px] items-start relative">
 
-              <section className="w-[45%] flex-shrink-0 sticky top-10">
-                <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '930px' }}>
-                  <MapProvider properties={memoizedProperties} />
-                </div>
-              </section>
+            <section className="w-[45%] max-[1300px]:w-[40%] flex-shrink-0 sticky top-10">
+              <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '930px' }}>
+                <MapProvider properties={memoizedProperties} />
+              </div>
+            </section>
 
-              <section className="flex-1 min-w-0 flex-col" style={{ maxWidth: "55%" }}>
+            <section className="flex-1 min-w-0 flex-col">
 
                 <div className="flex justify-between items-end mb-6">
                   <div className="flex flex-col gap-2">

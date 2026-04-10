@@ -28,33 +28,31 @@ export const Footer = () => {
 
   return (
     <footer className="w-full bg-[#FBFAFF] flex flex-col items-center relative z-10 overflow-x-hidden">
-      <div className="w-full max-w-[1160px] px-[4%] pt-10 pb-[4%] footer-main-container">
-        <div
-          className="footer-content-row w-full"
-          style={{
-            display: 'flex',
-            flexDirection: isSmall ? 'column' : 'row',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: isSmall ? '32px' : '0',
-            minHeight: '330px',
-          }}
-        >
-          <div className="footer-brand-wrapper" style={{ flexShrink: 0 }}>
-            <FooterBrand />
+      <div className="w-full px-[4%] pt-10 pb-[4%] footer-main-container" style={{ maxWidth: '1160px', width: '95vw', margin: '0 auto', boxSizing: 'border-box' }}>
+      <div
+        className="footer-content-row w-full"
+        style={{
+          display: 'flex',
+          flexDirection: isSmall ? 'column' : 'row',
+          justifyContent: isSmall ? 'flex-start' : 'space-between',
+          alignItems: 'flex-start',
+          gap: isSmall ? '32px' : '60px',
+          minHeight: '330px',
+        }}
+        > 
+
+          <div className="footer-brand-wrapper" style={{ flexShrink: 0, width: 'auto' }}>
+          <FooterBrand />
           </div>
 
           <div
-            className="flex flex-col opacity-100 footer-nav-wrapper"
-            style={{
-              // isSmall   → 100% (stack vertikal)
-              // isLarge   → 576px fixed (desktop asli)
-              // di antara → flex-1, ambil sisa ruang
-              width: isSmall ? '100%' : isLarge ? '576px' : undefined,
-              flex: (!isSmall && !isLarge) ? '1' : undefined,
-              minWidth: 0,
-              gap: '24px',
-            }}
+          className="flex flex-col opacity-100 footer-nav-wrapper"
+          style={{
+          width: isSmall ? '100%' : undefined,
+          flex: 'none',
+          minWidth: 0,
+          gap: '0px',
+          }}
           >
             {footerData.sections.map((section: FooterSection) => (
               <FooterNavGroup

@@ -45,19 +45,24 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
 
           {otherFeatured.length > 0 && (
             <div
-              className="
-                grid
-                grid-cols-3
-                max-[900px]:grid-cols-1
-                gap-[24px]
-                w-full
-                max-w-[1200px]
-              "
-            >
-              {otherFeatured.map((property) => (
-                <PropertyCardSmall key={property.id} property={property} />
-              ))}
-            </div>
+            className="
+              grid
+              grid-cols-3
+              max-[900px]:grid-cols-2
+              max-[750px]:grid-cols-1
+              gap-[24px]
+              w-full
+              max-w-[1200px]
+            "
+          >
+            {otherFeatured.map((property, index) => (
+              <PropertyCardSmall
+                key={property.id}
+                property={property}
+                className={index === 2 ? 'max-[900px]:col-span-2 max-[900px]:max-w-[calc(50%-12px)] max-[900px]:mx-auto max-[750px]:col-span-1 max-[750px]:max-w-[400px]' : ''}
+              />
+            ))}
+          </div>
           )}
         </div>
       </div>

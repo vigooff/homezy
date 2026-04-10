@@ -25,7 +25,7 @@ export const FooterNavGroup = ({ title, links, columns = 1, width }: NavGroupPro
   const isDesktop     = isMounted && windowWidth >= 900;
 
   const effectiveColumns = isSmallMobile ? 1 : columns;
-  const columnGap    = isDesktop ? '80px' : '24px';
+  const columnGap    = isDesktop ? '80px' : '32px';
   const col1MaxWidth = isDesktop ? '182px' : 'none';
   const col2MaxWidth = isDesktop ? '149px' : 'none';
 
