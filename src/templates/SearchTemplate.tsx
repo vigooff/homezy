@@ -80,7 +80,7 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
   const currentProperties = filteredProperties.slice(startIndex, endIndex);
 
   const handleApplyFilter = (filters: FilterOptions) => {
-    console.log('🎯 SearchTemplate: Filters received:', filters);
+    console.log('SearchTemplate: Filters received:', filters);
     try {
       const filtered = filterProperties(properties, filters);
       console.log('Filtered results:', filtered.length, 'properties');
@@ -161,7 +161,7 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
 
         {/* ── SMALL MOBILE LAYOUT (≤500px) — layout natural browser ──────── */}
         {isSmallMobile && (
-          <div className="mx-auto px-[16px] pb-8 flex flex-col gap-4">
+        <div className="w-full box-border px-[16px] pb-8 flex flex-col gap-4">
             <h1 className="font-syne font-bold text-[clamp(28px,8vw,40px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">
               Search Properties
             </h1>
@@ -329,7 +329,7 @@ export const SearchTemplate = ({ properties = [] }: SearchTemplateProps) => {
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT: MAP + PROPERTY LIST
       ═══════════════════════════════════════════════════════════════════ */}
-      <div id="results-start" className="w-full">
+      <div id="results-start" className="w-full overflow-x-hidden">
 
         {/* ── SMALL MOBILE LAYOUT (≤500px) — layout natural browser ──────── */}
         {isSmallMobile && (

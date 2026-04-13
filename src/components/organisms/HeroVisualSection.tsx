@@ -11,46 +11,49 @@ export const HeroVisualSection = () => {
     setIsMounted(true);
     setWindowWidth(window.innerWidth);
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getScale = () => {
     if (!isMounted) return 1;
     if (windowWidth >= 900) return 1;
-    if (windowWidth < 600) return 1; 
-    return Math.max(0.65, windowWidth / 900);
+    if (windowWidth < 400) return 0.6;
+    return Math.max(0.6, windowWidth / 900);
   };
 
   const scale = getScale();
-  const isScaled = isMounted && windowWidth < 900 && windowWidth >= 600;
+  const CANVAS_WIDTH = 500;
+  const LEFT_BLEED = 50; // dari left-[-50px] gambar kiri
+  const TOTAL_WIDTH = CANVAS_WIDTH + LEFT_BLEED; // 550px total visual space
+
 
   return (
+  <div
+    className="hero-visual-section flex-shrink-0"
+    style={{
+      width: `${TOTAL_WIDTH * scale}px`,   // 550 * scale
+      height: `${550 * scale}px`,
+      position: 'relative',
+    }}
+  >
     <div
-      className="hero-visual-section relative flex-shrink-0"
       style={{
-        width: isScaled ? `${500 * scale}px` : '500px', // Dikecilkan dari 608
-        height: isScaled ? `${550 * scale}px` : '550px',
-        display: 'flex',
-        justifyContent: 'center',
+        width: `${TOTAL_WIDTH}px`,          // 550px
+        height: '550px',
+        transformOrigin: 'top left',
+        transform: scale < 1 ? `scale(${scale})` : undefined,
+        position: 'absolute',
+        top: 0,
+        left: 0,
       }}
     >
-      <div
-        className="relative max-lg:scale-90 max-md:scale-80 max-sm:scale-70"
-        style={{
-          width: '500px',
-          height: '550px',
-          transformOrigin: 'top center',
-          transform: isScaled ? `scale(${scale})` : undefined,
-          flexShrink: 0,
-        }}
-      >
-        {/* Gambar Kiri: Scale dihapus agar tidak off-side */}
-        <div className="absolute top-[40px] left-[40px] z-30 flex flex-col">
-          <div 
+        {/* Gambar Kiri */}
+         <div className="absolute top-[20px] left-[0px] z-30 flex flex-col">
+          <div
             className="border-[2px] border-black overflow-hidden bg-white shadow-lg"
             style={{
-              width: '248px', // Dikecilkan sedikit
+              width: '238px',
               height: '264px',
               borderTopLeftRadius: '40px',
               borderTopRightRadius: '40px',
@@ -59,10 +62,10 @@ export const HeroVisualSection = () => {
             }}
           >
             <div className="relative w-full h-full">
-              <Image 
-                src="/images/rumahherokiri.jpg" 
-                alt="Main Property" 
-                fill 
+              <Image
+                src="/images/rumahherokiri.jpg"
+                alt="Main Property"
+                fill
                 className="object-cover"
                 priority
               />
@@ -71,20 +74,20 @@ export const HeroVisualSection = () => {
           <InfoBox />
         </div>
 
-        {/* Card Tengah: Posisi left disesuaikan */}
-        <div className="absolute top-[60px] left-[180px] z-50">
+        {/* Card Tengah */}
+         <div className="absolute top-[40px] left-[200px] z-50">
           <PropertyCardSmall />
         </div>
 
-        {/* Gambar Kanan: Dikecilkan & Posisi disesuaikan */}
-        <div 
-          className="absolute top-[240px] left-[260px] border-[2px] border-black rounded-[50px] overflow-hidden bg-white z-20 shadow-xl mt-[-40px]"
-          style={{ width: '190px', height: '280px' }}
+        {/* Gambar Kanan */}
+        <div
+          className="absolute top-[240px] left-[265px] border-[2px] border-black rounded-[50px] overflow-hidden bg-white z-20 shadow-xl mt-[-40px]"
+          style={{ width: '238px', height: '340px' }}
         >
-          <Image 
-            src="/images/rumahherokanan.jpg" 
-            alt="Sub Property" 
-            fill 
+          <Image
+            src="/images/rumahherokanan.jpg"
+            alt="Sub Property"
+            fill
             className="object-cover"
             priority
           />

@@ -9,9 +9,9 @@ export const HeroContent = () => {
         dream property
       </h1>
 
-      <p className="text-[18px] font-hanken font-light leading-[30px] text-gray-500 max-w-[520px] mt-[-20px] max-[1280px]:text-center max-[1280px]:br-none">
-        We are creative people who provide the best way
-        to you who want to have a new comfortable and
+      <p className="text-[18px] font-hanken font-light leading-[30px] text-gray-500 max-w-[520px] mt-[-20px] mb-[40px] max-[1280px]:text-center max-[1280px]:br-none">
+        We are creative people who provide the best way<br/>
+        to you who want to have a new comfortable and<br/>
         suitable place to live
       </p>
     </div>

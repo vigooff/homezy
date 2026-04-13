@@ -20,31 +20,28 @@ export const SearchPropertiesCard = () => {
   if (!isMounted) return null;
 
   // ─── Breakpoints ──────────────────────────────────────────────────────────
-  const isMobile   = windowWidth < 600;
+  const isSmallMobile = windowWidth <= 500;
+  const isMobile   = windowWidth > 500 && windowWidth < 600;
   const isMidRange = windowWidth >= 600 && windowWidth < 1200;
   const isDesktop  = windowWidth >= 1200;
-  console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, 'isMidRange:', isMidRange);
   // ─────────────────────────────────────────────────────────────────────────
-console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, 'isMidRange:', isMidRange);
   return (
     <>
-    {isMobile && console.log('RENDERING MOBILE CARD')}
-    {isMidRange && console.log('RENDERING MIDRANGE CARD')}
-    {isDesktop && console.log('RENDERING DESKTOP CARD')}
       {/* ── MOBILE VERSION (<768px) ── Vertical Stack ─────────────────────── */}
-      {isMobile && (
-        <div 
-          className="flex flex-col border border-[#E8E1FF] shadow-sm bg-[#FFFFFF]"
-          style={{
-            width: "100%",
-            maxWidth: "335px",
-            height: "318px",
-            borderRadius: "15px",
-            padding: "16px",
-            gap: "32px",
-            margin: "0 auto"
-          }}
-        >
+      {(isSmallMobile || isMobile) && (
+      <div 
+        className="flex flex-col border border-[#000000] shadow-sm bg-[#FFFFFF]"
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          boxSizing: "border-box",
+          height: "auto",
+          minHeight: "318px",
+          borderRadius: "15px",
+          padding: "16px",
+          gap: "24px",
+        }}
+      >
           {/* Location Field */}
           <div className="flex items-center" style={{ gap: "12px" }}>
             <div className="flex items-center justify-center flex-shrink-0"
@@ -83,11 +80,11 @@ console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, '
 
           {/* Browse Button */}
           <button 
-            className="w-full font-hanken font-bold bg-[#1A1A1A] text-[#FFFFFF] transition-all hover:bg-[#333333] flex items-center justify-center mt-[2px]"
-            style={{ height: "62px", borderRadius: "15px" }}
+          className="w-full font-hanken font-bold bg-[#1A1A1A] text-[#FFFFFF] transition-all hover:bg-[#333333] flex items-center justify-center"
+          style={{ height: "62px", borderRadius: "15px" }}
           >
-            Browse
-          </button>
+          Browse
+        </button>
         </div>
       )}
 
@@ -101,7 +98,7 @@ console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, '
       */}
       {isMidRange && (
       <div 
-        className="flex flex-col border border-[#E8E1FF] shadow-sm bg-[#FFFFFF]"
+        className="flex flex-col border border-[#000000] shadow-sm bg-[#FFFFFF]"
         style={{ 
           width: "100%", // UBAH INI dari 740px ke 100%
           height: "auto", // UBAH INI agar container mengikuti isi
@@ -165,7 +162,7 @@ console.log('SearchPropertiesCard width:', windowWidth, 'isMobile:', isMobile, '
       {/* ── DESKTOP VERSION (≥1200px) ── Horizontal Row ───────────────────── */}
       {isDesktop && (
         <div 
-          className="flex items-center border border-[#E8E1FF] shadow-sm bg-[#FFFFFF]"
+          className="flex items-center border border-[#000000] shadow-sm bg-[#FFFFFF]"
           style={{
             width: "100%",
             height: "96px",

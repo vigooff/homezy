@@ -46,7 +46,7 @@ export const HeroSection = () => {
   </div>
 
           {/* KOLOM KANAN: Visual Section ditaruh di sini supaya sejajar */}
-          <div className="relative z-10 flex justify-start items-center flex-shrink-0 left-[40px]">
+          <div className="relative z-10 flex justify-center items-center flex-shrink-0">
           <HeroVisualSection />
           </div>
 

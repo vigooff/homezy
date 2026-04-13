@@ -59,10 +59,11 @@ export default function RootLayout({
           ${satoshi.variable} ${syne.variable} 
           antialiased font-hanken bg-[#FBFAFF]
           min-h-screen flex flex-col
+          overflow-x-hidden
         `}
       >
         <Navbar />
-        <main className="w-full max-w-container mx-auto relative flex-1">
+        <main className="w-full max-w-container mx-auto relative flex-1 overflow-x-hidden">
           {children}
         </main>
         <Footer />

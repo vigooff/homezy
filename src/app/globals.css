@@ -133,7 +133,7 @@ body {
   padding-left: 80px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .feedback-carousel-wrapper {
     padding-left: 40px;
   }
@@ -160,7 +160,7 @@ body {
   will-change: transform;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .feedback-carousel-track {
     gap: 24px;
   }
@@ -182,7 +182,7 @@ body {
 }
 
 /* Ini yang jadi masalah utama — harus ikut ukuran card */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .feedback-carousel-slide {
     width: 360px;
   }
@@ -199,7 +199,7 @@ body {
   100% { transform: translateX(calc(-512px * 5)); }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   @keyframes scroll-continuous {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-384px * 5)); }

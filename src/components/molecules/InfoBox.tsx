@@ -8,20 +8,20 @@ export const InfoBox = () => {
         style={{
           top: "-40px", 
           right: "0px", 
-          width: "40px",
+          width: "45px",
           height: "40px",
-          borderBottomRightRadius: "35px", 
+          borderBottomRightRadius: "32px", 
           boxShadow: "0px 20px 0 0 #1A1A1A", 
           zIndex: 10
         }}
       />
 
-      <div 
-        className="relative bg-[#1A1A1A] flex items-center justify-center shadow-lg border-x-[2px] border-b-[2px] border-black"
-        style={{
-          width: "200px",
-          height: "60px",
-          padding: "20px 24px",
+          <div 
+          className="relative bg-[#1A1A1A] flex items-center justify-center shadow-lg border-x-[2px] border-b-[2px] border-black"
+          style={{
+          width: "230px",
+          height: "50px",
+          padding: "12px 4px",
           borderBottomLeftRadius: "40px",
           borderBottomRightRadius: "40px",
           borderTopLeftRadius: "0px",
@@ -31,8 +31,8 @@ export const InfoBox = () => {
         }}
       >
         <p 
-          className="font-hanken text-[14px] leading-snug text-left w-full"
-          style={{ color: "#FFFFFF" }}
+        className="font-hanken text-[14px] leading-snug text-center w-full"
+        style={{ color: "#FFFFFF" }}
         >
           We provide our best properties to give great services possible
         </p>

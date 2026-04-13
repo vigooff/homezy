@@ -1,7 +1,7 @@
 "use client";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, DollarSign, Home } from "lucide-react";
 
 export const HeroSearchCard = () => {
   const router = useRouter();
@@ -58,7 +58,7 @@ export const HeroSearchCard = () => {
       {/* Location */}
       <div style={rowStyle}>
         <div style={{ width: '40px', height: '40px', backgroundColor: '#E7DCFF', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <MapPin className="w-5 h-5 text-primary" />
+          <Image src="/icons/location.svg" alt="Location" width={20} height={20} />
         </div>
         <div className="flex flex-col justify-center min-w-0">
           <span className="font-hanken font-light text-[14px] leading-[20px] text-[#475467]">Location</span> 
@@ -69,7 +69,7 @@ export const HeroSearchCard = () => {
       {/* Price */}
       <div style={rowStyle}>
         <div style={{ width: '40px', height: '40px', backgroundColor: '#E7DCFF', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <DollarSign className="w-5 h-5 text-primary" />
+          <Image src="/icons/price.svg" alt="Price" width={20} height={20} />
         </div>
         <div className="flex flex-col justify-center min-w-0">
           <span className="font-hanken font-light text-[14px] leading-[20px] text-[#475467]">Price</span>
@@ -80,7 +80,7 @@ export const HeroSearchCard = () => {
       {/* Type of Property */}
       <div style={{ ...rowStyle, borderBottom: 'none', paddingBottom: '0' }}>
         <div style={{ width: '40px', height: '40px', backgroundColor: '#E7DCFF', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <Home className="w-5 h-5 text-primary" />
+          <Image src="/icons/house.svg" alt="House" width={20} height={20} />
         </div>
         <div className="flex flex-col justify-center min-w-0">
           <span className="font-hanken font-light text-[14px] leading-[20px] text-[#475467]">Type of Property</span>
