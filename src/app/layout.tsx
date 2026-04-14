@@ -63,7 +63,7 @@ export default function RootLayout({
         `}
       >
         <Navbar />
-        <main className="w-full max-w-container mx-auto relative flex-1 overflow-x-hidden">
+        <main className="w-full max-w-container mx-auto relative flex-1 ">
           {children}
         </main>
         <Footer />

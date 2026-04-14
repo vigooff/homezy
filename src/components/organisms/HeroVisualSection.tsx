@@ -3,53 +3,56 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { PropertyCardSmall, InfoBox } from "../molecules";
 
+const BASE_WIDTH = 550;
+const BASE_HEIGHT = 550;
+
 export const HeroVisualSection = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [scale, setScale] = useState(1);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const update = () => {
+      const w = window.innerWidth;
+      if (w >= 600) {
+  setScale(1);
+} else if (w < 320) {
+  setScale(0.7);
+} else {
+  // linear: 600px=1.0, 500px=0.85, 320px=0.7
+  setScale(0.7 + (w - 320) * (0.3 / 280));
+}
+    };
+
+    update();
+    requestAnimationFrame(() => setReady(true));
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
-  const getScale = () => {
-    if (!isMounted) return 1;
-    if (windowWidth >= 900) return 1;
-    if (windowWidth < 400) return 0.6;
-    return Math.max(0.6, windowWidth / 900);
-  };
-
-  const scale = getScale();
-  const CANVAS_WIDTH = 500;
-  const LEFT_BLEED = 50; // dari left-[-50px] gambar kiri
-  const TOTAL_WIDTH = CANVAS_WIDTH + LEFT_BLEED; // 550px total visual space
-
-
   return (
-  <div
-    className="hero-visual-section flex-shrink-0"
-    style={{
-      width: `${TOTAL_WIDTH * scale}px`,   // 550 * scale
-      height: `${550 * scale}px`,
-      position: 'relative',
-    }}
-  >
     <div
+      className="hero-visual-section flex-shrink-0 mx-auto"
       style={{
-        width: `${TOTAL_WIDTH}px`,          // 550px
-        height: '550px',
-        transformOrigin: 'top left',
-        transform: scale < 1 ? `scale(${scale})` : undefined,
-        position: 'absolute',
-        top: 0,
-        left: 0,
+        width: `${BASE_WIDTH * scale}px`,
+        height: `${BASE_HEIGHT * scale}px`,
+        position: 'relative',
+        transition: ready ? 'width 0.2s ease, height 0.2s ease' : 'none',
       }}
     >
+      <div
+        style={{
+          width: `${BASE_WIDTH}px`,
+          height: `${BASE_HEIGHT}px`,
+          transformOrigin: 'top left',
+          transform: scale < 1 ? `scale(${scale})` : undefined,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          transition: ready ? 'transform 0.2s ease' : 'none',
+        }}
+      >
         {/* Gambar Kiri */}
-         <div className="absolute top-[20px] left-[0px] z-30 flex flex-col">
+        <div className="absolute top-[20px] left-[0px] z-30 flex flex-col">
           <div
             className="border-[2px] border-black overflow-hidden bg-white shadow-lg"
             style={{
@@ -66,6 +69,7 @@ export const HeroVisualSection = () => {
                 src="/images/rumahherokiri.jpg"
                 alt="Main Property"
                 fill
+                sizes="238px"
                 className="object-cover"
                 priority
               />
@@ -75,7 +79,7 @@ export const HeroVisualSection = () => {
         </div>
 
         {/* Card Tengah */}
-         <div className="absolute top-[40px] left-[200px] z-50">
+        <div className="absolute top-[40px] left-[200px] z-50">
           <PropertyCardSmall />
         </div>
 
@@ -88,6 +92,7 @@ export const HeroVisualSection = () => {
             src="/images/rumahherokanan.jpg"
             alt="Sub Property"
             fill
+            sizes="238px"
             className="object-cover"
             priority
           />
