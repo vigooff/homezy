@@ -10,16 +10,14 @@ interface FeedbackCardProps {
 
 export const FeedbackCard = ({ comment, name, role }: FeedbackCardProps) => {
   return (
-    <div className="bg-[#FFFFFF] w-[480px] h-[334px] rounded-[15px] border-[2px] border-[#F2F2F2] p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-xl flex-shrink-0 
-      /* Tablet - Desktop Kecil (770px - 1199px) */
-      max-[1199px]:w-[360px] 
-      max-[1199px]:h-[300px] 
-      max-[1199px]:p-6 
-      /* Tablet - Mobile ( < 770px) */
-      max-[770px]:w-[300px] 
-      max-[770px]:h-auto 
-      max-[770px]:p-5">
-      
+    <div className="
+      bg-[#FFFFFF] rounded-[15px] border-[2px] border-[#F2F2F2]
+      flex flex-col justify-between transition-all duration-300 hover:shadow-xl flex-shrink-0
+      w-[480px] min-h-[334px] p-8
+      max-[1199px]:w-[360px] max-[1199px]:min-h-[300px] max-[1199px]:p-6
+      max-[770px]:w-[300px] max-[770px]:min-h-[260px] max-[770px]:p-5
+      max-[360px]:w-[240px] max-[360px]:min-h-[240px] max-[360px]:p-4
+    ">
       <div className="flex flex-col gap-8 max-[1199px]:gap-4">
         <div className="flex gap-[12px] ml-[30px] mt-[30px] max-[1199px]:ml-0 max-[1199px]:mt-0">
           {[...Array(5)].map((_, i) => (
@@ -29,23 +27,35 @@ export const FeedbackCard = ({ comment, name, role }: FeedbackCardProps) => {
           ))}
         </div>
 
-        <div className="h-[120px] overflow-hidden ml-[30px] mr-[20px] max-[1199px]:ml-0 max-[1199px]:mr-0 max-[1199px]:h-auto">
-          <p className="font-hanken font-light text-[20px] leading-[30px] text-[#666666] line-clamp-4 max-[1199px]:text-[15px] max-[1199px]:leading-[22px] max-[770px]:text-[14px]">
+        <div className="ml-[30px] mr-[20px] max-[1199px]:ml-0 max-[1199px]:mr-0">
+          <p className="font-hanken font-light text-[20px] leading-[30px] text-[#666666] line-clamp-4
+            max-[1199px]:text-[15px] max-[1199px]:leading-[22px]
+            max-[770px]:text-[14px] max-[770px]:line-clamp-4
+          ">
             &quot;{comment}&quot;
           </p>
         </div>
       </div>
 
-      <div className="flex justify-between items-end">
+      <div className="flex justify-between items-end mt-6">
         <div className="ml-[30px] max-[1199px]:ml-0">
-          <h4 className="font-syne font-bold text-[24px] leading-[32px] text-[#1A1A1A] -mb-[8px] max-[1199px]:text-[18px] max-[1199px]:mb-0 max-[770px]:text-[16px]">
+          <h4 className="font-syne font-bold text-[24px] leading-[32px] text-[#1A1A1A] -mb-[8px]
+            max-[1199px]:text-[18px] max-[1199px]:mb-0
+            max-[770px]:text-[16px]
+          ">
             {name}
           </h4>
-          <p className="font-hanken font-light text-[18px] leading-[28px] text-[#666666] mb-[20px] max-[1199px]:text-[13px] max-[1199px]:mb-0 max-[770px]:text-[12px]">
+          <p className="font-hanken font-light text-[18px] leading-[28px] text-[#666666] mb-[20px]
+            max-[1199px]:text-[13px] max-[1199px]:mb-0
+            max-[770px]:text-[12px]
+          ">
             {role}
           </p>
         </div>
-        <div className="relative w-[48px] h-[48px] flex-shrink-0 mr-[20px] mb-[20px] max-[1199px]:mr-0 max-[1199px]:mb-0 max-[1199px]:w-10 max-[1199px]:h-10">
+        <div className="relative w-[48px] h-[48px] flex-shrink-0 mr-[20px] mb-[20px]
+          max-[1199px]:mr-0 max-[1199px]:mb-0
+          max-[1199px]:w-10 max-[1199px]:h-10
+        ">
           <Image src="/icons/feedback.svg" alt="icon" fill className="object-contain" />
         </div>
       </div>

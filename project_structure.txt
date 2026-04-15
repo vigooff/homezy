@@ -1,0 +1,173 @@
+PROJECT STRUCTURE - HOMEZY
+============================
+
+Root Directory: /mnt/d/studycase/homezy/
+
+DIRECTORIES:
+├── .git/
+│   └── (Git repository files)
+├── .next/
+│   └── (Next.js build output)
+├── node_modules/
+│   └── (Node.js dependencies)
+├── public/
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── icons/
+│   │   ├── Logo.svg
+        ├── Star.svg
+        ├── arrow-left.svg
+        ├── arrow-right-up.svg
+        ├── arrow-right.svg
+        ├── bed.svg
+        ├── building.svg
+        ├── buildings-2.svg
+        ├── buildings.svg
+        ├── candle.svg
+        ├── coin.svg
+        ├── fb.svg
+        ├── feedback.svg
+        ├── filter.svg
+        ├── gallery.svg
+        ├── house.svg
+        ├── ig.svg
+        ├── like-shapes.svg
+        ├── location.svg
+        ├── menu-search.svg
+        ├── menu-search2.svg
+        ├── people.svg
+        ├── price.svg
+        ├── telpon.svg
+        ├── twitter.svg
+        └── ...
+    ├── images/
+        ├── Pattern.png
+        ├── agent1.png
+        ├── agent2.png
+        ├── agent3.png
+        ├── agent4.png
+        ├── agent5.png
+        ├── agent6.png
+        ├── city1.png
+        ├── city2.png
+        ├── city3.png
+        ├── featurelarge.png
+        ├── rumahherokanan.jpg
+        ├── rumahherokiri.jpg
+        ├── subscribe.svg
+        ├── telpon.svg
+        ├── userfeatured.png
+        └── userhero.png
+    ├── next.svg
+    ├── vercel.svg
+    └── window.svg
+├── src/
+    ├── app/
+    │   ├── api/
+    │   │   ├── agents/
+    │   │   │   └── route.ts
+    │   │   ├── categories/
+    │   │   │   └── route.ts
+    │   │   ├── cities/
+    │   │   │   └── route.ts
+    │   │   ├── footer/
+    │   │   │   └── route.ts
+    │   │   ├── properties/
+    │   │   │   ├── [id]/
+    │   │   │   │   └── route.ts
+    │   │   │   └── route.ts
+    │   │   └── route.ts (if exists)
+    │   ├── globals.css
+    │   ├── icon.svg
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   └── search/
+    │       └── page.tsx
+    ├── assets/
+    │   └── fonts/
+    │       ├── HankenGrotesk-VariableFont_wght.ttf
+    │       ├── HankenGrotesk-VariableFont_wght.woff2
+    │       ├── Satoshi-Variable.ttf
+    │       ├── Satoshi-Variable.woff2
+    │       ├── Syne-VariableFont_wght.ttf
+    │       ├── Syne-VariableFont_wght.woff2
+    │       ├── TestSohneBreit-Buch.otf
+    │       ├── TestSohneBreit-Buch.woff2
+    │       ├── TestSohneBreit-Leicht.otf
+    │       └── TestSohneBreit-Leicht.woff2
+    ├── components/
+    │   ├── atoms/
+    │   │   ├── Badge.tsx
+    │   │   ├── Button.tsx
+    │   │   ├── Container.tsx
+    │   │   ├── FeaturedBadge.tsx
+    │   │   ├── Logo.tsx
+    │   │   ├── NavLink.tsx
+    │   │   ├── PropertyFeature.tsx
+    │   │   ├── SocialIcon.tsx
+    │   │   └── index.ts
+    │   ├── molecules/
+    │   │   ├── FooterBrand.tsx
+    │   │   ├── FooterNavGroup.tsx
+    │   │   ├── HeroContent.tsx
+    │   │   ├── InfoBox.tsx
+    │   │   ├── Navbar.tsx
+    │   │   ├── PopupFilter.tsx
+    │   │   ├── SubscribeForm.tsx
+    │   │   └── index.ts
+    │   ├── organisms/
+    │   │   ├── AdvisorCard.tsx
+    │   │   ├── AgentCard.tsx
+    │   │   ├── CategoryCard.tsx
+    │   │   ├── CityCard.tsx
+    │   │   ├── FeedbackCard.tsx
+    │   │   ├── Footer.tsx
+    │   │   ├── HeroSearchCard.tsx
+    │   │   ├── HeroVisualSection.tsx
+    │   │   ├── MapProvider.tsx
+    │   │   ├── PropertyCardLarge.tsx
+    │   │   ├── PropertyCardSearch.tsx
+    │   │   ├── PropertyCardSmall.tsx
+    │   │   ├── SearchPropertiesCard.tsx
+    │   │   ├── SubscribeCard.tsx
+    │   │   ├── ValueCard.tsx
+    │   │   └── index.ts
+    │   └── index.ts
+    ├── data/
+    │   ├── agents.json
+    │   ├── categories.json
+    │   ├── cities.json
+    │   ├── footer.json
+    │   └── properties.ts
+    ├── templates/
+    │   ├── AgentSection.tsx
+    │   ├── CategorySection.tsx
+    │   ├── CitySection.tsx
+    │   ├── FeaturedSection.tsx
+    │   ├── FeedbackSection.tsx
+    │   ├── HeroSection.tsx
+    │   ├── SearchTemplate.tsx
+    │   ├── SubscribeSection.tsx
+    │   ├── ValueSection.tsx
+    │   └── index.ts
+    ├── types/
+    │   ├── agent.ts
+    │   ├── category.ts
+    │   ├── city.ts
+    │   ├── footer.ts
+    │   └── properties.ts
+    └── utils/
+        └── filterUtils.ts
+
+FILES:
+├── .gitignore
+├── README.md
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├─package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── tailwind.config.ts
+├── tsconfig.json
+└── struktur.txt (binary file)

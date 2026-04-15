@@ -16,7 +16,7 @@ export const HeroSearchCard = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const isMobile = isMounted && windowWidth < 900;
+  const isMobile = isMounted && windowWidth < 768;
 
   const handleSearch = () => {
     router.push("/search");

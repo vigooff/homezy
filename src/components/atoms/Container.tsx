@@ -20,17 +20,19 @@ export const Container = ({
 
   return (
     <div
-      className={`
-        w-full
-        ${sizeClasses[size]}
-        mx-auto
-        px-6
-        sm:px-8
-        md:px-10
-        lg:px-12
-        ${className}
-      `.trim()}
-    >
+  className={`
+    w-full
+    ${sizeClasses[size]}
+    mx-auto
+    px-6
+    sm:px-8
+    md:px-10
+    lg:px-12
+    max-[400px]:px-[16px]   // ← turunkan dari 32px ke 16px
+    max-[320px]:px-[12px]   // ← turunkan dari 24px ke 12px
+    ${className}
+  `.trim()}
+>
       {children}
     </div>
   );

@@ -34,27 +34,31 @@ export const ValueSection = () => {
 
   return (
     <section className="w-full bg-[#FBFAFF]">
+      {/* Menggunakan Container Standar */}
       <Container className="py-[100px]">
-        <div className="flex justify-between items-start gap-10 ml-[20px] mb-20 max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10 max-[900px]:items-center max-[900px]:text-center max-[900px]:ml-0">
-        <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
-          Comfort Is Our Top<br/>
-          Priority For You
-        </h2>
-
-        <p className="font-hanken text-[#666666] max-w-[420px] text-[16px] leading-[1.6] mt-[24px] max-[900px]:mt-0 max-[900px]:text-center">
-          We guarantee that the products we sell will make our customers happy
-          because we are very concerned about our consumer satisfaction.
-        </p>
-      </div>
-
-        <div className="hidden min-[901px]:grid grid-cols-3 gap-[32px]">
-          {values.map((item, index) => (
-            <ValueCard key={index} {...item} />
-          ))}
+        <div className="flex justify-between items-start gap-10 mb-20 
+                        max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10 
+                        max-[900px]:items-center max-[900px]:text-center">
+          <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px] px-[32px]">
+            Comfort Is Our Top<br/>
+            Priority For You
+          </h2>
+          <p className="font-hanken text-[#666666] max-w-[420px] min-w-[240px] text-[16px] leading-[1.6] mt-[40px] max-[900px]:mt-0 px-[20px]">
+            We guarantee that the products we sell will make our customers happy
+            because we are very concerned about our consumer satisfaction.
+          </p>
         </div>
 
-        <div className="hidden max-[900px]:flex flex-col items-center gap-8">
-          <div className="w-full max-w-[400px]">
+        {/* Desktop Grid */}
+        <div className="hidden min-[901px]:grid grid-cols-3 gap-[32px]">
+        {values.map((item, index) => (
+          <ValueCard key={index} {...item} />
+        ))}
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="hidden max-[900px]:flex flex-col items-center gap-8 px-[32px]">
+          <div className="w-full max-w-[400px] min-w-[240px]">
             <ValueCard {...values[currentIndex]} />
           </div>
           
@@ -82,26 +86,12 @@ export const ValueSection = () => {
   );
 };
 
-interface ValueCardProps {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-const ValueCard = ({ icon, title, description }: ValueCardProps) => {
-  return (
-    <div className="bg-[#FFFFFF] rounded-[12px] border border-black/10 p-[32px] flex flex-col gap-[16px] h-full max-w-[400px] mx-auto">
-      <div className="w-[64px] h-[64px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center">
-        <Image src={icon} alt={title} width={28} height={28} />
-      </div>
-
-      <h3 className="font-syne font-bold text-[22px] text-[#1A1A1A]">
-        {title}
-      </h3>
-
-      <p className="font-hanken text-[#666666] text-[15px] leading-[1.6]">
-        {description}
-      </p>
+const ValueCard = ({ icon, title, description }: any) => (
+  <div className="bg-[#FFFFFF] rounded-[12px] border border-black/10 p-[32px] flex flex-col gap-[16px] h-full max-w-[400px] mx-auto">
+    <div className="w-[64px] h-[64px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center">
+      <Image src={icon} alt={title} width={28} height={28} />
     </div>
-  );
-};
+    <h3 className="font-syne font-bold text-[22px] text-[#1A1A1A]">{title}</h3>
+    <p className="font-hanken text-[#666666] text-[15px] leading-[1.6]">{description}</p>
+  </div>
+);

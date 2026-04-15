@@ -22,8 +22,11 @@ export const CitySection = () => {
 
   return (
     <section className="w-full bg-[#FBFAFF] py-[100px] overflow-hidden">
-      <div className="max-w-[1160px] mx-auto px-4">
-        <div className="flex justify-between items-center mb-[50px] ml-[20px] max-[900px]:flex-col max-[900px]:items-start max-[900px]:gap-4">
+      <div className="max-w-[1160px] mx-auto px-4 max-[450px]:px-[24px]">
+      <div className="flex justify-between items-center mb-[50px] ml-[20px] 
+      max-[900px]:flex-col max-[900px]:items-center max-[900px]:text-center max-[900px]:gap-4
+      max-[900px]:pl-[10%] max-[900px]:pr-[15%]
+      ">
           <h2 className="font-syne font-semibold text-[48px] leading-[56px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
             Explore Cities
           </h2>

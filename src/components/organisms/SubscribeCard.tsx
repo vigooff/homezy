@@ -6,7 +6,7 @@ import { SubscribeForm } from "../molecules/SubscribeForm";
 export const SubscribeCard = () => {
   return (
     <div 
-      className="subscribe-card-wrapper relative bg-[#CFB9FD] border-[2px] border-black overflow-hidden flex items-center transition-all duration-300 mx-auto"
+      className="subscribe-card-wrapper relative bg-[#CFB9FD] border-[2px] border-black overflow-hidden flex items-center transition-all duration-300"
       style={{
         borderRadius: "15px",
         opacity: 1,
