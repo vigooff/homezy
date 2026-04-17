@@ -33,18 +33,18 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
           className="absolute top-[20px] left-[-8px] z-[100] max-[1400px]:scale-90 max-[1400px]:origin-left"
           style={{
             backgroundColor: "#000000",
-            borderRadius: "8px 8px 8px 0px", // Pojok kiri bawah tajam
+            borderRadius: "8px 8px 8px 0px",
             height: "34px",
             minWidth: "80px",
-            display: "flex", // Tetap pakai flex untuk centering konten
+            display: "flex",
             alignItems: "center",
             justifyContent: "center",
             padding: "0 12px",
             boxShadow: "2px 2px 10px rgba(0,0,0,0.1)",
-            position: "absolute", // Ini penting agar lipatan punya patokan
+            position: "absolute",
           }}
         >
-          {/* Konten Utama (Bintang + Tulisan) */}
+          {/* Konten Utama */}
           <div className="flex items-center gap-2">
             <Image src="/icons/Star.svg" alt="Featured" width={14} height={14} className="shrink-0" />
             <span className="text-[#FFFFFF] text-[10px] font-[900] uppercase tracking-[0.08em] whitespace-nowrap leading-none">
@@ -52,16 +52,16 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </span>
           </div>
 
-          {/* SEGITIGA LIPATAN (Diletakkan di luar flex flow) */}
+          {/* SEGITIGA LIPATAN */}
           <div 
             className="absolute"
             style={{
-              top: "100%", // Tepat di bawah badge
-              left: "0",    // Rata kiri badge
+              top: "100%", 
+              left: "0",   
               width: "0",
               height: "0",
-              borderTop: "8px solid #B7B8C1",    // Warna lipatan gelap
-              borderLeft: "8px solid transparent", // Membuat siku-siku miring
+              borderTop: "8px solid #B7B8C1",   
+              borderLeft: "8px solid transparent", 
             }}
           />
         </div>
@@ -119,7 +119,6 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </div>
           </div>
 
-          {/* Gap tambahan di mid range antara agent info dan alamat */}
           <div
             className="flex flex-col gap-[8px]"
             style={{ marginTop: isMidRange ? '12px' : isSmall ? '8px' : '0' }}
@@ -136,7 +135,6 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
             </p>
           </div>
 
-          {/* PropertyFeature: 4 kolom di desktop, 2x2 di ≤600px */}
           <div
             className="mt-auto bg-[#F7F2FF] rounded-[15px] p-[24px]"
             style={{

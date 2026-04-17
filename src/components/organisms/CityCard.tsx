@@ -11,15 +11,11 @@ interface CityCardProps {
 
 export const CityCard = ({ name, state, count, image }: CityCardProps) => {
   return (
-    /* Container pembungkus untuk mengontrol ruang yang diambil di dalam grid */
-    <div className="flex justify-center items-center w-full max-[1200px]:min-[900px]:w-[255px]">
+    <div className="flex justify-center items-center w-full">
       <div className={`
         bg-[#FFFFFF] rounded-[15px] border border-[#E8E1FF] group cursor-pointer 
         hover:shadow-xl transition-all duration-300 overflow-hidden w-full
-        /* Efek Pengecilan */
-        max-[1200px]:min-[900px]:scale-[0.7] 
-        max-[1200px]:min-[900px]:min-w-[365px] /* Menjaga konten dalam tetap proporsional sebelum di-scale */
-        max-[1200px]:min-[900px]:origin-center
+        /* 2. HAPUS scale, min-w, dan origin-center di sini */
       `}>
         
         <div className="relative w-full h-[350px] overflow-hidden">
@@ -27,26 +23,25 @@ export const CityCard = ({ name, state, count, image }: CityCardProps) => {
             src={image || "/images/city1.png"}
             alt={name}
             fill
-            sizes="(max-width: 768px) 100vw, 365px"
+            sizes="(max-width: 1200px) 33vw, 365px"
             className="object-cover transition-transform duration-500 group-hover:scale-110"
             priority
           />
         </div>
 
-        <div className="px-6 pt-6 pb-8">
-          <h3 className="font-syne font-semibold text-[24px] leading-[32px] tracking-[-0.04em] text-[#1A1A1A] ml-[20px] mb-2">
+        <div className="px-[12px] pt-6 pb-8">
+          <h3 className="font-syne font-semibold text-[24px] leading-[32px] tracking-[-0.04em] text-[#1A1A1A] px-[20px] mb-2">
             {name}{state ? `, ${state}` : ""}
           </h3>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 px-[20px]">
             <Image 
                src="/icons/house.svg" 
                alt="home" 
                width={20} 
                height={20} 
-               className="ml-[20px]" 
               />
-            <p className="font-hanken font-light text-[18px] leading-[28px] text-[#666666] ml-[10px]">
+            <p className="font-hanken font-light text-[18px] leading-[28px] text-[#666666]">
               {count}+ listings
             </p>
           </div>

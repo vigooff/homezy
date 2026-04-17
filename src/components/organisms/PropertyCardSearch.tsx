@@ -32,7 +32,7 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
 
   return (
     <>
-      {/* MID-RANGE VERSION - Vertical Card - 768px-1199px (untuk grid 2x2) */}
+      {/* MID-RANGE VERSION - Vertical Card - 768px-1199px */}
       {isMidRange && (
         <div
           className="flex flex-col bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
@@ -88,19 +88,19 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
         </div>
       )}
 
-      {/* MOBILE VERSION - Vertical Layout - Only <768px */}
+      {/* MOBILE VERSION - Vertical Layout */}
       {windowWidth < 768 && (
         <div 
           className="flex flex-col bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group"
           style={{ 
-            width: "100%",        // Mengambil lebar penuh container
-            maxWidth: "none",      // Menghapus batasan 335px agar bisa mengikuti layar
+            width: "100%",        
+            maxWidth: "none",    
             borderRadius: "15px",
             border: "1px solid #E8E1FF",
-            margin: "0 auto"       // Menjaga posisi tetap di tengah
+            margin: "0 auto"     
           }}
         >
-          {/* Image Section - Bisa disesuaikan tingginya jika ingin lebih proporsional */}
+          {/* Image Section  */}
           <div className="relative w-full overflow-hidden" style={{ height: "230px" }}> 
             <Image
               src={property.image}
@@ -158,7 +158,7 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
         </div>
       )}
 
-      {/* DESKTOP VERSION - Horizontal Layout - Only ≥1200px */}
+      {/* DESKTOP VERSION */}
       {windowWidth >= 1200 && (
       <div 
         className="flex bg-[#FFFFFF] overflow-hidden hover:shadow-md transition-all group w-full"

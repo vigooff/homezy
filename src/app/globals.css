@@ -181,7 +181,6 @@ body {
   width: 480px;
 }
 
-/* Ini yang jadi masalah utama — harus ikut ukuran card */
 @media (max-width: 1199px) {
   .feedback-carousel-slide {
     width: 360px;
@@ -442,7 +441,7 @@ body {
 
   .subscribe-card-wrapper {
     width: 870px;
-    max-width: calc(100vw - 160px) !important; /* konsisten */
+    max-width: calc(100vw - 160px) !important;
     height: 285px;
     padding: 42px 54px;
   }
@@ -477,7 +476,7 @@ body {
 
 @media (max-width: 1100px) and (min-width: 901px) {
   .subscribe-card-wrapper {
-    width: calc(100% - 160px) !important; /* 80px gap kiri + kanan */
+    width: calc(100% - 160px) !important;
     max-width: 900px !important;
   }
 }

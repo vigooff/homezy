@@ -1,18 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FeedbackCard } from "../components/organisms/FeedbackCard";
 
-const feedbacks = [
-  { id: 1, name: "Brooklyn Simmons", role: "CEO of Asana", comment: "Your company is truly upstanding and is behind its product 100%. It's the perfect solution for our business." },
-  { id: 2, name: "Pria Solo", role: "CTO of Microsoft", comment: "Company mu mantap banget wok,dan agent nya juga ramah semua,suka bantuin klien. Pokoknya recomended bgt deh buat kalian." },
-  { id: 3, name: "Cheng Yuan", role: "CEO of Google", comment: "贵公司真的很棒，所有经纪人都非常友好热情。总而言之，我强烈推荐给所有正在寻找理想家园的人。" },
-  { id: 4, name: "Louise", role: "CEO of Apple", comment: "Votre entreprise est vraiment formidable, et tous les agents sont aimables et serviables. En résumé, je la recommande vivement." },
-  { id: 5, name: "Park Hyung Seok", role: "CEO of Amazon", comment: "귀사는 정말 훌륭하고, 모든 직원분들이 친절하고 도움을 많이 주셨습니다. 꿈에 그리던 집을 찾고 계신 분들께 강력 추천합니다." },
-];
+interface Feedback {
+  id: number;
+  name: string;
+  role: string;
+  comment: string;
+  rating: number;
+}
 
 export const FeedbackSection = () => {
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      try {
+        const res = await fetch("/api/feedback");
+        const json = await res.json();
+        if (json.success) {
+          setFeedbacks(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch feedbacks:", error);
+      }
+    };
+    fetchFeedbacks();
+  }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? feedbacks.length - 1 : prev - 1));
@@ -21,6 +37,8 @@ export const FeedbackSection = () => {
   const handleNext = () => {
     setCurrentIndex((prev) => (prev === feedbacks.length - 1 ? 0 : prev + 1));
   };
+
+  if (feedbacks.length === 0) return null;
 
   return (
     <section className="w-full bg-[#FBFAFF] relative overflow-hidden py-[100px] max-[900px]:py-[60px]">
@@ -41,6 +59,7 @@ export const FeedbackSection = () => {
                   name={item.name}
                   role={item.role}
                   comment={item.comment}
+                  rating={item.rating}
                 />
               </div>
             ))}
@@ -54,6 +73,7 @@ export const FeedbackSection = () => {
               name={feedbacks[currentIndex].name}
               role={feedbacks[currentIndex].role}
               comment={feedbacks[currentIndex].comment}
+              rating={feedbacks[currentIndex].rating}
             />
           </div>
         </div>

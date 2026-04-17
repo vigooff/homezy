@@ -234,7 +234,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
       />
 
       {/* BEDROOMS & BATHROOMS ROW */}
-      <div className="flex gap-[20px] w-full">
+      <div className="grid grid-cols-1 min-[401px]:grid-cols-2 gap-[20px] w-full">
         <CustomDropdown
           label="Bedrooms"
           value={selectedBed}
@@ -242,7 +242,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
           isOpen={isBedOpen}
           setIsOpen={setIsBedOpen}
           setValue={setSelectedBed}
-          width="calc(50% - 10px)"
+          width="100%"
         />
         <CustomDropdown
           label="Bathrooms"
@@ -251,7 +251,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
           isOpen={isBathOpen}
           setIsOpen={setIsBathOpen}
           setValue={setSelectedBath}
-          width="calc(50% - 10px)"
+          width="100%"
         />
       </div>
 
@@ -267,7 +267,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
       />
 
       {/* YEAR RANGE ROW */}
-      <div className="flex gap-[20px] w-full">
+      <div className="grid grid-cols-1 min-[401px]:grid-cols-2 gap-[20px] w-full">
         <CustomDropdown
           label="Min Year"
           value={selectedMinYear}
@@ -275,7 +275,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
           isOpen={isMinYearOpen}
           setIsOpen={setIsMinYearOpen}
           setValue={setSelectedMinYear}
-          width="calc(50% - 10px)"
+          width="100%"
         />
         <CustomDropdown
           label="Max Year"
@@ -284,12 +284,12 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
           isOpen={isMaxYearOpen}
           setIsOpen={setIsMaxYearOpen}
           setValue={setSelectedMaxYear}
-          width="calc(50% - 10px)"
+          width="100%"
         />
       </div>
 
       {/* ACTION BUTTONS */}
-      <div className="flex gap-[15px] mt-4">
+      <div className="flex flex-col min-[401px]:flex-row gap-[15px] mt-4">
         <button
           onClick={() => {
             setSelectedStatus('Sale');
@@ -300,7 +300,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
             setSelectedMinYear('Min Year');
             setSelectedMaxYear('Max Year');
           }}
-          className="flex-1 h-[60px] flex items-center justify-center gap-2 bg-[#F7F5FF] text-[#1A1A1A] rounded-[12px] font-hanken font-bold hover:bg-[#E7DCFF] transition-all"
+          className="w-full min-[401px]:flex-1 flex items-center justify-center gap-2 bg-[#F7F5FF] text-[#1A1A1A] rounded-[12px] font-hanken font-bold hover:bg-[#E7DCFF] transition-all"
+          style={{ height: '60px' }}
         >
           <Image src="/icons/gallery.svg" alt="Cancel" width={20} height={20} />
           Cancel
@@ -325,7 +326,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
               onClose();
             }
           }}
-          className="flex-1 h-[60px] bg-[#1A1A1A] text-[#FFFFFF] rounded-[12px] font-hanken font-bold hover:bg-[#000000] transition-all"
+          className="w-full min-[401px]:flex-1 bg-[#1A1A1A] text-[#FFFFFF] rounded-[12px] font-hanken font-bold hover:bg-[#000000] transition-all"
+          style={{ height: '60px' }}
         >
           Apply Filter
         </button>

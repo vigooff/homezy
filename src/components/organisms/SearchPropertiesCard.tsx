@@ -27,7 +27,7 @@ export const SearchPropertiesCard = () => {
   // ─────────────────────────────────────────────────────────────────────────
   return (
     <>
-      {/* ── MOBILE VERSION (<768px) ── Vertical Stack ─────────────────────── */}
+      {/* ── MOBILE VERSION (<768px) ── Vertical Stack */}
       {(isSmallMobile || isMobile) && (
       <div 
         className="flex flex-col border border-[#000000] shadow-sm bg-[#FFFFFF]"
@@ -88,20 +88,13 @@ export const SearchPropertiesCard = () => {
         </div>
       )}
 
-      {/* ── MID-RANGE VERSION (768px - 1199px) ── Vertical "Boxy" Stack ───── */}
-      {/*
-        Ibarat karakter RPG yang masuk lorong sempit:
-        - Item field (Location, Price, Type) disusun vertikal (flex-col)
-        - Divider horizontal memisahkan setiap field (bukan vertikal)
-        - Browse button tetap di paling bawah, full width
-        - Card terlihat "boxy" dan kokoh, bukan memanjang tipis
-      */}
+      {/* ── MID-RANGE VERSION (768px - 1199px) */}
       {isMidRange && (
       <div 
         className="flex flex-col border border-[#000000] shadow-sm bg-[#FFFFFF]"
         style={{ 
-          width: "100%", // UBAH INI dari 740px ke 100%
-          height: "auto", // UBAH INI agar container mengikuti isi
+          width: "100%", 
+          height: "auto", 
           minHeight: "318px", 
           borderRadius: "24px",
           padding: "24px"
@@ -145,7 +138,7 @@ export const SearchPropertiesCard = () => {
             </div>
           </div>
 
-          {/* Browse Button - full width, di paling bawah */}
+          {/* Browse Button */}
           <button
             className="w-full font-hanken font-bold bg-[#1A1A1A] text-[#FFFFFF] transition-all hover:bg-[#333333] flex items-center justify-center flex-shrink-0"
             style={{
@@ -159,7 +152,7 @@ export const SearchPropertiesCard = () => {
         </div>
       )}
 
-      {/* ── DESKTOP VERSION (≥1200px) ── Horizontal Row ───────────────────── */}
+      {/* ── DESKTOP VERSION (≥1200px) */}
       {isDesktop && (
         <div 
           className="flex items-center border border-[#000000] shadow-sm bg-[#FFFFFF]"

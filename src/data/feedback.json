@@ -4,30 +4,35 @@
       "id": 1,
       "name": "Brooklyn Simmons",
       "role": "CEO of Asana",
+      "rating": "5",
       "comment": "Your company is truly upstanding and is behind its product 100%. It's the perfect solution for our business."
     },
     {
       "id": 2,
       "name": "Pria Solo",
       "role": "CTO of Microsoft",
+      "rating": "5",
       "comment": "Company mu mantap banget, dan agent nya juga ramah semua, suka bantuin klien. Pokoknya recomended bgt deh buat kalian."
     },
     {
       "id": 3,
       "name": "Cheng Yuan",
       "role": "CEO of Google",
+      "rating": "4",
       "comment": "贵公司真的很棒，所有经纪人都热情洋溢。总而言之，我强烈推荐给所有正在寻找理想家园的人。"
     },
     {
       "id": 4,
       "name": "Louise",
       "role": "CEO of Apple",
+      "rating": "5",
       "comment": "Votre entreprise est vraiment formidable, et tous les agents sont aimables et serviables. En résumé, je la recommande vivement."
     },
     {
       "id": 5,
       "name": "Park Hyung Seok",
       "role": "CEO of Amazon",
+      "rating": "4",
       "comment": "귀사는 정말 훌륭하고, 모든 직원분들이 친절하게 도와주셨습니다. 이상적인 집을 찾는 분들께 강력 추천합니다."
     }
   ]

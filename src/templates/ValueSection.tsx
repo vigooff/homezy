@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Container } from "../components/atoms/Container";
 
 export const ValueSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -33,36 +32,45 @@ export const ValueSection = () => {
   };
 
   return (
-    <section className="w-full bg-[#FBFAFF]">
-      {/* Menggunakan Container Standar */}
-      <Container className="py-[100px]">
-        <div className="flex justify-between items-start gap-10 mb-20 
-                        max-[900px]:flex-col max-[900px]:gap-6 max-[900px]:mb-10 
-                        max-[900px]:items-center max-[900px]:text-center">
-          <h2 className="font-syne font-bold text-[48px] leading-[1.1] max-w-[550px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px] px-[32px]">
-            Comfort Is Our Top<br/>
+    <section className="w-full bg-[#FBFAFF] overflow-hidden">
+      <div className="w-full max-w-[1440px] mx-auto py-[40px] px-[5%] lg:px-[10%] box-border">
+        <div className="max-w-[1200px] mx-auto w-full">
+        
+        {/* Header Section */}
+        <div className="
+          flex flex-col min-[901px]:flex-row min-[901px]:justify-between 
+          items-center
+          min-[901px]:items-center
+          text-center min-[901px]:text-left 
+          gap-8 w-full
+          mb-[60px]
+        ">
+          <h2 className="font-syne font-bold text-[40px] md:text-[38px] lg:text-[48px] leading-[1.1] text-[#1A1A1A] max-w-[550px]">
+            Comfort Is Our Top<br className="hidden min-[901px]:block"/>
             Priority For You
           </h2>
-          <p className="font-hanken text-[#666666] max-w-[420px] min-w-[240px] text-[16px] leading-[1.6] mt-[40px] max-[900px]:mt-0 px-[20px]">
+          <p className="font-hanken text-[#666666] text-[16px] leading-[1.6] max-w-[420px]">
             We guarantee that the products we sell will make our customers happy
             because we are very concerned about our consumer satisfaction.
           </p>
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden min-[901px]:grid grid-cols-3 gap-[32px]">
-        {values.map((item, index) => (
-          <ValueCard key={index} {...item} />
-        ))}
+        <div className="hidden min-[901px]:grid grid-cols-3 gap-[24px] lg:gap-[32px] w-full">
+          {values.map((item, index) => (
+            <div key={index} className="w-full flex justify-center">
+               <ValueCard {...item} />
+            </div>
+          ))}
         </div>
 
         {/* Mobile Carousel */}
-        <div className="hidden max-[900px]:flex flex-col items-center gap-8 px-[32px]">
-          <div className="w-full max-w-[400px] min-w-[240px]">
+        <div className="hidden max-[900px]:flex flex-col items-center gap-8">
+          <div className="w-full max-w-[400px]">
             <ValueCard {...values[currentIndex]} />
           </div>
           
-          <div className="flex gap-6"> 
+          <div className="flex gap-0"> 
             <button 
               onClick={handlePrev}
               className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] mr-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
@@ -81,17 +89,39 @@ export const ValueSection = () => {
             </button>
           </div>
         </div>
-      </Container>
+        </div>
+      </div>
     </section>
   );
 };
 
 const ValueCard = ({ icon, title, description }: any) => (
-  <div className="bg-[#FFFFFF] rounded-[12px] border border-black/10 p-[32px] flex flex-col gap-[16px] h-full max-w-[400px] mx-auto">
-    <div className="w-[64px] h-[64px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center">
-      <Image src={icon} alt={title} width={28} height={28} />
+  <div className="
+    bg-[#FFFFFF] 
+    rounded-[15px] 
+    border border-black/10 
+    p-[40px] 
+    flex flex-col 
+    w-full 
+    max-w-[362px] 
+    mx-auto 
+    box-border 
+    h-[352px] 
+    transition-all 
+    hover:shadow-lg
+  ">
+    
+    {/* Icon Container 90x90 */}
+    <div className="w-[90px] h-[90px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center shrink-0">
+      <Image src={icon} alt={title} width={48} height={48} />
     </div>
-    <h3 className="font-syne font-bold text-[22px] text-[#1A1A1A]">{title}</h3>
-    <p className="font-hanken text-[#666666] text-[15px] leading-[1.6]">{description}</p>
+    <div className="flex-1 flex flex-col justify-end gap-4 text-left">
+      <h3 className="font-syne font-bold text-[22px] leading-tight text-[#1A1A1A]">
+        {title}
+      </h3>
+      <p className="font-hanken text-[#666666] text-[15px] leading-[1.6]">
+        {description}
+      </p>
+    </div>
   </div>
 );

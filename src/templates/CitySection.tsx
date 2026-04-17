@@ -1,85 +1,84 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CityCard } from "../components/organisms/CityCard";
-import { City, CitiesData } from "../types/city";
-import citiesDataJson from "../data/cities.json";
+import { City } from "../types/city";
 import { ArrowRight } from "lucide-react";
 
-const citiesData = citiesDataJson as unknown as CitiesData;
-
 export const CitySection = () => {
+  const [cities, setCities] = useState<City[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const cities = citiesData.cities;
-  const displayCities = cities.slice(0, 3);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const res = await fetch("/api/cities");
+        const json = await res.json();
+        if (json.success) {
+          setCities(json.data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error("Failed to fetch cities:", error);
+      }
+    };
+    fetchCities();
+  }, []);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? displayCities.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? cities.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === displayCities.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === cities.length - 1 ? 0 : prev + 1));
   };
 
+  if (cities.length === 0) return null;
+
   return (
-    <section className="w-full bg-[#FBFAFF] py-[100px] overflow-hidden">
-      <div className="max-w-[1160px] mx-auto px-4 max-[450px]:px-[24px]">
-      <div className="flex justify-between items-center mb-[50px] ml-[20px] 
-      max-[900px]:flex-col max-[900px]:items-center max-[900px]:text-center max-[900px]:gap-4
-      max-[900px]:pl-[10%] max-[900px]:pr-[15%]
-      ">
-          <h2 className="font-syne font-semibold text-[48px] leading-[56px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
-            Explore Cities
-          </h2>
+    <section className="w-full bg-[#FBFAFF] py-[40px] overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-[5%] lg:px-[10%]">
+        
+        {/* Inner Wrapper */}
+        <div className="max-w-[1200px] mx-auto w-full flex flex-col items-center min-[901px]:items-stretch">
           
-          <button className="flex items-center gap-2 group cursor-pointer hover:opacity-80 bg-transparent border-none p-0 outline-none">
-            <span className="font-hanken font-bold text-[18px] text-[#1A1A1A]">
-              Browse All Cities
-            </span>
-            <ArrowRight size={20} className="transition-transform group-hover:translate-x-1 text-[#1A1A1A]" />
-          </button>
-        </div>
-        <div 
-          className="hidden min-[901px]:grid grid-cols-3 gap-[32px] justify-center w-full mx-auto
-                     max-[1200px]:grid-cols-[repeat(3,255px)]
-                     max-[1200px]:gap-[20px]"
-        >
-          {displayCities.map((city: City) => (
-            <CityCard 
-              key={city.id}
-              name={city.name}
-              state={city.state}
-              count={city.count}
-              image={city.image}
-            />
-          ))}
-        </div>
-        <div className="hidden max-[900px]:flex flex-col items-center w-full">
-          <div className="w-full max-w-[365px]">
-            <CityCard 
-              name={displayCities[currentIndex].name}
-              state={displayCities[currentIndex].state}
-              count={displayCities[currentIndex].count}
-              image={displayCities[currentIndex].image}
-            />
-          </div>
-          <div className="flex gap-4 mt-8"> 
-            <button 
-              onClick={handlePrev}
-              className="w-[50px] h-[50px] bg-[#1A1A1A] mr-[15px] mt-[30px] rounded-[7px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-            </button>
-            <button 
-              onClick={handleNext}
-              className="w-[50px] h-[50px] bg-[#1A1A1A] ml-[15px] mt-[30px] rounded-[7px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+          {/* Header Section */}
+          <div className="flex justify-between items-center mb-[50px] w-full max-[900px]:flex-col max-[900px]:text-center gap-4">
+            <h2 className="font-syne font-semibold text-[48px] leading-[56px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
+              Explore Cities
+            </h2>
+            <button className="flex items-center gap-2 group cursor-pointer hover:opacity-80 bg-transparent border-none p-0 outline-none">
+              <span className="font-hanken font-bold text-[18px] text-[#1A1A1A]">
+                Browse All Cities
+              </span>
+              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1 text-[#1A1A1A]" />
             </button>
           </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden min-[901px]:grid grid-cols-3 gap-[24px] lg:gap-[32px] w-full">
+          {cities.map((city: City) => (
+            <div key={city.id} className="w-full">
+              <CityCard
+                name={city.name}
+                state={city.state}
+                count={city.count}
+                image={city.image}
+              />
+            </div>
+            ))}
+          </div>
+
+          {/* Mobile Carousel */}
+          <div className="hidden max-[900px]:flex flex-col items-center w-full">
+            <div className="w-full max-w-[365px]">
+              <CityCard
+                name={cities[currentIndex].name}
+                state={cities[currentIndex].state}
+                count={cities[currentIndex].count}
+                image={cities[currentIndex].image}
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

@@ -86,7 +86,6 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({ property, 
     </p>
   </div>
 
-  {/* Features selalu di bawah */}
   <div
     className="
       flex pt-[15px] pb-[15px] items-center justify-between mx-auto w-[90%]

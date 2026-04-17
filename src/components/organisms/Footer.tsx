@@ -21,8 +21,8 @@ export const Footer = () => {
 
   // Breakpoints:
   // isSmall  < 900px  → flex-col, brand + nav full width
-  // isMedium 900-1159 → flex-row tapi nav wrapper tidak fixed 576px
-  // isLarge  ≥ 1160   → layout desktop asli
+  // isMedium 900-1159 → flex-row
+  // isLarge  ≥ 1160   → layout desktop
   const isSmall  = isMounted && windowWidth < 900;
   const isLarge  = isMounted && windowWidth >= 1160;
 

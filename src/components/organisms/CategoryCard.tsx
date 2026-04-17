@@ -14,7 +14,7 @@ export const CategoryCard = ({ iconName, title, count }: CategoryCardProps) => {
   const isLocal = localIcons.includes(iconName);
 
   return (
-    <div className="bg-[#FFFFFF] p-6 rounded-[15px] border border-[#E8E1FF] w-full h-[110px] 
+    <div className="bg-[#FFFFFF] p-6 rounded-[15px] border border-[#E8E1FF] w-[365px] h-[110px] 
                     max-[1200px]:max-w-[500px] max-[900px]:max-w-[350px] 
                     flex items-center justify-between hover:shadow-lg transition-all duration-300 
                     group cursor-pointer overflow-hidden">

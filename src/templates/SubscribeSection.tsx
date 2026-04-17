@@ -6,14 +6,12 @@ import { SubscribeCard } from '../components/organisms/SubscribeCard';
 export const SubscribeSection = () => {
   return (
     <section className="w-full bg-[#FBFAFF] py-[100px] flex justify-center items-center">
-  <div className="subscribe-section-wrapper w-full flex justify-center items-center
-    px-[80px]              
-    max-[1200px]:px-[60px] 
-    max-[900px]:px-[24px]  
-  ">
-    <SubscribeCard />
-  </div>
-</section>
+      <div className="w-full max-w-[1440px] mx-auto px-[5%] lg:px-[10%] box-border">
+        <div className="subscribe-section-wrapper w-full flex justify-center items-center">
+          <SubscribeCard />
+        </div>
+      </div>
+    </section>
   );
 };
 

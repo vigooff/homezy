@@ -38,7 +38,7 @@ export const HeroSearchCard = () => {
     <div 
       style={{
         width: '100%',
-        maxWidth: '100%', // Sudah diubah ke 900px
+        maxWidth: '100%',
         height: 'auto',
         minHeight: '96px',
         borderRadius: '15px',
@@ -46,7 +46,7 @@ export const HeroSearchCard = () => {
         gap: '32px',
         opacity: 1,
         border: '1px solid #000000',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.05)', // Shadow diperhalus agar premium
+        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
         backgroundColor: '#FFFFFF',
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',

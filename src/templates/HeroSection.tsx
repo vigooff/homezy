@@ -19,7 +19,7 @@ export const HeroSection = () => {
 
       <section className="
         max-w-[1440px] mx-auto
-        px-[60px] pt-[40px] pb-[60px] relative
+        px-[60px] pt-[20px] pb-[60px] relative
         max-[1280px]:px-[40px] max-[1280px]:pb-[80px]
         max-[640px]:px-[16px]
         max-md:px-[24px]
