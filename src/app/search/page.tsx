@@ -13,6 +13,7 @@ async function getProperties(): Promise<Property[]> {
   } catch (error) {
     console.error("Error fetching properties:", error);
     return [];
+    
   }
 }
 

@@ -6,25 +6,13 @@ import { CitySection } from "../templates/CitySection";
 import { AgentSection } from "../templates/AgentSection";
 import { FeedbackSection } from "../templates/FeedbackSection";
 import { SubscribeSection } from "../templates/SubscribeSection";
-import { Property } from "../types/properties";
+import { PropertiesData } from "../types/properties";
+import propertiesDataJson from "../data/properties";
 
-async function getProperties(): Promise<Property[]> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/properties`, {
-      cache: "no-store",
-    });
-    if (!res.ok) throw new Error("Failed to fetch properties");
-    const json = await res.json();
-    return json.data ?? [];
-  } catch (error) {
-    console.error("Error fetching properties:", error);
-    return [];
-  }
-}
+const propertiesData = propertiesDataJson as PropertiesData;
 
 export default async function Home() {
-  const properties = await getProperties();
+  const properties = propertiesData.properties;
 
   return (
     <div className="w-full bg-[#FBFAFF]">
