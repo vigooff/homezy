@@ -19,25 +19,24 @@ const MapProvider = dynamic(
   }
 );
 
-// ─── Animation Variants ───────────────────────────────────────────────────────
+// ─── Animation Variants (FIXED FOR NEXT.JS 16 & TYPESCRIPT) ─────────────────────
+// Mengganti nama key dari 'initial/whileInView' ke 'hidden/visible' agar sesuai dengan tipe Variants
 const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6, ease: "easeOut" }
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const staggerContainer = {
-  initial: { opacity: 0 },
-  whileInView: {
+  hidden: { opacity: 0 },
+  visible: {
     opacity: 1,
     transition: { staggerChildren: 0.1 }
   }
 };
 
 const staggerItem = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -57,8 +56,8 @@ const EMPTY_API_FILTERS = {
   maxPrice: '',
   minYear: '',
   maxYear: '',
-  minFloorArea: '',   // ← tambahan dari feedback mentor
-  maxFloorArea: '',   // ← tambahan dari feedback mentor
+  minFloorArea: '',
+  maxFloorArea: '',
 };
 
 export const SearchTemplate = () => {
@@ -359,7 +358,10 @@ export const SearchTemplate = () => {
 
         {/* ── SMALL MOBILE LAYOUT (≤500px) ────────────────────────────────── */}
         {isSmallMobile && (
-          <motion.div {...fadeInUp} className="w-full box-border px-[16px] pb-8 flex flex-col gap-4">
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full box-border px-[16px] pb-8 flex flex-col gap-4"
+          >
             <h1 className="font-syne font-bold text-[clamp(28px,8vw,40px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <SearchPropertiesCard onSearch={handleSearch} properties={allProperties} />
             <button onClick={() => setIsFilterOpen(!isFilterOpen)} className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center hover:bg-[#DBCBFF] transition-all relative" style={{ height: "52px", marginTop: "8px", marginBottom: "8px" }}>
@@ -373,7 +375,10 @@ export const SearchTemplate = () => {
 
         {/* ── MOBILE LAYOUT (501px - 767px) ───────────────────────────────── */}
         {isMobile && (
-          <motion.div {...fadeInUp} className="max-w-[1440px] mb-[3%] mx-auto px-[20px] flex flex-col gap-6">
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-[1440px] mb-[3%] mx-auto px-[20px] flex flex-col gap-6"
+          >
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <SearchPropertiesCard onSearch={handleSearch} properties={allProperties} />
             <button onClick={() => setIsFilterOpen(!isFilterOpen)} className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center hover:bg-[#DBCBFF] transition-all relative" style={{ height: "58px", paddingTop: "20px", paddingBottom: "20px", paddingLeft: "32px", paddingRight: "32px", marginTop: "16px" }}>
@@ -387,7 +392,10 @@ export const SearchTemplate = () => {
 
         {/* ── MID-RANGE LAYOUT (768px - 1199px) ─────────────────────────── */}
         {isMidRange && (
-          <motion.div {...fadeInUp} className="max-w-[1440px] mx-auto flex flex-col gap-8" style={{ paddingLeft: '7.5%', paddingRight: '7.5%', paddingBottom: '80px' }}>
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-[1440px] mx-auto flex flex-col gap-8" style={{ paddingLeft: '7.5%', paddingRight: '7.5%', paddingBottom: '80px' }}
+          >
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <div className="flex items-stretch w-full gap-[16px]">
               <div style={{ width: '75%', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
@@ -413,7 +421,10 @@ export const SearchTemplate = () => {
 
         {/* ── DESKTOP LAYOUT (≥1200px) ───────────────────── */}
         {isDesktop && (
-          <motion.div {...fadeInUp} className="max-w-[1440px] mb-[3%] mx-auto px-[60px] max-[1300px]:px-[40px] flex flex-col gap-10">
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-[1440px] mb-[3%] mx-auto px-[60px] max-[1300px]:px-[40px] flex flex-col gap-10"
+          >
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <div className="flex items-center w-full gap-[5%]">
               <div className="flex-1 min-w-0">
@@ -464,12 +475,12 @@ export const SearchTemplate = () => {
         {isSmallMobile && (
           <div className="mx-auto px-[16px] pt-6 pb-8 mb-[8%]">
             <div className="flex flex-col gap-5">
-              <motion.section {...fadeInUp} className="w-full">
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
                 <div className="w-full rounded-[15px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '280px' }}>
                   <MapProvider properties={memoizedProperties} />
                 </div>
               </motion.section>
-              <motion.div {...fadeInUp} className="flex flex-col gap-2">
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col gap-2">
                 <h2 className="font-syne font-bold text-[20px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
                 {activeFilters && getActiveFilterCount() > 0 && (
                   <div className="flex items-center gap-2" style={{ marginTop: '-4px' }}>
@@ -483,7 +494,14 @@ export const SearchTemplate = () => {
                   <CardSkeleton /><CardSkeleton /><CardSkeleton />
                 </div>
               ) : results.length > 0 ? (
-                <motion.div key={cardsKey} className="flex flex-col gap-[20px]" initial="initial" whileInView="whileInView" viewport={{ once: true }} variants={staggerContainer}>
+                <motion.div 
+                  key={cardsKey} 
+                  initial="hidden" 
+                  whileInView="visible" 
+                  viewport={{ once: true }} 
+                  variants={staggerContainer} 
+                  className="flex flex-col gap-[20px]"
+                >
                   {results.map((item) => (
                     <motion.div key={item.id} variants={staggerItem}><PropertyCardSearch property={item} /></motion.div>
                   ))}
@@ -495,7 +513,7 @@ export const SearchTemplate = () => {
                 </div>
               )}
               {results.length > 0 && (
-                <motion.div {...fadeInUp} className="flex flex-col items-center justify-center gap-3 pt-4 pb-8">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-3 pt-4 pb-8">
                   <p className="font-hanken text-xs text-[#7C5F93] text-center">
                     Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span>
                   </p>
@@ -518,10 +536,10 @@ export const SearchTemplate = () => {
         {isMobile && (
           <div className="max-w-[1440px] mx-auto px-[20px] py-10 mb-[8%]">
             <div className="flex flex-col gap-6">
-              <motion.section {...fadeInUp} className="w-full">
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
                 <div className="w-full rounded-[15px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '409px' }}><MapProvider properties={memoizedProperties} /></div>
               </motion.section>
-              <motion.div {...fadeInUp} className="flex flex-col gap-2">
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col gap-2">
                 <h2 className="font-syne font-bold text-[24px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
                 {activeFilters && getActiveFilterCount() > 0 && (
                   <div className="flex items-center gap-2" style={{ marginTop: '-4px' }}>
@@ -533,7 +551,11 @@ export const SearchTemplate = () => {
               {isLoading ? (
                 <div className="flex flex-col gap-[24px]"><CardSkeleton /><CardSkeleton /><CardSkeleton /></div>
               ) : results.length > 0 ? (
-                <motion.div key={cardsKey} className="flex flex-col gap-[24px]" initial="initial" whileInView="whileInView" viewport={{ once: true }} variants={staggerContainer}>
+                <motion.div 
+                  key={cardsKey} 
+                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
+                  className="flex flex-col gap-[24px]"
+                >
                   {results.map((item) => (<motion.div key={item.id} variants={staggerItem}><PropertyCardSearch property={item} /></motion.div>))}
                 </motion.div>
               ) : (
@@ -543,7 +565,7 @@ export const SearchTemplate = () => {
                 </div>
               )}
               {results.length > 0 && (
-                <motion.div {...fadeInUp} className="flex flex-col items-center justify-center gap-4 pt-6 pb-10">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-4 pt-6 pb-10">
                   <p className="font-hanken text-sm text-[#7C5F93] text-center">
                     Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span>
                   </p>
@@ -566,10 +588,10 @@ export const SearchTemplate = () => {
         {isMidRange && (
           <div className="max-w-[1440px] mx-auto py-10 mb-[8%]" style={{ paddingLeft: '7.5%', paddingRight: '7.5%' }}>
             <div className="flex flex-col gap-8">
-              <motion.section {...fadeInUp} className="w-full">
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
                 <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '400px' }}><MapProvider properties={memoizedProperties} /></div>
               </motion.section>
-              <motion.div {...fadeInUp} className="flex justify-between items-center">
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex justify-between items-center">
                 <div className="flex flex-col gap-2">
                   <h2 className="font-syne font-bold text-[28px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
                   {activeFilters && getActiveFilterCount() > 0 && (
@@ -587,7 +609,11 @@ export const SearchTemplate = () => {
               {isLoading ? (
                 <div className="grid mb-8" style={{ gridTemplateColumns: '1fr 1fr', gap: '24px' }}><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /></div>
               ) : results.length > 0 ? (
-                <motion.div key={cardsKey} className="grid mb-8" style={{ gridTemplateColumns: '1fr 1fr', gap: '24px' }} initial="initial" whileInView="whileInView" viewport={{ once: true }} variants={staggerContainer}>
+                <motion.div 
+                  key={cardsKey} 
+                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
+                  className="grid mb-8" style={{ gridTemplateColumns: '1fr 1fr', gap: '24px' }}
+                >
                   {results.map((item) => (<motion.div key={item.id} variants={staggerItem}><PropertyCardSearch property={item} /></motion.div>))}
                 </motion.div>
               ) : (
@@ -597,7 +623,7 @@ export const SearchTemplate = () => {
                 </div>
               )}
               {results.length > 0 && (
-                <motion.div {...fadeInUp} className="flex flex-col items-center justify-center gap-6 pt-4 pb-[40px]">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-6 pt-4 pb-[40px]">
                   <p className="font-hanken text-sm text-[#7C5F93]">
                     Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span> properties
                   </p>
@@ -620,13 +646,17 @@ export const SearchTemplate = () => {
         {isDesktop && (
           <div className="max-w-[1440px] mx-auto px-[60px] max-[1300px]:px-[40px] py-10 mb-[8%]">
             <div className="flex flex-row gap-[40px] max-[1300px]:gap-[24px] items-start relative">
-              <motion.section {...fadeInUp} transition={{ ...fadeInUp.transition, delay: 0.2 }} className="w-[45%] max-[1300px]:w-[40%] flex-shrink-0 sticky top-10">
+              <motion.section 
+                initial="hidden" whileInView="visible" viewport={{ once: true }} 
+                transition={{ ...fadeInUp, delay: 0.2 }} 
+                className="w-[45%] max-[1300px]:w-[40%] flex-shrink-0 sticky top-10"
+              >
                 <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '930px' }}>
                   <MapProvider properties={memoizedProperties} />
                 </div>
               </motion.section>
               <section className="flex-1 min-w-0 flex-col">
-                <motion.div {...fadeInUp} className="flex justify-between items-end mb-6">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex justify-between items-end mb-6">
                   <div className="flex flex-col gap-2">
                     <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
                     {activeFilters && getActiveFilterCount() > 0 && (
@@ -651,8 +681,8 @@ export const SearchTemplate = () => {
                   <motion.div
                     key={cardsKey}
                     className="flex flex-col gap-[32px] mb-12"
-                    initial="initial"
-                    whileInView="whileInView"
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
                     variants={staggerContainer}
                   >
@@ -669,7 +699,7 @@ export const SearchTemplate = () => {
                   </div>
                 )}
                 {results.length > 0 && (
-                  <motion.div {...fadeInUp} className="flex flex-col items-center justify-center gap-6 pt-10 pb-[40px]">
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-6 pt-10 pb-[40px]">
                     <p className="font-hanken text-sm text-[#7C5F93]">
                       Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span> properties
                     </p>
