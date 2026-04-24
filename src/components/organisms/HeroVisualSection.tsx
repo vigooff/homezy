@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -39,7 +40,9 @@ export const HeroVisualSection = () => {
     },
     transition: { 
       duration: 0.8, 
-      ease: [0.25, 0.46, 0.45, 0.94] // Standar cubic-bezier Webflow
+      // FIX: Mengubah array ease menjadi string "cubic-bezier(...)"
+      // Ini memperbaiki error TypeScript di Next.js 16 / Framer Motion v12
+      ease: "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
     }
   };
 
@@ -50,7 +53,7 @@ export const HeroVisualSection = () => {
         width: `${BASE_WIDTH * scale}px`,
         height: `${BASE_HEIGHT * scale}px`,
         position: 'relative',
-        // FIX: Pastikan undefined tidak memakai tanda kutip
+        // FIX: Pastikan undefined tidak membuat tanda kutip
         transition: ready ? 'width 0.2s ease, height 0.2s ease' : undefined,
       }}
     >
