@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion"; // 1. Import motion
 import { AgentCard } from "../components/organisms/AgentCard";
 import { Agent } from "../types/agent";
 import { ArrowRight } from "lucide-react";
@@ -22,6 +23,7 @@ export const AgentSection = () => {
     };
     fetchAgents();
   }, []);
+
   const handleNav = (direction: "next" | "prev") => {
     if (agents.length === 0) return;
     const isTablet = window.innerWidth <= 900 && window.innerWidth > 600;
@@ -34,10 +36,36 @@ export const AgentSection = () => {
     }
   };
 
+  // Preset animasi konsisten
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 } // Jeda antar card sedikit lebih cepat karena jumlahnya 6
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+  };
+
   return (
     <section className="w-full bg-[#FBFAFF] py-[100px] overflow-hidden">
       <div className="max-w-[1168px] mx-auto px-4 max-[450px]:px-[20px]">
-        <div className="flex justify-between items-center mb-[50px] max-[900px]:flex-col max-[900px]:items-center max-[900px]:text-center max-[900px]:gap-4">
+        
+        {/* Header Section - Reveal Animation */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-between items-center mb-[50px] max-[900px]:flex-col max-[900px]:items-center max-[900px]:text-center max-[900px]:gap-4"
+        >
           <h2 className="font-syne font-semibold text-[48px] leading-[56px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
             Meet Our Agents
           </h2> 
@@ -47,50 +75,76 @@ export const AgentSection = () => {
             </span>
             <ArrowRight size={24} className="text-[#1A1A1A] transition-transform group-hover:translate-x-1" />
           </button>
-        </div>
-        <div className="hidden min-[901px]:grid grid-cols-3 max-[1200px]:grid-cols-2 gap-[32px] w-full justify-items-center">
+        </motion.div>
+
+        {/* Desktop Grid - Staggered Reveal */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="hidden min-[901px]:grid grid-cols-3 max-[1200px]:grid-cols-2 gap-[32px] w-full justify-items-center"
+        >
           {agents.slice(0, 6).map((agent, index) => (
-            <div key={agent.id} className={`w-full max-w-[365px] ${index >= 4 ? "max-[1200px]:hidden" : ""}`}>
+            <motion.div 
+              key={agent.id} 
+              variants={itemVariants}
+              className={`w-full max-w-[365px] ${index >= 4 ? "max-[1200px]:hidden" : ""}`}
+            >
               <AgentCard name={agent.name} role={agent.role} avatar={agent.avatar} />
-            </div>
+            </motion.div>
           ))}
-        </div>
-        <div className="hidden max-[900px]:min-[601px]:flex flex-col gap-[24px] items-center w-full">
-          {agents.slice(currentIndex, currentIndex + 2).map((agent) => (
-            <div key={agent.id} className="w-full max-w-[365px]">
-              <AgentCard name={agent.name} role={agent.role} avatar={agent.avatar} />
-            </div>
-          ))}
-        </div>
-        <div className="hidden max-[600px]:flex flex-col items-center w-full">
-          <div className="w-full max-w-[365px]">
-             {agents.length > 0 && (
-               <AgentCard 
-                 name={agents[currentIndex]?.name} 
-                 role={agents[currentIndex]?.role} 
-                 avatar={agents[currentIndex]?.avatar} 
-               />
-             )}
+        </motion.div>
+
+        {/* Mobile/Tablet View - Fade In Only */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="min-[901px]:hidden"
+        >
+          {/* Tablet View */}
+          <div className="hidden max-[900px]:min-[601px]:flex flex-col gap-[24px] items-center w-full">
+            {agents.slice(currentIndex, currentIndex + 2).map((agent) => (
+              <div key={agent.id} className="w-full max-w-[365px]">
+                <AgentCard name={agent.name} role={agent.role} avatar={agent.avatar} />
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="hidden max-[900px]:flex justify-center gap-4 mt-12"> 
-          <button 
-            onClick={() => handleNav("prev")} 
-            className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] mr-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md cursor-pointer"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-          </button>
-          <button 
-            onClick={() => handleNav("next")} 
-            className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] ml-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md cursor-pointer"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </button>
-        </div>
+
+          {/* Mobile View */}
+          <div className="hidden max-[600px]:flex flex-col items-center w-full">
+            <div className="w-full max-w-[365px]">
+               {agents.length > 0 && (
+                 <AgentCard 
+                   name={agents[currentIndex]?.name} 
+                   role={agents[currentIndex]?.role} 
+                   avatar={agents[currentIndex]?.avatar} 
+                 />
+               )}
+            </div>
+          </div>
+
+          {/* Navigation Buttons Mobile */}
+          <div className="flex justify-center gap-4 mt-12"> 
+            <button 
+              onClick={() => handleNav("prev")} 
+              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] mr-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md cursor-pointer"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <button 
+              onClick={() => handleNav("next")} 
+              className="w-[50px] h-[50px] bg-[#1A1A1A] rounded-[7px] ml-[15px] mt-[30px] flex items-center justify-center transition-opacity hover:opacity-80 shadow-md cursor-pointer"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </motion.div>
 
       </div>
     </section>

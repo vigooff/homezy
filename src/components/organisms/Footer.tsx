@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { FooterBrand } from "../molecules/FooterBrand";
 import { FooterNavGroup } from "../molecules/FooterNavGroup";
 import { FooterData, FooterSection } from "../../types/footer";
@@ -19,57 +20,78 @@ export const Footer = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Breakpoints:
-  // isSmall  < 900px  → flex-col, brand + nav full width
-  // isMedium 900-1159 → flex-row
-  // isLarge  ≥ 1160   → layout desktop
-  const isSmall  = isMounted && windowWidth < 900;
-  const isLarge  = isMounted && windowWidth >= 1160;
+  const isSmall = isMounted && windowWidth < 900;
 
   return (
     <footer className="w-full bg-[#FBFAFF] flex flex-col items-center relative z-10 overflow-x-hidden">
-      <div className="w-full px-[4%] pt-10 pb-[4%] footer-main-container" style={{ maxWidth: '1160px', width: '95vw', margin: '0 auto', boxSizing: 'border-box' }}>
-      <div
-        className="footer-content-row w-full"
-        style={{
-          display: 'flex',
-          flexDirection: isSmall ? 'column' : 'row',
-          justifyContent: isSmall ? 'flex-start' : 'space-between',
-          alignItems: 'flex-start',
-          gap: isSmall ? '32px' : '60px',
-          minHeight: '330px',
-        }}
+      {/* Container 1440px - Padding konsisten dengan Subscribe Section */}
+      <div className="w-full max-w-[1440px] mx-auto px-[5%] lg:px-[10%] box-border pt-10 pb-[4%]">
+        
+        {/* Inner Wrapper 1200px */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="max-w-[1200px] mx-auto w-full flex"
+          style={{
+            flexDirection: isSmall ? 'column' : 'row',
+            justifyContent: 'space-between', 
+            // PERBAIKAN: Gunakan 'center' untuk isSmall (600px-900px) supaya tidak ke kiri
+            alignItems: isSmall ? 'center' : 'flex-start',
+            gap: isSmall ? '40px' : '60px',
+            minHeight: '330px',
+            // Memastikan teks di dalam juga memusat
+            textAlign: isSmall ? 'center' : 'left',
+          }}
         > 
-
-          <div className="footer-brand-wrapper" style={{ flexShrink: 0, width: 'auto' }}>
-          <FooterBrand />
+          {/* Brand Section - Logo & Deskripsi */}
+          <div 
+            className="footer-brand-wrapper shrink-0" 
+            style={{ 
+                width: isSmall ? '100%' : 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                // Memastikan logo dan ikon sosial berada di tengah
+                alignItems: isSmall ? 'center' : 'flex-start' 
+            }}
+          >
+            <FooterBrand />
           </div>
 
+          {/* Navigation Section - Links */}
           <div
-          className="flex flex-col opacity-100 footer-nav-wrapper"
-          style={{
-          width: isSmall ? '100%' : undefined,
-          flex: 'none',
-          minWidth: 0,
-          gap: '0px',
-          }}
+            className="footer-nav-wrapper flex"
+            style={{
+              width: isSmall ? '100%' : 'auto',
+              flex: 'none', 
+              display: 'flex',
+              flexDirection: isSmall ? 'column' : 'row',
+              // PERBAIKAN: Memusatkan kumpulan navigasi pada tablet/mobile
+              justifyContent: isSmall ? 'center' : 'flex-end',
+              alignItems: isSmall ? 'center' : 'flex-start',
+              gap: isSmall ? '40px' : '100px', 
+            }}
           >
             {footerData.sections.map((section: FooterSection) => (
-              <FooterNavGroup
-                key={section.title}
-                title={section.title}
-                links={section.links}
-                columns={section.columns}
-                width={section.width}
-              />
+              <div 
+                key={section.title} 
+                className={isSmall ? "w-full flex flex-col items-center" : ""}
+              >
+                <FooterNavGroup
+                  title={section.title}
+                  links={section.links}
+                  columns={section.columns}
+                  width={isSmall ? '100%' : section.width}
+                />
+              </div>
             ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      <div className="w-full px-[4%] pb-8 flex flex-col items-center">
-        <div className="w-full max-w-[1160px] border-t border-[#EAECF0]">
-          <p className="font-hanken font-light text-[#667085] py-[30px] text-sm text-center">
+        {/* Copyright Section - Sejajar dengan container 1200px */}
+        <div className="max-w-[1200px] mx-auto w-full border-t border-[#EAECF0] mt-10">
+          <p className="font-hanken font-light text-[#667085] py-[30px] text-sm text-center lg:text-left">
             ©2023 Homezy. All rights reserved
           </p>
         </div>

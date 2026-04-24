@@ -3,6 +3,7 @@ export interface Property {
   title: string;
   price: number;
   priceType: "month" | "sale";
+  purpose: "for_sale" | "for_rent";
   address: string;
   location: {
     lat: number;
@@ -30,4 +31,17 @@ export interface Property {
 
 export interface PropertiesData {
   properties: Property[];
+}
+
+export interface PaginationMeta {
+  current_page: number;
+  per_page: number;
+  total_items: number;
+  total_pages: number;
+}
+
+export interface SearchResponse {
+  success: boolean;
+  data: Property[];
+  pagination: PaginationMeta;
 }

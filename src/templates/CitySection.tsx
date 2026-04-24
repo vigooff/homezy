@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion"; // 1. Import motion
 import { CityCard } from "../components/organisms/CityCard";
 import { City } from "../types/city";
 import { ArrowRight } from "lucide-react";
@@ -23,12 +24,22 @@ export const CitySection = () => {
     fetchCities();
   }, []);
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? cities.length - 1 : prev - 1));
+  // Konfigurasi Animasi Konsisten
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === cities.length - 1 ? 0 : prev + 1));
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
   };
 
   if (cities.length === 0) return null;
@@ -40,8 +51,14 @@ export const CitySection = () => {
         {/* Inner Wrapper */}
         <div className="max-w-[1200px] mx-auto w-full flex flex-col items-center min-[901px]:items-stretch">
           
-          {/* Header Section */}
-          <div className="flex justify-between items-center mb-[50px] w-full max-[900px]:flex-col max-[900px]:text-center gap-4">
+          {/* Header Section - Reveal Animation */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex justify-between items-center mb-[50px] w-full max-[900px]:flex-col max-[900px]:text-center gap-4"
+          >
             <h2 className="font-syne font-semibold text-[48px] leading-[56px] text-[#1A1A1A] max-[1200px]:text-[38px] max-[900px]:text-[32px]">
               Explore Cities
             </h2>
@@ -51,24 +68,36 @@ export const CitySection = () => {
               </span>
               <ArrowRight size={20} className="transition-transform group-hover:translate-x-1 text-[#1A1A1A]" />
             </button>
-          </div>
+          </motion.div>
 
-          {/* Desktop Grid */}
-          <div className="hidden min-[901px]:grid grid-cols-3 gap-[24px] lg:gap-[32px] w-full">
+          {/* Desktop Grid - Staggered Animation */}
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="hidden min-[901px]:grid grid-cols-3 gap-[24px] lg:gap-[32px] w-full"
+          >
           {cities.map((city: City) => (
-            <div key={city.id} className="w-full">
+            <motion.div key={city.id} variants={itemVariants} className="w-full">
               <CityCard
                 name={city.name}
                 state={city.state}
                 count={city.count}
                 image={city.image}
               />
-            </div>
+            </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Mobile Carousel */}
-          <div className="hidden max-[900px]:flex flex-col items-center w-full">
+          {/* Mobile Carousel - Soft Pop Animation */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="hidden max-[900px]:flex flex-col items-center w-full"
+          >
             <div className="w-full max-w-[365px]">
               <CityCard
                 name={cities[currentIndex].name}
@@ -77,7 +106,7 @@ export const CitySection = () => {
                 image={cities[currentIndex].image}
               />
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

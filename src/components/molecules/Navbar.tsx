@@ -2,11 +2,28 @@
 import React, { useState, useEffect } from "react";
 import { Logo, NavLink } from "../atoms";
 import { Menu, X } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
+  
+  // State untuk mengontrol visibilitas navbar (slide up/down)
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  // Logika deteksi scroll untuk menyembunyikan navbar
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    // Jika scroll ke bawah dan sudah melewati area header (100px), sembunyikan
+    if (latest > previous && latest > 100) {
+      setHidden(true);
+      setIsOpen(false); // Otomatis tutup menu mobile jika scroll ke bawah
+    } else {
+      setHidden(false);
+    }
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -36,14 +53,32 @@ export const Navbar = () => {
         .nav-dropdown-exit  { animation: slideUp  0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
       `}</style>
 
-      <nav style={{ width: '100%', height: '100px', backgroundColor: '#FBFAFF', position: 'relative', zIndex: 100, display: 'flex', justifyContent: 'center' }}>
+      {/* Gunakan motion.nav untuk animasi hide/show */}
+      <motion.nav 
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: "-100%" },
+        }}
+        animate={hidden ? "hidden" : "visible"}
+        transition={{ duration: 0.65, ease: "easeInOut" }}
+        style={{ 
+          width: '100%', 
+          height: '100px', 
+          backgroundColor: '#FBFAFF', 
+          position: 'fixed', 
+          top: 0,
+          zIndex: 999, // <--- PERBAIKAN: Naikkan z-index agar selalu di atas filter/animasi
+          display: 'flex', 
+          justifyContent: 'center',
+          boxShadow: scrollY.get() > 50 ? '0 4px 20px rgba(0,0,0,0.05)' : 'none' 
+        }}
+      >
         <div style={{ width: '100%', maxWidth: '1440px', paddingLeft: '5%', paddingRight: '5%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           
           <a href="/" style={{ flexShrink: 0, textDecoration: 'none' }}>
             <Logo />
           </a>
 
-          {/* Desktop nav */}
           <div className="hidden min-[901px]:flex" style={{ alignItems: 'center', justifyContent: 'center', flex: 1, gap: '20px' }}>
             <NavLink href="#" label="Home" />
             <NavLink href="#" label="Properties" />
@@ -52,7 +87,6 @@ export const Navbar = () => {
           </div>
 
           <div style={{ flexShrink: 0 }}>
-            {/* Desktop button */}
             <div className="hidden min-[901px]:block">
               <button
                 style={{ width: '145px', height: '52px', borderRadius: '12px', border: '1px solid #000000', backgroundColor: 'transparent', color: '#000000', fontWeight: 500, fontSize: '16px', cursor: 'pointer', transition: 'all 0.2s' }}
@@ -63,11 +97,10 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Hamburger */}
             <div className="min-[901px]:hidden">
               <button 
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-                style={{ display: 'flex', padding: '8px', color: '#000000', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none', outline: 'none', cursor: 'pointer', transition: 'transform 0.2s' }}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                style={{ display: 'flex', padding: '8px', color: '#000000', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none', outline: 'none', cursor: 'pointer' }}
                 onClick={() => setIsOpen(!isOpen)}
               >
                 {isOpen ? <X size={32} strokeWidth={2} /> : <Menu size={32} strokeWidth={2} />}
@@ -89,7 +122,7 @@ export const Navbar = () => {
               borderBottomLeftRadius: '24px',
               borderBottomRightRadius: '24px',
               boxShadow: '0 16px 32px -4px rgba(0,0,0,0.12)',
-            clipPath: 'inset(0 -40px -40px -40px)',
+              clipPath: 'inset(0 -40px -40px -40px)',
               zIndex: 99,
             }}
           >
@@ -106,7 +139,8 @@ export const Navbar = () => {
             </div>
           </div>
         )}
-      </nav>
+      </motion.nav>
+      <div style={{ height: '100px' }} />
     </>
   );
 };

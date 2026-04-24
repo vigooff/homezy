@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { PropertyCardSmall, InfoBox } from "../molecules";
 
 const BASE_WIDTH = 550;
@@ -13,14 +14,9 @@ export const HeroVisualSection = () => {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w >= 600) {
-  setScale(1);
-} else if (w < 320) {
-  setScale(0.7);
-} else {
-  // linear: 600px=1.0, 500px=0.85, 320px=0.7
-  setScale(0.7 + (w - 320) * (0.3 / 280));
-}
+      if (w >= 600) setScale(1);
+      else if (w < 320) setScale(0.7);
+      else setScale(0.7 + (w - 320) * (0.3 / 280));
     };
 
     update();
@@ -29,6 +25,24 @@ export const HeroVisualSection = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
+  // Konfigurasi animasi agar halus seperti Webflow (Soft Reveal)
+  const webflowLike = {
+    initial: { 
+      scale: 0.9,      // Mulai dari 90% (tidak dari 0 supaya elegan)
+      opacity: 0, 
+      y: 20            // Sedikit muncul dari bawah
+    },
+    animate: { 
+      scale: 1, 
+      opacity: 1, 
+      y: 0 
+    },
+    transition: { 
+      duration: 0.8, 
+      ease: [0.25, 0.46, 0.45, 0.94] // Standar cubic-bezier Webflow
+    }
+  };
+
   return (
     <div
       className="hero-visual-section flex-shrink-0 mx-auto"
@@ -36,7 +50,8 @@ export const HeroVisualSection = () => {
         width: `${BASE_WIDTH * scale}px`,
         height: `${BASE_HEIGHT * scale}px`,
         position: 'relative',
-        transition: ready ? 'width 0.2s ease, height 0.2s ease' : 'none',
+        // FIX: Pastikan undefined tidak memakai tanda kutip
+        transition: ready ? 'width 0.2s ease, height 0.2s ease' : undefined,
       }}
     >
       <div
@@ -48,11 +63,16 @@ export const HeroVisualSection = () => {
           position: 'absolute',
           top: 0,
           left: 0,
-          transition: ready ? 'transform 0.2s ease' : 'none',
+          transition: ready ? 'transform 0.2s ease' : undefined,
         }}
       >
-        {/* Gambar Kiri */}
-        <div className="absolute top-[20px] left-[0px] z-30 flex flex-col">
+        {/* Rumah Kiri - Delay 0s */}
+        <motion.div 
+          className="absolute top-[20px] left-[0px] z-30 flex flex-col"
+          initial={webflowLike.initial}
+          animate={webflowLike.animate}
+          transition={{ ...webflowLike.transition, delay: 0 }}
+        >
           <div
             className="border-[2px] border-black overflow-hidden bg-white shadow-lg"
             style={{
@@ -76,27 +96,37 @@ export const HeroVisualSection = () => {
             </div>
           </div>
           <InfoBox />
-        </div>
+        </motion.div>
 
-        {/* Card Tengah */}
-        <div className="absolute top-[40px] left-[200px] z-50">
+        {/* Agent Card / Card Tengah - Delay 0.4s */}
+        <motion.div 
+          className="absolute top-[40px] left-[200px] z-50"
+          initial={webflowLike.initial}
+          animate={webflowLike.animate}
+          transition={{ ...webflowLike.transition, delay: 0.4 }}
+        >
           <PropertyCardSmall />
-        </div>
+        </motion.div>
 
-        {/* Gambar Kanan */}
-        <div
+        {/* Rumah Kanan - Delay 0.2s */}
+        <motion.div
           className="absolute top-[240px] left-[265px] border-[2px] border-black rounded-[50px] overflow-hidden bg-white z-20 shadow-xl mt-[-40px]"
           style={{ width: '238px', height: '340px' }}
+          initial={webflowLike.initial}
+          animate={webflowLike.animate}
+          transition={{ ...webflowLike.transition, delay: 0.2 }}
         >
-          <Image
-            src="/images/rumahherokanan.jpg"
-            alt="Sub Property"
-            fill
-            sizes="238px"
-            className="object-cover"
-            priority
-          />
-        </div>
+          <div className="relative w-full h-full">
+            <Image
+              src="/images/rumahherokanan.jpg"
+              alt="Sub Property"
+              fill
+              sizes="238px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </motion.div>
       </div>
     </div>
   );

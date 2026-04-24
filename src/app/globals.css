@@ -119,6 +119,8 @@ body {
   }
 }
 
+
+
 @layer base {
   .font-syne { font-family: var(--font-syne), sans-serif; }
   .font-hanken { font-family: var(--font-hanken), sans-serif; }
@@ -479,6 +481,19 @@ body {
     width: calc(100% - 160px) !important;
     max-width: 900px !important;
   }
+}
+
+@media screen and (max-width: 900px) {
+    .featured-listings-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Target card ketiga saja */
+    .featured-listings-grid > div:nth-child(3) {
+        grid-column: span 2; /* Paksa card ke-3 makan 2 kolom */
+        max-width: 100% !important; /* Hapus limit lebar agar fleksibel */
+        width: 100%;
+    }
 }
 
 @media (max-width: 900px) {

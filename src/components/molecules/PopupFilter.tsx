@@ -16,6 +16,8 @@ export interface FilterOptions {
   priceRange: string;
   minYear: string;
   maxYear: string;
+  minFloorArea: string;  // ← tambahan feedback mentor
+  maxFloorArea: string;  // ← tambahan feedback mentor
 }
 
 export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contemporary', 'Traditional', 'Victorian'], onApplyFilter }: PopupFilterProps) => {
@@ -27,6 +29,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
   const [selectedPrice, setSelectedPrice] = useState('Select');
   const [selectedMinYear, setSelectedMinYear] = useState('Min Year');
   const [selectedMaxYear, setSelectedMaxYear] = useState('Max Year');
+  const [selectedMinFloorArea, setSelectedMinFloorArea] = useState('Min Area');  // ← tambahan
+  const [selectedMaxFloorArea, setSelectedMaxFloorArea] = useState('Max Area');  // ← tambahan
 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isBedOpen, setIsBedOpen] = useState(false);
@@ -34,10 +38,15 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isMinYearOpen, setIsMinYearOpen] = useState(false);
   const [isMaxYearOpen, setIsMaxYearOpen] = useState(false);
+  const [isMinFloorAreaOpen, setIsMinFloorAreaOpen] = useState(false);  // ← tambahan
+  const [isMaxFloorAreaOpen, setIsMaxFloorAreaOpen] = useState(false);  // ← tambahan
 
   const bedroomOptions = ['2 beds', '3 beds', '4 beds'];
   const bathroomOptions = ['1 bath', '2 bath', '3 bath'];
   const yearOptions = ['2020', '2021', '2022', '2023', '2024', '2025'];
+
+  // Floor area options dalam m² — sesuaikan range dengan data properti kamu
+  const floorAreaOptions = ['30', '50', '75', '100', '150', '200', '300', '500'];
 
   const priceOptionsRent = [
     { label: 'Low ($1,500 - $3,000)', value: 'low' },
@@ -107,7 +116,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
                 const isSelected = value === optionValue;
                 const isHovered = hoveredOption === optionValue;
 
-                const hasSelectedValue = value !== 'Select' && value !== 'Category' && value !== 'Min Year' && value !== 'Max Year';
+                const hasSelectedValue = value !== 'Select' && value !== 'Category' && value !== 'Min Year' && value !== 'Max Year' && value !== 'Min Area' && value !== 'Max Area';
      
                 let bgColor = '';
                 let textColor = 'text-[#1A1A1A]';
@@ -266,6 +275,28 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
         width="100%"
       />
 
+      {/* FLOOR AREA ROW ← tambahan feedback mentor */}
+      <div className="grid grid-cols-1 min-[401px]:grid-cols-2 gap-[20px] w-full">
+        <CustomDropdown
+          label="Min Floor Area (m²)"
+          value={selectedMinFloorArea}
+          options={floorAreaOptions}
+          isOpen={isMinFloorAreaOpen}
+          setIsOpen={setIsMinFloorAreaOpen}
+          setValue={setSelectedMinFloorArea}
+          width="100%"
+        />
+        <CustomDropdown
+          label="Max Floor Area (m²)"
+          value={selectedMaxFloorArea}
+          options={floorAreaOptions}
+          isOpen={isMaxFloorAreaOpen}
+          setIsOpen={setIsMaxFloorAreaOpen}
+          setValue={setSelectedMaxFloorArea}
+          width="100%"
+        />
+      </div>
+
       {/* YEAR RANGE ROW */}
       <div className="grid grid-cols-1 min-[401px]:grid-cols-2 gap-[20px] w-full">
         <CustomDropdown
@@ -299,6 +330,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
             setSelectedPrice('Select');
             setSelectedMinYear('Min Year');
             setSelectedMaxYear('Max Year');
+            setSelectedMinFloorArea('Min Area');  // ← reset tambahan
+            setSelectedMaxFloorArea('Max Area');  // ← reset tambahan
           }}
           className="w-full min-[401px]:flex-1 flex items-center justify-center gap-2 bg-[#F7F5FF] text-[#1A1A1A] rounded-[12px] font-hanken font-bold hover:bg-[#E7DCFF] transition-all"
           style={{ height: '60px' }}
@@ -315,7 +348,9 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
               bathrooms: selectedBath,
               priceRange: selectedPrice,
               minYear: selectedMinYear,
-              maxYear: selectedMaxYear
+              maxYear: selectedMaxYear,
+              minFloorArea: selectedMinFloorArea,  // ← tambahan
+              maxFloorArea: selectedMaxFloorArea,  // ← tambahan
             };
             
             if (onApplyFilter) {

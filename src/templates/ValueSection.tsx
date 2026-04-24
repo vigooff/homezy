@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion"; // 1. Import motion
 
 export const ValueSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,6 +24,29 @@ export const ValueSection = () => {
     }
   ];
 
+  // 2. Variabel Animasi
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // Jeda antar card 0.2 detik
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94], // Cubic bezier Webflow
+      },
+    },
+  };
+
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? values.length - 1 : prev - 1));
   };
@@ -36,15 +60,18 @@ export const ValueSection = () => {
       <div className="w-full max-w-[1440px] mx-auto py-[40px] px-[5%] lg:px-[10%] box-border">
         <div className="max-w-[1200px] mx-auto w-full">
         
-        {/* Header Section */}
-        <div className="
-          flex flex-col min-[901px]:flex-row min-[901px]:justify-between 
-          items-center
-          min-[901px]:items-center
-          text-center min-[901px]:text-left 
-          gap-8 w-full
-          mb-[60px]
-        ">
+        {/* Header Section - Animasi Reveal */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="
+            flex flex-col min-[901px]:flex-row min-[901px]:justify-between 
+            items-center text-center min-[901px]:text-left 
+            gap-8 w-full mb-[60px]
+          "
+        >
           <h2 className="font-syne font-bold text-[40px] md:text-[38px] lg:text-[48px] leading-[1.1] text-[#1A1A1A] max-w-[550px]">
             Comfort Is Our Top<br className="hidden min-[901px]:block"/>
             Priority For You
@@ -53,19 +80,31 @@ export const ValueSection = () => {
             We guarantee that the products we sell will make our customers happy
             because we are very concerned about our consumer satisfaction.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Desktop Grid */}
-        <div className="hidden min-[901px]:grid grid-cols-3 gap-[24px] lg:gap-[32px] w-full">
+        {/* Desktop Grid - Animasi Staggered */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="hidden min-[901px]:grid grid-cols-3 gap-[24px] lg:gap-[32px] w-full"
+        >
           {values.map((item, index) => (
-            <div key={index} className="w-full flex justify-center">
+            <motion.div key={index} variants={cardVariants} className="w-full flex justify-center">
                <ValueCard {...item} />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Mobile Carousel */}
-        <div className="hidden max-[900px]:flex flex-col items-center gap-8">
+        {/* Mobile Carousel - Animasi Reveal */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="hidden max-[900px]:flex flex-col items-center gap-8"
+        >
           <div className="w-full max-w-[400px]">
             <ValueCard {...values[currentIndex]} />
           </div>
@@ -88,7 +127,7 @@ export const ValueSection = () => {
               </svg>
             </button>
           </div>
-        </div>
+        </motion.div>
         </div>
       </div>
     </section>
@@ -109,9 +148,8 @@ const ValueCard = ({ icon, title, description }: any) => (
     h-[352px] 
     transition-all 
     hover:shadow-lg
+    hover:-translate-y-2 // Efek angkat sedikit saat hover agar lebih interaktif
   ">
-    
-    {/* Icon Container 90x90 */}
     <div className="w-[90px] h-[90px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center shrink-0">
       <Image src={icon} alt={title} width={48} height={48} />
     </div>
