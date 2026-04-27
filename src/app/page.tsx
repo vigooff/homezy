@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { HeroSection } from "../templates/HeroSection";
 import { FeaturedSection } from "../templates/FeaturedSection";
 import { ValueSection } from "../templates/ValueSection";
@@ -15,23 +16,25 @@ export default async function Home() {
   const properties = propertiesData.properties;
 
   return (
-    <div className="w-full bg-[#FBFAFF]">
-      <HeroSection />
-      <div className="flex flex-col w-full relative z-0">
-        {properties.length > 0 ? (
-          <FeaturedSection properties={properties} />
-        ) : (
-          <div className="py-20 text-center text-gray-500">
-            No properties available at the moment.
-          </div>
-        )}
-        <ValueSection />
-        <CategorySection />
-        <CitySection />
-        <AgentSection />
-        <FeedbackSection />
-        <SubscribeSection />
+    <Suspense fallback={null}>
+      <div className="w-full bg-[#FBFAFF]">
+        <HeroSection />
+        <div className="flex flex-col w-full relative z-0">
+          {properties.length > 0 ? (
+            <FeaturedSection properties={properties} />
+          ) : (
+            <div className="py-20 text-center text-gray-500">
+              No properties available at the moment.
+            </div>
+          )}
+          <ValueSection />
+          <CategorySection />
+          <CitySection />
+          <AgentSection />
+          <FeedbackSection />
+          <SubscribeSection />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
