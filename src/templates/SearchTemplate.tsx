@@ -106,8 +106,8 @@ export const SearchTemplate = () => {
     let cancelled = false;
     const fetchAll = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-        const res = await fetch(`${baseUrl}/api/properties?per_page=100`);
+        // ✅ FIX: Menggunakan relative path, tidak perlu baseUrl
+        const res = await fetch(`/api/properties?per_page=100`);
         const json = await res.json();
         if (!cancelled) setAllProperties(json.data || []);
       } catch (err) {
@@ -163,8 +163,8 @@ export const SearchTemplate = () => {
       params.set("per_page", itemsPerPage.toString());
 
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-        const res = await fetch(`${baseUrl}/api/properties?${params.toString()}`);
+        // ✅ FIX: Menggunakan relative path, tidak perlu baseUrl
+        const res = await fetch(`/api/properties?${params.toString()}`);
         const json = await res.json();
         if (!cancelled) {
           setResults(json.data || []);
@@ -213,8 +213,8 @@ export const SearchTemplate = () => {
       params.set("per_page", "100");
 
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-        const res = await fetch(`${baseUrl}/api/properties?${params.toString()}`);
+        // ✅ FIX: Menggunakan relative path, tidak perlu baseUrl
+        const res = await fetch(`/api/properties?${params.toString()}`);
         const json = await res.json();
         if (!cancelled) setMapProperties(json.data || []);
       } catch (err) {
@@ -652,10 +652,10 @@ export const SearchTemplate = () => {
                     )}
                   </div>
                   <div className="flex items-center gap-3 relative" style={{ top: '-32px', right: '0px' }}>
-                    <button className="flex items-center justify-center bg-[#F0EBFF] border border-[#1A1A1A] transition-all" style={{ width: '36px', height: '36px', padding: '8px', borderRadius: '8px', gap: '8px' }}>
+                    <button className="flex items-center justify-center bg-[#F0EBFF] border border-[#1A1A1A] transition-all" style={{ width: "36px", height: "36px", padding: "8px", borderRadius: "8px", gap: "8px" }}>
                       <Image src="/icons/menu-search.svg" alt="Grid View" width={20} height={20} />
                     </button>
-                    <button className="flex items-center justify-center bg-transparent border-none transition-all" style={{ width: '36px', height: '36px', padding: '8px', opacity: 1 }}>
+                    <button className="flex items-center justify-center bg-transparent border-none transition-all" style={{ width: "36px", height: "36px", padding: "8px", opacity: 1 }}>
                       <Image src="/icons/menu-search2.svg" alt="List View" width={20} height={20} />
                     </button>
                   </div>
