@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { CategoryCard } from "../components/organisms/CategoryCard";
 import { Category } from "../types/category";
 import { ArrowRight, ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion"; // Hapus AnimatePresence
+import { motion } from "framer-motion";
 
 export const CategorySection = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -31,7 +31,6 @@ export const CategorySection = () => {
 
   const displayCategories = isExpanded ? categories : initialCategories;
 
-  // Preset animasi scroll biar tetap seragam dengan section lain
   const revealAnimation = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
@@ -45,7 +44,7 @@ export const CategorySection = () => {
         
         <div className="max-w-[1200px] mx-auto w-full">
           
-          {/* Header Section - Tetap pakai animasi scroll */}
+          {/* Header Section */}
           <motion.div 
             {...revealAnimation}
             className="flex justify-between items-center mb-[50px] w-full max-[900px]:flex-col max-[900px]:text-center gap-4 min-[901px]:h-[56px]"
@@ -72,12 +71,11 @@ export const CategorySection = () => {
             </button>
           </motion.div>
 
-          {/* Grid Categories - Animasi hanya saat pertama kali muncul di layar */}
+          {/* Grid Categories */}
           <div className="grid grid-cols-1 min-[901px]:grid-cols-3 gap-[24px] lg:gap-[30px] w-full justify-items-center">
             {displayCategories.map((category: Category, index: number) => (
               <motion.div 
                 key={category.id} 
-                // Animasi ini hanya aktif saat discroll masuk layar (viewport)
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

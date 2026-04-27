@@ -23,7 +23,6 @@ export const PropertyCardSearch: React.FC<PropertyCardSearchProps> = ({ property
     }
   }, []);
 
-  // Don't render anything until mounted (avoid hydration mismatch)
   if (!isMounted) return null;
 
   // ─── Breakpoints ─────────────────────────────────────────────────────────

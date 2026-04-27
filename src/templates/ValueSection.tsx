@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion"; // 1. Import motion
+import { motion } from "framer-motion";
 
 export const ValueSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,13 +24,12 @@ export const ValueSection = () => {
     }
   ];
 
-  // 2. Variabel Animasi
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Jeda antar card 0.2 detik
+        staggerChildren: 0.2,
       },
     },
   };
@@ -42,7 +41,7 @@ export const ValueSection = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94], // Cubic bezier Webflow
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
@@ -60,7 +59,7 @@ export const ValueSection = () => {
       <div className="w-full max-w-[1440px] mx-auto py-[40px] px-[5%] lg:px-[10%] box-border">
         <div className="max-w-[1200px] mx-auto w-full">
         
-        {/* Header Section - Animasi Reveal */}
+        {/* Header Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +81,7 @@ export const ValueSection = () => {
           </p>
         </motion.div>
 
-        {/* Desktop Grid - Animasi Staggered */}
+        {/* Desktop Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -97,7 +96,6 @@ export const ValueSection = () => {
           ))}
         </motion.div>
 
-        {/* Mobile Carousel - Animasi Reveal */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}

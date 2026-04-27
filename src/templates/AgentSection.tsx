@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion"; // 1. Import motion
+import { motion } from "framer-motion";
 import { AgentCard } from "../components/organisms/AgentCard";
 import { Agent } from "../types/agent";
 import { ArrowRight } from "lucide-react";
@@ -36,12 +36,11 @@ export const AgentSection = () => {
     }
   };
 
-  // Preset animasi konsisten
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 } // Jeda antar card sedikit lebih cepat karena jumlahnya 6
+      transition: { staggerChildren: 0.15 }
     }
   };
 
@@ -58,7 +57,7 @@ export const AgentSection = () => {
     <section className="w-full bg-[#FBFAFF] py-[100px] overflow-hidden">
       <div className="max-w-[1168px] mx-auto px-4 max-[450px]:px-[20px]">
         
-        {/* Header Section - Reveal Animation */}
+        {/* Header Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +76,7 @@ export const AgentSection = () => {
           </button>
         </motion.div>
 
-        {/* Desktop Grid - Staggered Reveal */}
+        {/* Desktop Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -96,7 +95,7 @@ export const AgentSection = () => {
           ))}
         </motion.div>
 
-        {/* Mobile/Tablet View - Fade In Only */}
+        {/* Mobile/Tablet View */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

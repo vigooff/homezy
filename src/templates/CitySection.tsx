@@ -24,7 +24,6 @@ export const CitySection = () => {
     fetchCities();
   }, []);
 
-  // Konfigurasi Animasi Konsisten
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -51,7 +50,7 @@ export const CitySection = () => {
         {/* Inner Wrapper */}
         <div className="max-w-[1200px] mx-auto w-full flex flex-col items-center min-[901px]:items-stretch">
           
-          {/* Header Section - Reveal Animation */}
+          {/* Header Section */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +69,7 @@ export const CitySection = () => {
             </button>
           </motion.div>
 
-          {/* Desktop Grid - Staggered Animation */}
+          {/* Desktop Grid */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
@@ -90,7 +89,7 @@ export const CitySection = () => {
             ))}
           </motion.div>
 
-          {/* Mobile Carousel - Soft Pop Animation */}
+          {/* Mobile Carousel */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}

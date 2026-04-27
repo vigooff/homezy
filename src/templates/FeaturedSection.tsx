@@ -19,13 +19,12 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
     .filter(p => p.id !== featuredMain.id)
     .slice(0, 3);
 
-  // Konfigurasi Animasi Webflow Style
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Jeda 0.2 detik antar anak elemen
+        staggerChildren: 0.2,
       },
     },
   };
@@ -37,7 +36,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94], // Cubic-bezier khas Webflow
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
@@ -51,7 +50,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
         {/* Inner Wrapper */}
         <div className="max-w-[1200px] mx-auto w-full">
           
-          {/* Header Section - Reveal dari kiri */}
+          {/* Header Section */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -76,7 +75,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
 
           <div className="flex flex-col items-center gap-[40px] w-full">
             
-            {/* Card Besar - Reveal Utama */}
+            {/* Card Besar */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 40 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -87,7 +86,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
               <PropertyCardLarge property={featuredMain} />
             </motion.div>
 
-            {/* List Card Kecil - Staggered Reveal */}
+            {/* List Card Kecil */}
             {otherFeatured.length > 0 && (
               <motion.div
                 variants={containerVariants}

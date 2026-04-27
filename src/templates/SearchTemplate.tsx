@@ -19,8 +19,6 @@ const MapProvider = dynamic(
   }
 );
 
-// ─── Animation Variants (FIXED FOR NEXT.JS 16 & TYPESCRIPT) ─────────────────────
-// Mengganti nama key dari 'initial/whileInView' ke 'hidden/visible' agar sesuai dengan tipe Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 },
@@ -71,11 +69,11 @@ export const SearchTemplate = () => {
   const [pagination, setPagination] = useState<PaginationMeta>(EMPTY_PAGINATION);
   const [isLoading, setIsLoading] = useState(false);
 
-  // ── Popup filter state (dikirim ke API sebagai params) ────────────────
+  // ── Popup filter state ────────────────────────────────────────────────
   const [apiFilters, setApiFilters] = useState({ ...EMPTY_API_FILTERS });
   const [activeFilters, setActiveFilters] = useState<FilterOptions | null>(null);
 
-  // ── Location options (fetch sekali untuk dropdown) ────────────────────
+  // ── Location options ──────────────────────────────────────────────────
   const [allProperties, setAllProperties] = useState<Property[]>([]);
 
   // ── Responsive ────────────────────────────────────────────────────────
@@ -103,7 +101,7 @@ export const SearchTemplate = () => {
     }
   }, [isMounted, windowWidth]);
 
-  // ── Fetch semua property sekali untuk location dropdown ───────────────
+  // ── Fetch semua property sekali untuk location dropdown ──
   useEffect(() => {
     let cancelled = false;
     const fetchAll = async () => {
@@ -127,12 +125,12 @@ export const SearchTemplate = () => {
   const isDesktop     = isMounted && windowWidth >= 1200;
   const itemsPerPage  = isMidRange ? 4 : 3;
 
-  // ── Reset ke page 1 saat filter berubah ──────────────────────────────
+  // ── Reset ke page 1 saat filter berubah ───
   useEffect(() => {
     setCurrentPage(1);
   }, [searchParams, apiFilters]);
 
-  // ── Fetch hasil search dari API ───────────────────────────────────────
+  // ── Fetch hasil search dari API ───
   useEffect(() => {
     let cancelled = false;
 
@@ -142,7 +140,6 @@ export const SearchTemplate = () => {
 
       const params = new URLSearchParams();
 
-      // Dari URL (search card)
       const loc  = searchParams.get("loc");
       const prc  = searchParams.get("price");
       const tp   = searchParams.get("type");
@@ -151,7 +148,6 @@ export const SearchTemplate = () => {
       if (prc && prc !== "Any Price") params.set("price", prc);
       if (tp && tp !== "Any Type") params.set("type", tp);
 
-      // Dari popup filter state
       if (apiFilters.purpose)       params.set("purpose", apiFilters.purpose);
       if (apiFilters.category)      params.set("category", apiFilters.category);
       if (apiFilters.bedroom)       params.set("bedroom", apiFilters.bedroom);
@@ -188,7 +184,6 @@ export const SearchTemplate = () => {
     return () => { cancelled = true; };
   }, [searchParams, apiFilters, currentPage, itemsPerPage, isMounted]);
 
-  // ── Fetch semua hasil filter untuk map (tanpa pagination) ────────────
   const [mapProperties, setMapProperties] = useState<Property[]>([]);
 
   useEffect(() => {
@@ -213,8 +208,8 @@ export const SearchTemplate = () => {
       if (apiFilters.maxPrice)      params.set("max_price", apiFilters.maxPrice);
       if (apiFilters.minYear)       params.set("min_year", apiFilters.minYear);
       if (apiFilters.maxYear)       params.set("max_year", apiFilters.maxYear);
-      if (apiFilters.minFloorArea)  params.set("min_floor_area", apiFilters.minFloorArea);  // ← tambahan
-      if (apiFilters.maxFloorArea)  params.set("max_floor_area", apiFilters.maxFloorArea);  // ← tambahan
+      if (apiFilters.minFloorArea)  params.set("min_floor_area", apiFilters.minFloorArea);
+      if (apiFilters.maxFloorArea)  params.set("max_floor_area", apiFilters.maxFloorArea);
       params.set("per_page", "100");
 
       try {
@@ -233,35 +228,28 @@ export const SearchTemplate = () => {
 
   const memoizedProperties = useMemo(() => mapProperties, [mapProperties]);
 
-  // ── Callback dari SearchPropertiesCard ────────────────────────────────
+  // ── Callback dari SearchPropertiesCard ───
   const handleSearch = useCallback(() => {
-    // URL sudah diupdate oleh useSearchFields via router.replace
-    // useEffect di atas otomatis terpicu
   }, []);
 
-  // ── Popup filter: parse FilterOptions → apiFilters ───────────────────
+  // ── Popup filter ───
   const handleApplyFilter = (filters: FilterOptions) => {
     setActiveFilters(filters);
 
-    // Map status → purpose
     let purpose = '';
     if (filters.status === 'Sale') purpose = 'for_sale';
     else if (filters.status === 'Rent') purpose = 'for_rent';
 
-    // Category
     const category = filters.category !== 'Category' ? filters.category : '';
 
-    // Bedroom: "2 beds" → "2"
     let bedroom = '';
     const bedMatch = filters.bedrooms.match(/(\d+)/);
     if (bedMatch) bedroom = bedMatch[1];
 
-    // Bathroom: "1 bath" → "1"
     let bathroom = '';
     const bathMatch = filters.bathrooms.match(/(\d+)/);
     if (bathMatch) bathroom = bathMatch[1];
 
-    // Price: parse label seperti "Low ($1,500 - $3,000)"
     let minPrice = '';
     let maxPrice = '';
     if (filters.priceRange !== 'Select') {
@@ -278,7 +266,6 @@ export const SearchTemplate = () => {
     const minYear = filters.minYear !== 'Min Year' ? filters.minYear : '';
     const maxYear = filters.maxYear !== 'Max Year' ? filters.maxYear : '';
 
-    // Floor area: langsung dari FilterOptions (sudah type-safe)
     const minFloorArea = filters.minFloorArea !== 'Min Area' ? filters.minFloorArea : '';
     const maxFloorArea = filters.maxFloorArea !== 'Max Area' ? filters.maxFloorArea : '';
 
@@ -302,7 +289,7 @@ export const SearchTemplate = () => {
     router.replace('/search', { scroll: false });
   };
 
-  // ── Pagination (dari API) ────────────────────────────────────────────
+  // ── Pagination (dari API) ──
   const totalPages = pagination.total_pages;
   const startIndex = (pagination.current_page - 1) * pagination.per_page;
   const endIndex   = Math.min(startIndex + pagination.per_page, pagination.total_items);
@@ -337,13 +324,11 @@ export const SearchTemplate = () => {
     if (activeFilters.priceRange !== 'Select') count++;
     if (activeFilters.minYear !== 'Min Year') count++;
     if (activeFilters.maxYear !== 'Max Year') count++;
-    // floor area juga dihitung jika ada
     if (activeFilters.minFloorArea && activeFilters.minFloorArea !== 'Min Area') count++;
     if (activeFilters.maxFloorArea && activeFilters.maxFloorArea !== 'Max Area') count++;
     return count;
   };
 
-  // ── Loading skeleton ──────────────────────────────────────────────────
   const CardSkeleton = () => (
     <div className="w-full rounded-[15px] bg-gray-100 animate-pulse" style={{ height: isDesktop ? "200px" : "220px" }} />
   );
@@ -642,7 +627,7 @@ export const SearchTemplate = () => {
           </div>
         )}
 
-        {/* ── DESKTOP LAYOUT (≥1200px) ───────────────────── */}
+        {/* ── DESKTOP LAYOUT (≥1200px) */}
         {isDesktop && (
           <div className="max-w-[1440px] mx-auto px-[60px] max-[1300px]:px-[40px] py-10 mb-[8%]">
             <div className="flex flex-row gap-[40px] max-[1300px]:gap-[24px] items-start relative">

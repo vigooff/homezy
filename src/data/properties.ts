@@ -17,7 +17,7 @@ export const propertiesData: Property[] = [
     description: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation",
     bedrooms: 4,
     bathrooms: 4,
-    squareArea: 120, // <--- DIUBAH DARI 6 KE 120 (Sesuai opsi filter 100+)
+    squareArea: 120,
     design: "Modern Loft",
     yearBuilt: 2022,
     agent: { id: "agent-1", name: "Edwin Martins", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Edwin+Martins&size=200", phone: "+1234567890" },
@@ -38,7 +38,7 @@ export const propertiesData: Property[] = [
     description: "Beautiful beach house with modern amenities",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 150, // <--- DIUBAH DARI 5 KE 150
+    squareArea: 150,
     design: "Contemporary",
     yearBuilt: 2020,
     agent: { id: "agent-2", name: "Sarah Johnson", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Sarah+Johnson&size=200" },
@@ -59,7 +59,7 @@ export const propertiesData: Property[] = [
     description: "Stunning penthouse with panoramic city views",
     bedrooms: 2,
     bathrooms: 2,
-    squareArea: 80, // <--- DIUBAH DARI 4 KE 80
+    squareArea: 80,
     design: "Modern Loft",
     yearBuilt: 2024,
     agent: { id: "agent-3", name: "David Martinez", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=David+Martinez&size=200", phone: "+1234567891" },
@@ -80,7 +80,7 @@ export const propertiesData: Property[] = [
     description: "Modern coastal villa with ocean access",
     bedrooms: 4,
     bathrooms: 4,
-    squareArea: 320, // <--- DIUBAH DARI 9 KE 320
+    squareArea: 320,
     design: "Contemporary",
     yearBuilt: 2024,
     agent: { id: "agent-4", name: "Brian Martinez", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Brian+Martinez&size=200" },
@@ -101,7 +101,7 @@ export const propertiesData: Property[] = [
     description: "Elegant property in prime location",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 110, // <--- DIUBAH DARI 5 KE 110
+    squareArea: 110,
     design: "Victorian",
     yearBuilt: 2023,
     agent: { id: "agent-5", name: "Emma Wilson", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Emma+Wilson&size=200" },
@@ -122,7 +122,7 @@ export const propertiesData: Property[] = [
     description: "Industrial-chic loft in London's financial district",
     bedrooms: 2,
     bathrooms: 1,
-    squareArea: 75, // <--- DIUBAH DARI 4 KE 75
+    squareArea: 75,
     design: "Modern Loft",
     yearBuilt: 2021,
     agent: { id: "agent-6", name: "Nicole Rodriguez", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Nicole+Rodriguez&size=200" },
@@ -143,7 +143,7 @@ export const propertiesData: Property[] = [
     description: "Classic Victorian townhouse with modern updates in prestigious Kensington",
     bedrooms: 3,
     bathrooms: 3,
-    squareArea: 180, // <--- DIUBAH DARI 6 KE 180
+    squareArea: 180,
     design: "Victorian",
     yearBuilt: 2021,
     agent: { id: "agent-7", name: "Kevin Walker", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Kevin+Walker&size=200", phone: "+1234567894" },
@@ -164,7 +164,7 @@ export const propertiesData: Property[] = [
     description: "Cozy family home in quiet neighborhood near the historic center",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 130, // <--- DIUBAH DARI 5 KE 130
+    squareArea: 130,
     design: "Traditional",
     yearBuilt: 2021,
     agent: { id: "agent-8", name: "Michael Chen", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Michael+Chen&size=200" },
@@ -185,7 +185,7 @@ export const propertiesData: Property[] = [
     description: "Charming apartment in the bohemian Trastevere neighbourhood",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 95, // <--- DIUBAH DARI 5 KE 95
+    squareArea: 95,
     design: "Contemporary",
     yearBuilt: 2022,
     agent: { id: "agent-9", name: "Rachel Lewis", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Rachel+Lewis&size=200" },
@@ -206,7 +206,7 @@ export const propertiesData: Property[] = [
     description: "Luxury villa in Rome's most prestigious residential district",
     bedrooms: 4,
     bathrooms: 3,
-    squareArea: 450, // <--- DIUBAH DARI 8 KE 450
+    squareArea: 450,
     design: "Victorian",
     yearBuilt: 2021,
     agent: { id: "agent-10", name: "Christopher Brown", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Christopher+Brown&size=200", phone: "+1234567892" },
@@ -227,7 +227,7 @@ export const propertiesData: Property[] = [
     description: "Peaceful retreat in the heart of Le Marais",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 85, // <--- DIUBAH DARI 5 KE 85
+    squareArea: 85,
     design: "Traditional",
     yearBuilt: 2020,
     agent: { id: "agent-11", name: "Daniel Harris", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Daniel+Harris&size=200" },
@@ -248,7 +248,7 @@ export const propertiesData: Property[] = [
     description: "Luxury home with breathtaking views over Paris from Montmartre",
     bedrooms: 4,
     bathrooms: 3,
-    squareArea: 220, // <--- DIUBAH DARI 7 KE 220
+    squareArea: 220,
     design: "Modern Loft",
     yearBuilt: 2023,
     agent: { id: "agent-12", name: "Michelle Garcia", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Michelle+Garcia&size=200", phone: "+1234567893" },
@@ -269,7 +269,7 @@ export const propertiesData: Property[] = [
     description: "Sleek modern condo in the prestigious Saint-Germain-des-Prés",
     bedrooms: 2,
     bathrooms: 2,
-    squareArea: 75, // <--- DIUBAH DARI 4 KE 75
+    squareArea: 75,
     design: "Modern Loft",
     yearBuilt: 2024,
     agent: { id: "agent-13", name: "Gregory Allen", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Gregory+Allen&size=200" },
@@ -290,7 +290,7 @@ export const propertiesData: Property[] = [
     description: "Luxury beachfront-style property with private terrace overlooking the Yangtze River",
     bedrooms: 4,
     bathrooms: 3,
-    squareArea: 280, // <--- DIUBAH DARI 7 KE 280
+    squareArea: 280,
     design: "Contemporary",
     yearBuilt: 2022,
     agent: { id: "agent-14", name: "Lisa Anderson", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Lisa+Anderson&size=200" },
@@ -311,7 +311,7 @@ export const propertiesData: Property[] = [
     description: "Modern apartment with panoramic river views in downtown Chongqing",
     bedrooms: 2,
     bathrooms: 1,
-    squareArea: 55, // <--- DIUBAH DARI 3 KE 55
+    squareArea: 55,
     design: "Modern Loft",
     yearBuilt: 2023,
     agent: { id: "agent-15", name: "Jennifer Taylor", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Jennifer+Taylor&size=200" },
@@ -332,7 +332,7 @@ export const propertiesData: Property[] = [
     description: "Charming hillside villa with beautiful terrace overlooking the city",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 160, // <--- DIUBAH DARI 4 KE 160
+    squareArea: 160,
     design: "Traditional",
     yearBuilt: 2020,
     agent: { id: "agent-16", name: "Robert Lee", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Robert+Lee&size=200" },
@@ -353,7 +353,7 @@ export const propertiesData: Property[] = [
     description: "Exclusive waterfront living with private dock on the Jialing River",
     bedrooms: 4,
     bathrooms: 3,
-    squareArea: 350, // <--- DIUBAH DARI 8 KE 350
+    squareArea: 350,
     design: "Contemporary",
     yearBuilt: 2025,
     agent: { id: "agent-17", name: "Melissa Young", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Melissa+Young&size=200", phone: "+1234567895" },
@@ -374,7 +374,7 @@ export const propertiesData: Property[] = [
     description: "Spacious loft with stunning views of West Lake — UNESCO World Heritage site",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 150, // <--- DIUBAH DARI 6 KE 150
+    squareArea: 150,
     design: "Contemporary",
     yearBuilt: 2024,
     agent: { id: "agent-18", name: "Amanda White", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Amanda+White&size=200" },
@@ -395,7 +395,7 @@ export const propertiesData: Property[] = [
     description: "Family-friendly home in Hangzhou's Silicon Valley tech corridor",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 125, // <--- DIUBAH DARI 5 KE 125
+    squareArea: 125,
     design: "Traditional",
     yearBuilt: 2023,
     agent: { id: "agent-19", name: "Laura Hall", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Laura+Hall&size=200" },
@@ -416,7 +416,7 @@ export const propertiesData: Property[] = [
     description: "Beautifully positioned home adjacent to the Xixi National Wetland Park",
     bedrooms: 3,
     bathrooms: 2,
-    squareArea: 190, // <--- DIUBAH DARI 6 KE 190
+    squareArea: 190,
     design: "Victorian",
     yearBuilt: 2020,
     agent: { id: "agent-20", name: "Steven Clark", role: "Property Advisor", avatar: "https://ui-avatars.com/api/?name=Steven+Clark&size=200" },

@@ -9,17 +9,14 @@ export const Navbar = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
   
-  // State untuk mengontrol visibilitas navbar (slide up/down)
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
 
-  // Logika deteksi scroll untuk menyembunyikan navbar
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-    // Jika scroll ke bawah dan sudah melewati area header (100px), sembunyikan
     if (latest > previous && latest > 100) {
       setHidden(true);
-      setIsOpen(false); // Otomatis tutup menu mobile jika scroll ke bawah
+      setIsOpen(false);
     } else {
       setHidden(false);
     }
@@ -53,7 +50,6 @@ export const Navbar = () => {
         .nav-dropdown-exit  { animation: slideUp  0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
       `}</style>
 
-      {/* Gunakan motion.nav untuk animasi hide/show */}
       <motion.nav 
         variants={{
           visible: { y: 0 },
@@ -67,7 +63,7 @@ export const Navbar = () => {
           backgroundColor: '#FBFAFF', 
           position: 'fixed', 
           top: 0,
-          zIndex: 999, // <--- PERBAIKAN: Naikkan z-index agar selalu di atas filter/animasi
+          zIndex: 999,
           display: 'flex', 
           justifyContent: 'center',
           boxShadow: scrollY.get() > 50 ? '0 4px 20px rgba(0,0,0,0.05)' : 'none' 

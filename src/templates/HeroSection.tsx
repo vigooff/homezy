@@ -6,7 +6,6 @@ import { HeroSearchCard, HeroVisualSection } from "../components/organisms";
 import propertiesDataJson from "../data/properties";
 import { PropertiesData } from "../types/properties";
 
-// Cast dulu ke PropertiesData, lalu ambil array-nya — sama persis seperti Home page
 const propertiesData = (propertiesDataJson as PropertiesData).properties;
 
 export const HeroSection = () => {
@@ -21,7 +20,6 @@ export const HeroSection = () => {
 
   return (
     <div className="relative z-10 w-full bg-[#FBFAFF]">
-      {/* Background Pattern tetap statis atau bisa diberi fade-in tipis */}
       <div className="absolute top-0 right-0 w-full h-full pointer-events-none -z-10">
         <div className="relative w-full h-full">
           <Image
@@ -39,8 +37,6 @@ export const HeroSection = () => {
 
           {/* KOLOM KIRI */}
           <div className="flex flex-col z-20 pt-10 flex-1 min-w-0 max-w-[650px] relative max-[1280px]:items-center max-[1280px]:w-full max-[1280px]:max-w-[700px] max-[900px]:max-w-full">
-
-            {/* Animasi untuk HeroContent */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -50,7 +46,6 @@ export const HeroSection = () => {
             </motion.div>
 
             <div className="mt-12 lg:mt-[88px] relative h-[100px] w-full max-[1280px]:h-auto">
-              {/* Animasi untuk HeroSearchCard dengan delay sedikit agar muncul setelah content */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}

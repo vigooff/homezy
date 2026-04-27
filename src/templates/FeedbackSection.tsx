@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion";
 import { FeedbackCard } from "../components/organisms/FeedbackCard";
 
 interface Feedback {
@@ -45,7 +45,7 @@ export const FeedbackSection = () => {
     <section className="w-full bg-[#FBFAFF] relative overflow-hidden py-[100px] max-[900px]:py-[60px]">
       <div className="max-w-100 mx-auto flex flex-col items-center">
         
-        {/* Header - Animasi Konsisten */}
+        {/* Header */}
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export const FeedbackSection = () => {
           Kind Words From Our Customers
         </motion.h2>
 
-        {/* Carousel Wrapper - Animasi Reveal Tanpa Ganggu Track */}
+        {/* Carousel Wrapper */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -81,7 +81,7 @@ export const FeedbackSection = () => {
           </div>
         </motion.div>
 
-        {/* Slider Mobile - Animasi Soft Reveal */}
+        {/* Slider Mobil */}
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -98,7 +98,7 @@ export const FeedbackSection = () => {
           </div>
         </motion.div>
 
-        {/* Tombol Navigasi - Animasi Fade In */}
+        {/* Tombol Navigasi */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

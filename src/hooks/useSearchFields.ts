@@ -23,7 +23,6 @@ export const useSearchFields = ({ properties, mode, onSearch }: UseSearchFieldsP
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
 
-  // ── Sync state dengan URL params (agar search card ikut update) ───────
   useEffect(() => {
     setLocation(searchParams.get("loc") || "Any Location");
     setPrice(searchParams.get("price") || "Any Price");
@@ -79,7 +78,6 @@ export const useSearchFields = ({ properties, mode, onSearch }: UseSearchFieldsP
     if (mode === "hero") {
       router.push(path);
     } else {
-      // router.replace agar useSearchParams terpicu di SearchTemplate
       router.replace(path, { scroll: false });
     }
   };

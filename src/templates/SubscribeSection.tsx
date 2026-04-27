@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion"; // 1. Import motion
+import { motion } from "framer-motion";
 import { Container } from '../components/atoms/Container';
 import { SubscribeCard } from '../components/organisms/SubscribeCard';
 
@@ -8,7 +8,6 @@ export const SubscribeSection = () => {
   return (
     <section className="w-full bg-[#FBFAFF] py-[100px] flex justify-center items-center overflow-hidden">
       <div className="w-full max-w-[1440px] mx-auto px-[5%] lg:px-[10%] box-border">
-        {/* Wrapper Animasi - Scale + Fade In */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -50,7 +49,6 @@ export const SubscribeFormInternal = () => {
         required
       />      
       
-      {/* Animasi simple pada button saat diklik/hover */}
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.95 }}

@@ -10,8 +10,6 @@ interface SearchPropertiesCardProps {
   properties?: Property[];
 }
 
-// ─── Dropdown dengan position:absolute, lebar mengikuti parent field ──────────
-
 function DropdownList({
   options,
   value,

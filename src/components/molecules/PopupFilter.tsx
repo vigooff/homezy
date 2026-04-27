@@ -18,8 +18,8 @@ export interface FilterOptions {
   priceRange: string;
   minYear: string;
   maxYear: string;
-  minFloorArea: string;  // ← tambahan feedback mentor
-  maxFloorArea: string;  // ← tambahan feedback mentor
+  minFloorArea: string;
+  maxFloorArea: string;
 }
 
 export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contemporary', 'Traditional', 'Victorian'], onApplyFilter }: PopupFilterProps) => {
@@ -31,8 +31,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
   const [selectedPrice, setSelectedPrice] = useState('Select');
   const [selectedMinYear, setSelectedMinYear] = useState('Min Year');
   const [selectedMaxYear, setSelectedMaxYear] = useState('Max Year');
-  const [selectedMinFloorArea, setSelectedMinFloorArea] = useState('Min Area');  // ← tambahan
-  const [selectedMaxFloorArea, setSelectedMaxFloorArea] = useState('Max Area');  // ← tambahan
+  const [selectedMinFloorArea, setSelectedMinFloorArea] = useState('Min Area');
+  const [selectedMaxFloorArea, setSelectedMaxFloorArea] = useState('Max Area');
 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isBedOpen, setIsBedOpen] = useState(false);
@@ -40,8 +40,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isMinYearOpen, setIsMinYearOpen] = useState(false);
   const [isMaxYearOpen, setIsMaxYearOpen] = useState(false);
-  const [isMinFloorAreaOpen, setIsMinFloorAreaOpen] = useState(false);  // ← tambahan
-  const [isMaxFloorAreaOpen, setIsMaxFloorAreaOpen] = useState(false);  // ← tambahan
+  const [isMinFloorAreaOpen, setIsMinFloorAreaOpen] = useState(false);
+  const [isMaxFloorAreaOpen, setIsMaxFloorAreaOpen] = useState(false);
 
   const bedroomOptions = ['2 beds', '3 beds', '4 beds'];
   const bathroomOptions = ['1 bath', '2 bath', '3 bath'];
@@ -277,7 +277,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
         width="100%"
       />
 
-      {/* FLOOR AREA ROW ← tambahan feedback mentor */}
+      {/* FLOOR AREA ROW */}
       <div className="grid grid-cols-1 min-[401px]:grid-cols-2 gap-[20px] w-full">
         <CustomDropdown
           label="Min Floor Area (m²)"
@@ -332,8 +332,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
             setSelectedPrice('Select');
             setSelectedMinYear('Min Year');
             setSelectedMaxYear('Max Year');
-            setSelectedMinFloorArea('Min Area');  // ← reset tambahan
-            setSelectedMaxFloorArea('Max Area');  // ← reset tambahan
+            setSelectedMinFloorArea('Min Area');
+            setSelectedMaxFloorArea('Max Area');
           }}
           className="w-full min-[401px]:flex-1 flex items-center justify-center gap-2 bg-[#F7F5FF] text-[#1A1A1A] rounded-[12px] font-hanken font-bold hover:bg-[#E7DCFF] transition-all"
           style={{ height: '60px' }}
@@ -351,8 +351,8 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
               priceRange: selectedPrice,
               minYear: selectedMinYear,
               maxYear: selectedMaxYear,
-              minFloorArea: selectedMinFloorArea,  // ← tambahan
-              maxFloorArea: selectedMaxFloorArea,  // ← tambahan
+              minFloorArea: selectedMinFloorArea,
+              maxFloorArea: selectedMaxFloorArea,
             };
             
             if (onApplyFilter) {

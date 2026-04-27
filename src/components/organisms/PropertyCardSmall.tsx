@@ -35,9 +35,6 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({
         ${className}
       `}
       style={{
-        /* Menghapus kalkulasi fixed 50% agar lebar card fleksibel 
-           mengikuti kolom grid (terutama saat span 2 di layar < 900px)
-        */
         maxWidth: isLastCard ? '100%' : '400px',
       }}
     >

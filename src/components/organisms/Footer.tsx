@@ -24,7 +24,7 @@ export const Footer = () => {
 
   return (
     <footer className="w-full bg-[#FBFAFF] flex flex-col items-center relative z-10 overflow-x-hidden">
-      {/* Container 1440px - Padding konsisten dengan Subscribe Section */}
+      {/* Container 1440px */}
       <div className="w-full max-w-[1440px] mx-auto px-[5%] lg:px-[10%] box-border pt-10 pb-[4%]">
         
         {/* Inner Wrapper 1200px */}
@@ -37,11 +37,9 @@ export const Footer = () => {
           style={{
             flexDirection: isSmall ? 'column' : 'row',
             justifyContent: 'space-between', 
-            // PERBAIKAN: Gunakan 'center' untuk isSmall (600px-900px) supaya tidak ke kiri
             alignItems: isSmall ? 'center' : 'flex-start',
             gap: isSmall ? '40px' : '60px',
             minHeight: '330px',
-            // Memastikan teks di dalam juga memusat
             textAlign: isSmall ? 'center' : 'left',
           }}
         > 
@@ -52,7 +50,6 @@ export const Footer = () => {
                 width: isSmall ? '100%' : 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                // Memastikan logo dan ikon sosial berada di tengah
                 alignItems: isSmall ? 'center' : 'flex-start' 
             }}
           >
@@ -67,7 +64,6 @@ export const Footer = () => {
               flex: 'none', 
               display: 'flex',
               flexDirection: isSmall ? 'column' : 'row',
-              // PERBAIKAN: Memusatkan kumpulan navigasi pada tablet/mobile
               justifyContent: isSmall ? 'center' : 'flex-end',
               alignItems: isSmall ? 'center' : 'flex-start',
               gap: isSmall ? '40px' : '100px', 
@@ -89,7 +85,7 @@ export const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Copyright Section - Sejajar dengan container 1200px */}
+        {/* Copyright Section */}
         <div className="max-w-[1200px] mx-auto w-full border-t border-[#EAECF0] mt-10">
           <p className="font-hanken font-light text-[#667085] py-[30px] text-sm text-center lg:text-left">
             ©2023 Homezy. All rights reserved
