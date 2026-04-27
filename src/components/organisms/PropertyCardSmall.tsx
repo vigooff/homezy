@@ -30,7 +30,6 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({
         h-full        
         flex flex-col  
         mx-auto
-        /* Ukuran maksimal tetap konsisten dengan card lainnya */
         max-w-[400px] 
         ${className}
       `}
@@ -38,6 +37,7 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({
         maxWidth: isLastCard ? '100%' : '400px',
       }}
     >
+      {/* Area Gambar */}
       <div className="relative w-full h-[240px] rounded-t-[15px]">
         <Image
           src={property.image}
@@ -46,37 +46,41 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({
           sizes="(max-width: 900px) 100vw, 33vw"
           className="object-cover transition-transform duration-300 rounded-t-[15px]"
         />
-      </div>
 
-      {property.isFeatured && (
-        <div
-          className="absolute top-[222px] left-[-4px] z-[100] max-[1400px]:scale-90 max-[1400px]:origin-left"
-          style={{
-            width: "80px",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            backgroundColor: "#000000",
-            borderRadius: "8px",
-            paddingLeft: "12px",
-            paddingRight: "12px",
-            height: "34px",
-            flexShrink: 0
-          }}
-        >
-          <Image 
-            src="/icons/star.svg" 
-            alt="Featured" 
-            width={14} 
-            height={14} 
-            style={{ flexShrink: 0 }} 
-          />
-          <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
-            FEATURED
-          </span>
-        </div>
-      )}
+        {/* ✅ BADGE FEATURED */}
+        {property.isFeatured && (
+          <div
+            // ✅ FIX: Pastikan path file /icons/star.svg (huruf kecil)
+            className="absolute top-[222px] left-[-4px] z-[50]"
+            style={{
+              width: "80px",
+              height: "34px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              backgroundColor: "#000000",
+              borderRadius: "8px",
+              paddingLeft: "12px",
+              paddingRight: "12px",
+              flexShrink: 0,
+              // Tambahkan shadow agar lebih jelas
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.15)"
+            }}
+          >
+            <Image 
+              src="/icons/star.svg" 
+              alt="Featured" 
+              width={14} 
+              height={14} 
+              style={{ flexShrink: 0 }} 
+            />
+            <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
+              FEATURED
+            </span>
+          </div>
+        )}
+      </div>
 
       <div className="p-4 sm:p-5 lg:p-6 mt-[24px] flex flex-col flex-1">
         <div className="flex flex-col gap-[8px] flex-1">

@@ -46,7 +46,8 @@ export const PropertyCardLarge = ({ property }: PropertyCardLargeProps) => {
         >
           {/* Konten Utama */}
           <div className="flex items-center gap-2">
-            <Image src="/icons/Star.svg" alt="Featured" width={14} height={14} className="shrink-0" />
+            {/* ✅ FIX: Ubah Star.svg menjadi star.svg (huruf kecil) */}
+            <Image src="/icons/star.svg" alt="Featured" width={14} height={14} className="shrink-0" />
             <span className="text-[#FFFFFF] text-[10px] font-[900] uppercase tracking-[0.08em] whitespace-nowrap leading-none">
               FEATURED
             </span>
