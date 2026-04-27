@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // 1. Import motion
+import { motion } from "framer-motion";
 import { CityCard } from "../components/organisms/CityCard";
 import { City } from "../types/city";
 import { ArrowRight } from "lucide-react";
@@ -37,7 +37,7 @@ export const CitySection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }
     }
   };
 

@@ -41,7 +41,7 @@ export const ValueSection = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
       },
     },
   };
@@ -146,7 +146,7 @@ const ValueCard = ({ icon, title, description }: any) => (
     h-[352px] 
     transition-all 
     hover:shadow-lg
-    hover:-translate-y-2 // Efek angkat sedikit saat hover agar lebih interaktif
+    hover:-translate-y-2
   ">
     <div className="w-[90px] h-[90px] bg-[#E8E1FF] rounded-[16px] flex items-center justify-center shrink-0">
       <Image src={icon} alt={title} width={48} height={48} />

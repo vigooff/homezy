@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion";
 import { PropertyCardLarge } from "../components/organisms/PropertyCardLarge";
 import { PropertyCardSmall } from "../components/organisms/PropertyCardSmall";
 import { Property } from "../types/properties"; 
@@ -36,7 +36,7 @@ export const FeaturedSection = ({ properties }: FeaturedSectionProps) => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
       },
     },
   };
