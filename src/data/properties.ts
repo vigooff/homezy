@@ -13,7 +13,7 @@ export const propertiesData: Property[] = [
     state: "CA",
     zipCode: "90028",
     image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
-    isFeatured: true,
+    isFeatured: true, // ✅ Update
     description: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation",
     bedrooms: 4,
     bathrooms: 4,
@@ -55,7 +55,7 @@ export const propertiesData: Property[] = [
     state: "CA",
     zipCode: "94103",
     image: "https://images.unsplash.com/photo-1565402170291-8491f14678db?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Stunning penthouse with panoramic city views",
     bedrooms: 2,
     bathrooms: 2,
@@ -118,7 +118,7 @@ export const propertiesData: Property[] = [
     state: "England",
     zipCode: "E14 4QT",
     image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Industrial-chic loft in London's financial district",
     bedrooms: 2,
     bathrooms: 1,
@@ -181,7 +181,7 @@ export const propertiesData: Property[] = [
     state: "RM",
     zipCode: "00153",
     image: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Charming apartment in the bohemian Trastevere neighbourhood",
     bedrooms: 3,
     bathrooms: 2,
@@ -223,7 +223,7 @@ export const propertiesData: Property[] = [
     state: "Île-de-France",
     zipCode: "75004",
     image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Peaceful retreat in the heart of Le Marais",
     bedrooms: 3,
     bathrooms: 2,
@@ -265,7 +265,7 @@ export const propertiesData: Property[] = [
     state: "Île-de-France",
     zipCode: "75005",
     image: "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Sleek modern condo in the prestigious Saint-Germain-des-Prés",
     bedrooms: 2,
     bathrooms: 2,
@@ -307,7 +307,7 @@ export const propertiesData: Property[] = [
     state: "Chongqing",
     zipCode: "400020",
     image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Modern apartment with panoramic river views in downtown Chongqing",
     bedrooms: 2,
     bathrooms: 1,
@@ -328,7 +328,7 @@ export const propertiesData: Property[] = [
     state: "Chongqing",
     zipCode: "400060",
     image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Charming hillside villa with beautiful terrace overlooking the city",
     bedrooms: 3,
     bathrooms: 2,
@@ -370,7 +370,7 @@ export const propertiesData: Property[] = [
     state: "Zhejiang",
     zipCode: "310002",
     image: "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Spacious loft with stunning views of West Lake — UNESCO World Heritage site",
     bedrooms: 3,
     bathrooms: 2,
@@ -391,7 +391,7 @@ export const propertiesData: Property[] = [
     state: "Zhejiang",
     zipCode: "310051",
     image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Family-friendly home in Hangzhou's Silicon Valley tech corridor",
     bedrooms: 3,
     bathrooms: 2,
@@ -412,7 +412,7 @@ export const propertiesData: Property[] = [
     state: "Zhejiang",
     zipCode: "310013",
     image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop",
-    isFeatured: false,
+    isFeatured: true, // ✅ Update (Sebelumnya false)
     description: "Beautifully positioned home adjacent to the Xixi National Wetland Park",
     bedrooms: 3,
     bathrooms: 2,
