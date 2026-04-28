@@ -25,7 +25,7 @@ export const Footer = () => {
   return (
     <footer className="w-full bg-[#FBFAFF] flex flex-col items-center relative z-10 overflow-x-hidden">
       {/* Container 1440px */}
-      <div className="w-full max-w-[1440px] mx-auto px-[5%] lg:px-[10%] box-border pt-10 pb-[4%]">
+      <div className="w-full max-w-[1440px] mx-auto px-[5%] lg:px-[10%] box-border pt-10">
         
         {/* Inner Wrapper 1200px */}
         <motion.div
@@ -39,7 +39,8 @@ export const Footer = () => {
             justifyContent: 'space-between', 
             alignItems: isSmall ? 'center' : 'flex-start',
             gap: isSmall ? '40px' : '60px',
-            minHeight: '330px',
+            minHeight: isSmall ? 'auto' : '280px',
+            paddingBottom: '48px',
             textAlign: isSmall ? 'center' : 'left',
           }}
         > 
@@ -85,9 +86,8 @@ export const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Copyright Section */}
-        <div className="max-w-[1200px] mx-auto w-full border-t border-[#EAECF0] mt-10">
-          <p className="font-hanken font-light text-[#667085] py-[30px] text-sm text-center lg:text-left">
+        <div className="max-w-[1200px] mx-auto w-full border-t border-[#EAECF0]">
+          <p className="font-hanken font-light text-[#667085] py-[16px] text-sm text-center lg:text-left">
             ©2023 Homezy. All rights reserved
           </p>
         </div>

@@ -76,7 +76,7 @@ export const Navbar = () => {
           </a>
 
           <div className="hidden min-[901px]:flex" style={{ alignItems: 'center', justifyContent: 'center', flex: 1, gap: '20px' }}>
-            <NavLink href="#" label="Home" />
+            <NavLink href="/" label="Home" />
             <NavLink href="#" label="Properties" />
             <NavLink href="#" label="Agents" />
             <NavLink href="#" label="Pages" hasDropdown />
@@ -123,7 +123,7 @@ export const Navbar = () => {
             }}
           >
             <div style={{ padding: '32px 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px' }}>
-              <NavLink href="#" label="Home" className="!text-[22px]" />
+              <NavLink href="/" label="Home" className="!text-[22px]" />
               <NavLink href="#" label="Properties" className="!text-[22px]" />
               <NavLink href="#" label="Agents" className="!text-[22px]" />
               <NavLink href="#" label="Pages" className="!text-[22px]" />

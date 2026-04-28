@@ -47,37 +47,49 @@ export const PropertyCardSmall: React.FC<PropertyCardSmallProps> = ({
           className="object-cover transition-transform duration-300 rounded-t-[15px]"
         />
 
-        {/* ✅ BADGE FEATURED */}
+        {/* ✅ BADGE FEATURED DENGAN EFEK SEGITIGA */}
         {property.isFeatured && (
-          <div
-            // ✅ FIX: Pastikan path file /icons/star.svg (huruf kecil)
-            className="absolute top-[222px] left-[-4px] z-[50]"
-            style={{
-              width: "80px",
-              height: "34px",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              backgroundColor: "#000000",
-              borderRadius: "8px",
-              paddingLeft: "12px",
-              paddingRight: "12px",
-              flexShrink: 0,
-              // Tambahkan shadow agar lebih jelas
-              boxShadow: "0px 4px 10px rgba(0,0,0,0.15)"
-            }}
-          >
-            <Image 
-              src="/icons/star.svg" 
-              alt="Featured" 
-              width={14} 
-              height={14} 
-              style={{ flexShrink: 0 }} 
-            />
-            <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
-              FEATURED
-            </span>
+          <div className="absolute top-[205px] left-[-8px] z-[50]">
+            <div
+              style={{
+                backgroundColor: "#000000",
+                borderRadius: "8px 8px 8px 0px",
+                height: "34px",
+                minWidth: "80px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                paddingLeft: "12px",
+                paddingRight: "12px",
+                position: "relative",
+                boxShadow: "0px 4px 10px rgba(0,0,0,0.15)"
+              }}
+            >
+              <Image 
+                src="/icons/star.svg" 
+                alt="Featured" 
+                width={14} 
+                height={14} 
+                style={{ flexShrink: 0 }} 
+              />
+              <span style={{ color: "#FFFFFF", fontSize: "10px", lineHeight: 1, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
+                FEATURED
+              </span>
+              
+              {/* Detail Segitiga Siku-Siku (Pita Melipat) */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "-8px",
+                  left: "0",
+                  width: "0",
+                  height: "0",
+                  borderTop: "8px solid #B7B8C1",
+                  borderLeft: "8px solid transparent",
+                }}
+              />
+            </div>
           </div>
         )}
       </div>

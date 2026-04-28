@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, X } from 'lucide-react';
 import Image from 'next/image';
 
@@ -47,7 +47,6 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
   const bathroomOptions = ['1 bath', '2 bath', '3 bath'];
   const yearOptions = ['2020', '2021', '2022', '2023', '2024', '2025'];
 
-  // Floor area options dalam m² — sesuaikan range dengan data properti kamu
   const floorAreaOptions = ['30', '50', '75', '100', '150', '200', '300', '500'];
 
   const priceOptionsRent = [
@@ -63,6 +62,21 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
   ];
   
   const currentPriceOptions = selectedStatus === 'Rent' ? priceOptionsRent : priceOptionsSale;
+
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+        if (onClose) onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
 
   const CustomDropdown = ({ 
     label, 
@@ -174,6 +188,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
 
   return (
     <div
+      ref={popupRef}
       className="bg-[#FFFFFF] shadow-2xl flex flex-col border border-[#E8E1FF] z-50 animate-in fade-in zoom-in duration-200 w-full"
       style={{
         maxWidth: '441px',
@@ -187,7 +202,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <h3 className="font-syne font-bold text-[24px] text-[#1A1A1A]">More Filter</h3>
-        <button onClick={onClose} className="bg-transparent border-none text-[#868893] hover:text-black transition-colors">
+        <button onClick={onClose} className="bg-transparent border-none text-[#868893] hover:text-black transition-colors cursor-pointer">
           <X size={24} />
         </button>
       </div>
@@ -203,7 +218,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
       >
         <button 
           onClick={() => setSelectedStatus('Sale')}
-          className="flex items-center justify-center font-hanken font-bold text-[16px] transition-all"
+          className="flex items-center justify-center font-hanken font-bold text-[16px] transition-all cursor-pointer"
           style={{
             flex: 1,
             height: '52px',
@@ -218,7 +233,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
         
         <button 
           onClick={() => setSelectedStatus('Rent')}
-          className="flex items-center justify-center gap-[8px] font-hanken font-bold text-[16px] transition-all"
+          className="flex items-center justify-center gap-[8px] font-hanken font-bold text-[16px] transition-all cursor-pointer"
           style={{
             flex: 1,
             height: '52px',
@@ -335,10 +350,9 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
             setSelectedMinFloorArea('Min Area');
             setSelectedMaxFloorArea('Max Area');
           }}
-          className="w-full min-[401px]:flex-1 flex items-center justify-center gap-2 bg-[#F7F5FF] text-[#1A1A1A] rounded-[12px] font-hanken font-bold hover:bg-[#E7DCFF] transition-all"
+          className="w-full min-[401px]:flex-1 flex items-center justify-center gap-2 bg-[#F7F5FF] text-[#1A1A1A] rounded-[12px] font-hanken font-bold hover:bg-[#E7DCFF] transition-all cursor-pointer"
           style={{ height: '60px' }}
         >
-          <Image src="/icons/gallery.svg" alt="Cancel" width={20} height={20} />
           Cancel
         </button>
         <button 
@@ -363,7 +377,7 @@ export const PopupFilter = ({ onClose, designTypes = ['Modern Loft', 'Contempora
               onClose();
             }
           }}
-          className="w-full min-[401px]:flex-1 bg-[#1A1A1A] text-[#FFFFFF] rounded-[12px] font-hanken font-bold hover:bg-[#000000] transition-all"
+          className="w-full min-[401px]:flex-1 bg-[#1A1A1A] text-[#FFFFFF] rounded-[12px] font-hanken font-bold hover:bg-[#000000] transition-all cursor-pointer"
           style={{ height: '60px' }}
         >
           Apply Filter
