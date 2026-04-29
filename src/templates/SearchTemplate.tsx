@@ -26,36 +26,24 @@ const fadeInUp = {
 
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
 const staggerItem = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
 };
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 const EMPTY_PAGINATION: PaginationMeta = {
-  current_page: 1,
-  per_page: 3,
-  total_items: 0,
-  total_pages: 0,
+  current_page: 1, per_page: 3, total_items: 0, total_pages: 0,
 };
 
 const EMPTY_API_FILTERS = {
-  purpose: '',
-  category: '',
-  bedroom: '',
-  bathroom: '',
-  minPrice: '',
-  maxPrice: '',
-  minYear: '',
-  maxYear: '',
-  minFloorArea: '',
-  maxFloorArea: '',
+  purpose: '', category: '', bedroom: '', bathroom: '',
+  minPrice: '', maxPrice: '', minYear: '', maxYear: '',
+  minFloorArea: '', maxFloorArea: '',
 };
 
 export const SearchTemplate = () => {
@@ -64,27 +52,23 @@ export const SearchTemplate = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // ── API state ─────────────────────────────────────────────────────────
-  const [results, setResults] = useState<Property[]>([]);
+  const [results, setResults]       = useState<Property[]>([]);
   const [pagination, setPagination] = useState<PaginationMeta>(EMPTY_PAGINATION);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // ── Popup filter state ────────────────────────────────────────────────
+  const [isLoading, setIsLoading]   = useState(false);
   const [apiFilters, setApiFilters] = useState({ ...EMPTY_API_FILTERS });
   const [activeFilters, setActiveFilters] = useState<FilterOptions | null>(null);
-
-  // ── Location options ──────────────────────────────────────────────────
   const [allProperties, setAllProperties] = useState<Property[]>([]);
 
-  // ── Responsive ────────────────────────────────────────────────────────
-  const [isMounted, setIsMounted] = useState(false);
+  // ── ✅ SHARED ACTIVE STATE — jembatan antara Map dan List ─────────────────
+  const [activePropertyId, setActivePropertyId] = useState<string | null>(null);
+
+  const [isMounted, setIsMounted]   = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
 
   React.useEffect(() => {
     setIsMounted(true);
     if (typeof window !== 'undefined') {
-      const width = window.innerWidth;
-      setWindowWidth(width);
+      setWindowWidth(window.innerWidth);
     }
     const handleResize = () => {
       if (typeof window !== 'undefined') setWindowWidth(window.innerWidth);
@@ -93,20 +77,10 @@ export const SearchTemplate = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  React.useEffect(() => {
-    if (isMounted) {
-      if (windowWidth < 768) console.log('🟢 RENDERING: Mobile Layout (<768px)');
-      else if (windowWidth >= 768 && windowWidth < 1200) console.log('🟡 RENDERING: Mid-Range Layout (768px - 1199px)');
-      else console.log('🔵 RENDERING: Desktop Layout (≥1200px)');
-    }
-  }, [isMounted, windowWidth]);
-
-  // ── Fetch semua property sekali untuk location dropdown ──
   useEffect(() => {
     let cancelled = false;
     const fetchAll = async () => {
       try {
-        // ✅ FIX: Menggunakan relative path, tidak perlu baseUrl
         const res = await fetch(`/api/properties?per_page=100`);
         const json = await res.json();
         if (!cancelled) setAllProperties(json.data || []);
@@ -118,68 +92,51 @@ export const SearchTemplate = () => {
     return () => { cancelled = true; };
   }, []);
 
-  // ── Derived values ────────────────────────────────────────────────────
   const isSmallMobile = isMounted && windowWidth <= 500;
   const isMobile      = isMounted && windowWidth > 500 && windowWidth < 600;
   const isMidRange    = isMounted && windowWidth >= 600 && windowWidth < 1200;
   const isDesktop     = isMounted && windowWidth >= 1200;
   const itemsPerPage  = isMidRange ? 4 : 3;
 
-  // ── Reset ke page 1 saat filter berubah ───
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchParams, apiFilters]);
+  useEffect(() => { setCurrentPage(1); }, [searchParams, apiFilters]);
 
-  // ── Fetch hasil search dari API ───
   useEffect(() => {
     let cancelled = false;
-
     const fetchResults = async () => {
       if (!isMounted) return;
       setIsLoading(true);
-
       const params = new URLSearchParams();
-
-      const loc  = searchParams.get("loc");
-      const prc  = searchParams.get("price");
-      const tp   = searchParams.get("type");
-
+      const loc = searchParams.get("loc");
+      const prc = searchParams.get("price");
+      const tp  = searchParams.get("type");
       if (loc) params.set("location", loc);
       if (prc && prc !== "Any Price") params.set("price", prc);
       if (tp && tp !== "Any Type") params.set("type", tp);
-
-      if (apiFilters.purpose)       params.set("purpose", apiFilters.purpose);
-      if (apiFilters.category)      params.set("category", apiFilters.category);
-      if (apiFilters.bedroom)       params.set("bedroom", apiFilters.bedroom);
-      if (apiFilters.bathroom)      params.set("bathroom", apiFilters.bathroom);
-      if (apiFilters.minPrice)      params.set("min_price", apiFilters.minPrice);
-      if (apiFilters.maxPrice)      params.set("max_price", apiFilters.maxPrice);
-      if (apiFilters.minYear)       params.set("min_year", apiFilters.minYear);
-      if (apiFilters.maxYear)       params.set("max_year", apiFilters.maxYear);
-      if (apiFilters.minFloorArea)  params.set("min_floor_area", apiFilters.minFloorArea);  // ← tambahan
-      if (apiFilters.maxFloorArea)  params.set("max_floor_area", apiFilters.maxFloorArea);  // ← tambahan
-
+      if (apiFilters.purpose)      params.set("purpose", apiFilters.purpose);
+      if (apiFilters.category)     params.set("category", apiFilters.category);
+      if (apiFilters.bedroom)      params.set("bedroom", apiFilters.bedroom);
+      if (apiFilters.bathroom)     params.set("bathroom", apiFilters.bathroom);
+      if (apiFilters.minPrice)     params.set("min_price", apiFilters.minPrice);
+      if (apiFilters.maxPrice)     params.set("max_price", apiFilters.maxPrice);
+      if (apiFilters.minYear)      params.set("min_year", apiFilters.minYear);
+      if (apiFilters.maxYear)      params.set("max_year", apiFilters.maxYear);
+      if (apiFilters.minFloorArea) params.set("min_floor_area", apiFilters.minFloorArea);
+      if (apiFilters.maxFloorArea) params.set("max_floor_area", apiFilters.maxFloorArea);
       params.set("page", currentPage.toString());
       params.set("per_page", itemsPerPage.toString());
-
       try {
-        // ✅ FIX: Menggunakan relative path, tidak perlu baseUrl
         const res = await fetch(`/api/properties?${params.toString()}`);
         const json = await res.json();
         if (!cancelled) {
           setResults(json.data || []);
           setPagination(json.pagination || EMPTY_PAGINATION);
         }
-      } catch (err) {
-        if (!cancelled) {
-          setResults([]);
-          setPagination(EMPTY_PAGINATION);
-        }
+      } catch {
+        if (!cancelled) { setResults([]); setPagination(EMPTY_PAGINATION); }
       } finally {
         if (!cancelled) setIsLoading(false);
       }
     };
-
     fetchResults();
     return () => { cancelled = true; };
   }, [searchParams, apiFilters, currentPage, itemsPerPage, isMounted]);
@@ -188,99 +145,65 @@ export const SearchTemplate = () => {
 
   useEffect(() => {
     let cancelled = false;
-
     const fetchMapData = async () => {
       if (!isMounted) return;
-
       const params = new URLSearchParams();
-      const loc  = searchParams.get("loc");
-      const prc  = searchParams.get("price");
-      const tp   = searchParams.get("type");
-
+      const loc = searchParams.get("loc");
+      const prc = searchParams.get("price");
+      const tp  = searchParams.get("type");
       if (loc) params.set("location", loc);
       if (prc && prc !== "Any Price") params.set("price", prc);
       if (tp && tp !== "Any Type") params.set("type", tp);
-      if (apiFilters.purpose)       params.set("purpose", apiFilters.purpose);
-      if (apiFilters.category)      params.set("category", apiFilters.category);
-      if (apiFilters.bedroom)       params.set("bedroom", apiFilters.bedroom);
-      if (apiFilters.bathroom)      params.set("bathroom", apiFilters.bathroom);
-      if (apiFilters.minPrice)      params.set("min_price", apiFilters.minPrice);
-      if (apiFilters.maxPrice)      params.set("max_price", apiFilters.maxPrice);
-      if (apiFilters.minYear)       params.set("min_year", apiFilters.minYear);
-      if (apiFilters.maxYear)       params.set("max_year", apiFilters.maxYear);
-      if (apiFilters.minFloorArea)  params.set("min_floor_area", apiFilters.minFloorArea);
-      if (apiFilters.maxFloorArea)  params.set("max_floor_area", apiFilters.maxFloorArea);
+      if (apiFilters.purpose)      params.set("purpose", apiFilters.purpose);
+      if (apiFilters.category)     params.set("category", apiFilters.category);
+      if (apiFilters.bedroom)      params.set("bedroom", apiFilters.bedroom);
+      if (apiFilters.bathroom)     params.set("bathroom", apiFilters.bathroom);
+      if (apiFilters.minPrice)     params.set("min_price", apiFilters.minPrice);
+      if (apiFilters.maxPrice)     params.set("max_price", apiFilters.maxPrice);
+      if (apiFilters.minYear)      params.set("min_year", apiFilters.minYear);
+      if (apiFilters.maxYear)      params.set("max_year", apiFilters.maxYear);
+      if (apiFilters.minFloorArea) params.set("min_floor_area", apiFilters.minFloorArea);
+      if (apiFilters.maxFloorArea) params.set("max_floor_area", apiFilters.maxFloorArea);
       params.set("per_page", "100");
-
       try {
-        // ✅ FIX: Menggunakan relative path, tidak perlu baseUrl
         const res = await fetch(`/api/properties?${params.toString()}`);
         const json = await res.json();
         if (!cancelled) setMapProperties(json.data || []);
-      } catch (err) {
+      } catch {
         if (!cancelled) setMapProperties([]);
       }
     };
-
     fetchMapData();
     return () => { cancelled = true; };
   }, [searchParams, apiFilters, isMounted]);
 
   const memoizedProperties = useMemo(() => mapProperties, [mapProperties]);
 
-  // ── Callback dari SearchPropertiesCard ───
-  const handleSearch = useCallback(() => {
-  }, []);
+  const handleSearch = useCallback(() => {}, []);
 
-  // ── Popup filter ───
   const handleApplyFilter = (filters: FilterOptions) => {
     setActiveFilters(filters);
-
     let purpose = '';
     if (filters.status === 'Sale') purpose = 'for_sale';
     else if (filters.status === 'Rent') purpose = 'for_rent';
-
     const category = filters.category !== 'Category' ? filters.category : '';
-
     let bedroom = '';
     const bedMatch = filters.bedrooms.match(/(\d+)/);
     if (bedMatch) bedroom = bedMatch[1];
-
     let bathroom = '';
     const bathMatch = filters.bathrooms.match(/(\d+)/);
     if (bathMatch) bathroom = bathMatch[1];
-
-    let minPrice = '';
-    let maxPrice = '';
+    let minPrice = '', maxPrice = '';
     if (filters.priceRange !== 'Select') {
       const rangeMatch = filters.priceRange.match(/\$?([\d,]+)\s*[-–—]\s*\$?([\d,]+)/);
-      if (rangeMatch) {
-        minPrice = rangeMatch[1].replace(/,/g, '');
-        maxPrice = rangeMatch[2].replace(/,/g, '');
-      } else {
-        const numMatch = filters.priceRange.match(/\$?([\d,]+)/);
-        if (numMatch) minPrice = numMatch[1].replace(/,/g, '');
-      }
+      if (rangeMatch) { minPrice = rangeMatch[1].replace(/,/g, ''); maxPrice = rangeMatch[2].replace(/,/g, ''); }
+      else { const numMatch = filters.priceRange.match(/\$?([\d,]+)/); if (numMatch) minPrice = numMatch[1].replace(/,/g, ''); }
     }
-
     const minYear = filters.minYear !== 'Min Year' ? filters.minYear : '';
     const maxYear = filters.maxYear !== 'Max Year' ? filters.maxYear : '';
-
     const minFloorArea = filters.minFloorArea !== 'Min Area' ? filters.minFloorArea : '';
     const maxFloorArea = filters.maxFloorArea !== 'Max Area' ? filters.maxFloorArea : '';
-
-    setApiFilters({
-      purpose,
-      category,
-      bedroom,
-      bathroom,
-      minPrice,
-      maxPrice,
-      minYear,
-      maxYear,
-      minFloorArea,
-      maxFloorArea,
-    });
+    setApiFilters({ purpose, category, bedroom, bathroom, minPrice, maxPrice, minYear, maxYear, minFloorArea, maxFloorArea });
   };
 
   const handleClearFilters = () => {
@@ -289,7 +212,6 @@ export const SearchTemplate = () => {
     router.replace('/search', { scroll: false });
   };
 
-  // ── Pagination (dari API) ──
   const totalPages = pagination.total_pages;
   const startIndex = (pagination.current_page - 1) * pagination.per_page;
   const endIndex   = Math.min(startIndex + pagination.per_page, pagination.total_items);
@@ -297,6 +219,8 @@ export const SearchTemplate = () => {
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
+    // ✅ Clear active saat ganti halaman
+    setActivePropertyId(null);
     const element = document.getElementById('results-start');
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
@@ -333,20 +257,111 @@ export const SearchTemplate = () => {
     <div className="w-full rounded-[15px] bg-gray-100 animate-pulse" style={{ height: isDesktop ? "200px" : "220px" }} />
   );
 
+  // ── ✅ Helper render card list dengan props sync ──────────────────────────
+  const renderCards = () => {
+    if (isLoading) return (
+      <div className={isDesktop ? "flex flex-col gap-[32px] mb-12" : isMidRange ? "grid mb-8" : "flex flex-col gap-[20px]"}
+        // ✅ FIX 1: Perbaiki Grid Skeleton agar tidak terpotong
+        style={isMidRange ? { gridTemplateColumns: windowWidth <= 720 ? "1fr" : "1fr 1fr", gap: "24px" } : undefined}>
+        <CardSkeleton /><CardSkeleton /><CardSkeleton />
+        {isMidRange && <CardSkeleton />}
+      </div>
+    );
+
+    if (results.length === 0) return (
+      <div className="text-center py-20">
+        <p className={`${isDesktop ? "text-xl" : "text-base"} text-[#868893] mb-4`}>No properties match your filters</p>
+        <button onClick={handleClearFilters} className="px-6 py-3 bg-[#1A1A1A] text-white rounded-[12px] hover:bg-[#000000] transition-all">Clear Filters</button>
+      </div>
+    );
+
+    const gapClass   = isDesktop ? "flex flex-col gap-[32px] mb-12" : isMidRange ? "grid mb-8" : isSmallMobile ? "flex flex-col gap-[20px]" : "flex flex-col gap-[24px]";
+    
+    // ✅ FIX 2: Perbaiki Grid Card Utama agar jadi 1 ke bawah saat layar 720px
+    const gridStyle  = isMidRange ? { gridTemplateColumns: windowWidth <= 720 ? "1fr" : "1fr 1fr", gap: "24px" } : undefined;
+
+    return (
+      <motion.div
+        key={cardsKey}
+        className={gapClass}
+        style={gridStyle}
+        initial="hidden" whileInView="visible" viewport={{ once: true }}
+        variants={staggerContainer}
+      >
+        {results.map((item) => (
+          <motion.div key={item.id} variants={staggerItem}>
+            {/* ✅ FIX 3: Ganti onMouseEnter menjadi onClick di sini */}
+            <PropertyCardSearch
+              property={item}
+              onClick={(id) => setActivePropertyId(id)}
+              isHighlighted={item.id === activePropertyId}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    );
+  };
+
+  const renderPagination = () => {
+    if (results.length === 0) return null;
+    const size = isDesktop || isMidRange ? 24 : isSmallMobile ? 18 : 20;
+    const btnGap = isDesktop || isMidRange ? "gap-4" : isSmallMobile ? "gap-2" : "gap-3";
+    const pageGap = isDesktop || isMidRange ? "gap-4" : isSmallMobile ? "gap-1" : "gap-2";
+    const btnH = isDesktop || isMidRange ? "h-[44px] min-w-[44px] rounded-[12px]" : isSmallMobile ? "h-[32px] min-w-[32px] rounded-[8px]" : "h-[36px] min-w-[36px] rounded-[10px]";
+    const textSize = isDesktop || isMidRange ? "text-sm" : isSmallMobile ? "text-xs" : "text-sm";
+    const ptPb = isDesktop || isMidRange ? "pt-10 pb-[40px]" : isSmallMobile ? "pt-4 pb-8" : "pt-6 pb-10";
+
+    return (
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`flex flex-col items-center justify-center gap-6 ${ptPb}`}>
+        <p className={`font-hanken ${textSize} text-[#7C5F93] text-center`}>
+          Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to{" "}
+          <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of{" "}
+          <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span> properties
+        </p>
+        <div className={`flex items-center ${btnGap}`}>
+          <button onClick={() => currentPage > 1 && goToPage(currentPage - 1)} disabled={currentPage === 1}
+            className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === 1 ? "opacity-20 cursor-not-allowed" : "text-[#1A1A1A] hover:scale-110"}`}>
+            <ChevronLeft size={size} />
+          </button>
+          <div className={`flex items-center ${pageGap}`}>
+            {getPageNumbers().map((page, index) => (
+              <button key={index} onClick={() => typeof page === "number" && goToPage(page)}
+                className={`${btnH} font-hanken font-bold transition-all border-none outline-none ring-0 ${currentPage === page ? "bg-[#1A1A1A] text-[#FFFFFF] shadow-md" : "bg-transparent text-[#868893] hover:text-[#1A1A1A]"}`}>
+                {page}
+              </button>
+            ))}
+          </div>
+          <button onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} disabled={currentPage === totalPages}
+            className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === totalPages ? "opacity-20 cursor-not-allowed" : "text-[#1A1A1A] hover:scale-110"}`}>
+            <ChevronRight size={size} />
+          </button>
+        </div>
+      </motion.div>
+    );
+  };
+
+  // ── ✅ Shared MapProvider dengan externalActiveId & callback ─────────────
+  const renderMap = (height: string, extraClass = "") => (
+    <div className={`w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF] ${extraClass}`}
+      style={{ height }}>
+      <MapProvider
+        properties={memoizedProperties}
+        externalActiveId={activePropertyId}
+        onMarkerActivate={(id) => setActivePropertyId(id)}
+      />
+    </div>
+  );
+
   return (
     <div className="w-full flex flex-col bg-[#FBFAFF]">
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          HEADER & SEARCH BAR
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* ═══ HEADER ═══════════════════════════════════════════════════════════ */}
       <header className="w-full pt-8 pb-8 md:pt-16 md:pb-12 bg-white border-[#E8E1FF]/50 mb-6 md:mb-10 lg:mb-16">
 
-        {/* ── SMALL MOBILE LAYOUT (≤500px) ────────────────────────────────── */}
         {isSmallMobile && (
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full box-border px-[16px] pb-8 flex flex-col gap-4"
-          >
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full box-border px-[16px] pb-8 flex flex-col gap-4">
             <h1 className="font-syne font-bold text-[clamp(28px,8vw,40px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <SearchPropertiesCard onSearch={handleSearch} properties={allProperties} />
             <button onClick={() => setIsFilterOpen(!isFilterOpen)} className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center hover:bg-[#DBCBFF] transition-all relative" style={{ height: "52px", marginTop: "8px", marginBottom: "8px" }}>
@@ -358,12 +373,9 @@ export const SearchTemplate = () => {
           </motion.div>
         )}
 
-        {/* ── MOBILE LAYOUT (501px - 767px) ───────────────────────────────── */}
         {isMobile && (
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-[1440px] mb-[3%] mx-auto px-[20px] flex flex-col gap-6"
-          >
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-[1440px] mb-[3%] mx-auto px-[20px] flex flex-col gap-6">
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <SearchPropertiesCard onSearch={handleSearch} properties={allProperties} />
             <button onClick={() => setIsFilterOpen(!isFilterOpen)} className="w-full bg-[#E7DCFF] border border-[#E8E1FF] rounded-[15px] flex items-center justify-center hover:bg-[#DBCBFF] transition-all relative" style={{ height: "58px", paddingTop: "20px", paddingBottom: "20px", paddingLeft: "32px", paddingRight: "32px", marginTop: "16px" }}>
@@ -375,12 +387,9 @@ export const SearchTemplate = () => {
           </motion.div>
         )}
 
-        {/* ── MID-RANGE LAYOUT (768px - 1199px) ─────────────────────────── */}
         {isMidRange && (
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-[1440px] mx-auto flex flex-col gap-8" style={{ paddingLeft: '7.5%', paddingRight: '7.5%', paddingBottom: '80px' }}
-          >
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-[1440px] mx-auto flex flex-col gap-8" style={{ paddingLeft: '7.5%', paddingRight: '7.5%', paddingBottom: '80px' }}>
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <div className="flex items-stretch w-full gap-[16px]">
               <div style={{ width: '75%', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
@@ -404,12 +413,9 @@ export const SearchTemplate = () => {
           </motion.div>
         )}
 
-        {/* ── DESKTOP LAYOUT (≥1200px) ───────────────────── */}
         {isDesktop && (
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-[1440px] mb-[3%] mx-auto px-[60px] max-[1300px]:px-[40px] flex flex-col gap-10"
-          >
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-[1440px] mb-[3%] mx-auto px-[60px] max-[1300px]:px-[40px] flex flex-col gap-10">
             <h1 className="font-syne font-bold text-[clamp(32px,5vw,64px)] leading-tight tracking-[-0.04em] text-[#1A1A1A]">Search Properties</h1>
             <div className="flex items-center w-full gap-[5%]">
               <div className="flex-1 min-w-0">
@@ -424,7 +430,7 @@ export const SearchTemplate = () => {
                 </button>
                 {isFilterOpen && (
                   <div className="absolute top-[110%] right-0 z-[100]" style={{ width: '441px', filter: 'drop-shadow(0px 20px 50px rgba(0,0,0,0.1))' }}>
-                    <PopupFilter onClose={() => { setIsFilterOpen(false); }} onApplyFilter={handleApplyFilter} />
+                    <PopupFilter onClose={() => setIsFilterOpen(false)} onApplyFilter={handleApplyFilter} />
                   </div>
                 )}
               </div>
@@ -433,7 +439,7 @@ export const SearchTemplate = () => {
         )}
       </header>
 
-      {/* ── SMALL MOBILE FILTER POPUP ─────────────────────────────────── */}
+      {/* ── Filter popups (small mobile / mobile) ─────────────────────────── */}
       {isSmallMobile && isFilterOpen && (
         <div className="fixed inset-0 bg-black/50 z-[200] flex items-end justify-center p-0">
           <div className="w-full max-w-[500px]">
@@ -441,8 +447,6 @@ export const SearchTemplate = () => {
           </div>
         </div>
       )}
-
-      {/* ── MOBILE FILTER POPUP ──────────────────────────────────────── */}
       {isMobile && isFilterOpen && (
         <div className="fixed inset-0 bg-black/50 z-[200] flex items-center justify-center p-4">
           <div className="w-full max-w-[441px]">
@@ -451,19 +455,15 @@ export const SearchTemplate = () => {
         </div>
       )}
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          MAIN CONTENT: MAP + PROPERTY LIST
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* ═══ MAIN CONTENT ═════════════════════════════════════════════════════ */}
       <div id="results-start" className="w-full overflow-x-hidden">
 
-        {/* ── SMALL MOBILE LAYOUT (≤500px) ──────────────────────────────── */}
+        {/* ── SMALL MOBILE ────────────────────────────────────────────────── */}
         {isSmallMobile && (
           <div className="mx-auto px-[16px] pt-6 pb-8 mb-[8%]">
             <div className="flex flex-col gap-5">
-              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
-                <div className="w-full rounded-[15px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '280px' }}>
-                  <MapProvider properties={memoizedProperties} />
-                </div>
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}>
+                {renderMap("280px", "rounded-[15px]")}
               </motion.section>
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col gap-2">
                 <h2 className="font-syne font-bold text-[20px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
@@ -474,55 +474,18 @@ export const SearchTemplate = () => {
                   </div>
                 )}
               </motion.div>
-              {isLoading ? (
-                <div className="flex flex-col gap-[20px]">
-                  <CardSkeleton /><CardSkeleton /><CardSkeleton />
-                </div>
-              ) : results.length > 0 ? (
-                <motion.div 
-                  key={cardsKey} 
-                  initial="hidden" 
-                  whileInView="visible" 
-                  viewport={{ once: true }} 
-                  variants={staggerContainer} 
-                  className="flex flex-col gap-[20px]"
-                >
-                  {results.map((item) => (
-                    <motion.div key={item.id} variants={staggerItem}><PropertyCardSearch property={item} /></motion.div>
-                  ))}
-                </motion.div>
-              ) : (
-                <div className="text-center py-16">
-                  <p className="text-base text-[#868893] mb-4">No properties match your filters</p>
-                  <button onClick={handleClearFilters} className="px-5 py-2 bg-[#1A1A1A] text-white rounded-[12px] hover:bg-[#000000] transition-all">Clear Filters</button>
-                </div>
-              )}
-              {results.length > 0 && (
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-3 pt-4 pb-8">
-                  <p className="font-hanken text-xs text-[#7C5F93] text-center">
-                    Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span>
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => currentPage > 1 && goToPage(currentPage - 1)} disabled={currentPage === 1} className={`p-2 transition-all border-none bg-transparent ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A]'}`}><ChevronLeft size={18} /></button>
-                    <div className="flex items-center gap-1">
-                      {getPageNumbers().map((page, index) => (
-                        <button key={index} onClick={() => typeof page === 'number' && goToPage(page)} className={`min-w-[32px] h-[32px] rounded-[8px] font-hanken font-bold transition-all border-none text-xs ${currentPage === page ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md' : 'bg-transparent text-[#868893]'}`}>{page}</button>
-                      ))}
-                    </div>
-                    <button onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} disabled={currentPage === totalPages} className={`p-2 transition-all border-none bg-transparent ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A]'}`}><ChevronRight size={18} /></button>
-                  </div>
-                </motion.div>
-              )}
+              {renderCards()}
+              {renderPagination()}
             </div>
           </div>
         )}
 
-        {/* ── MOBILE LAYOUT (501px - 767px) ───────────────────────────────── */}
+        {/* ── MOBILE ──────────────────────────────────────────────────────── */}
         {isMobile && (
           <div className="max-w-[1440px] mx-auto px-[20px] py-10 mb-[8%]">
             <div className="flex flex-col gap-6">
-              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
-                <div className="w-full rounded-[15px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '409px' }}><MapProvider properties={memoizedProperties} /></div>
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}>
+                {renderMap("409px")}
               </motion.section>
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col gap-2">
                 <h2 className="font-syne font-bold text-[24px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
@@ -533,48 +496,18 @@ export const SearchTemplate = () => {
                   </div>
                 )}
               </motion.div>
-              {isLoading ? (
-                <div className="flex flex-col gap-[24px]"><CardSkeleton /><CardSkeleton /><CardSkeleton /></div>
-              ) : results.length > 0 ? (
-                <motion.div 
-                  key={cardsKey} 
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
-                  className="flex flex-col gap-[24px]"
-                >
-                  {results.map((item) => (<motion.div key={item.id} variants={staggerItem}><PropertyCardSearch property={item} /></motion.div>))}
-                </motion.div>
-              ) : (
-                <div className="text-center py-20">
-                  <p className="text-lg text-[#868893] mb-4">No properties match your filters</p>
-                  <button onClick={handleClearFilters} className="px-6 py-3 bg-[#1A1A1A] text-white rounded-[12px] hover:bg-[#000000] transition-all">Clear Filters</button>
-                </div>
-              )}
-              {results.length > 0 && (
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-4 pt-6 pb-10">
-                  <p className="font-hanken text-sm text-[#7C5F93] text-center">
-                    Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span>
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <button onClick={() => currentPage > 1 && goToPage(currentPage - 1)} disabled={currentPage === 1} className={`p-2 transition-all border-none bg-transparent ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A]'}`}><ChevronLeft size={20} /></button>
-                    <div className="flex items-center gap-2">
-                      {getPageNumbers().map((page, index) => (
-                        <button key={index} onClick={() => typeof page === 'number' && goToPage(page)} className={`min-w-[36px] h-[36px] rounded-[10px] font-hanken font-bold transition-all border-none text-sm ${currentPage === page ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md' : 'bg-transparent text-[#868893]'}`}>{page}</button>
-                      ))}
-                    </div>
-                    <button onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} disabled={currentPage === totalPages} className={`p-2 transition-all border-none bg-transparent ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A]'}`}><ChevronRight size={20} /></button>
-                  </div>
-                </motion.div>
-              )}
+              {renderCards()}
+              {renderPagination()}
             </div>
           </div>
         )}
 
-        {/* ── MID-RANGE LAYOUT (768px - 1199px) ─────────────────────────── */}
+        {/* ── MID-RANGE ───────────────────────────────────────────────────── */}
         {isMidRange && (
           <div className="max-w-[1440px] mx-auto py-10 mb-[8%]" style={{ paddingLeft: '7.5%', paddingRight: '7.5%' }}>
             <div className="flex flex-col gap-8">
-              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
-                <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '400px' }}><MapProvider properties={memoizedProperties} /></div>
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}>
+                {renderMap("400px")}
               </motion.section>
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex justify-between items-center">
                 <div className="flex flex-col gap-2">
@@ -591,57 +524,24 @@ export const SearchTemplate = () => {
                   <button className="flex items-center justify-center bg-transparent border-none transition-all" style={{ width: '36px', height: '36px', padding: '8px' }}><Image src="/icons/menu-search2.svg" alt="List View" width={20} height={20} /></button>
                 </div>
               </motion.div>
-              {isLoading ? (
-                <div className="grid mb-8" style={{ gridTemplateColumns: '1fr 1fr', gap: '24px' }}><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /></div>
-              ) : results.length > 0 ? (
-                <motion.div 
-                  key={cardsKey} 
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
-                  className="grid mb-8" style={{ gridTemplateColumns: '1fr 1fr', gap: '24px' }}
-                >
-                  {results.map((item) => (<motion.div key={item.id} variants={staggerItem}><PropertyCardSearch property={item} /></motion.div>))}
-                </motion.div>
-              ) : (
-                <div className="text-center py-20">
-                  <p className="text-xl text-[#868893] mb-4">No properties match your filters</p>
-                  <button onClick={handleClearFilters} className="px-6 py-3 bg-[#1A1A1A] text-white rounded-[12px] hover:bg-[#000000] transition-all">Clear Filters</button>
-                </div>
-              )}
-              {results.length > 0 && (
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-6 pt-4 pb-[40px]">
-                  <p className="font-hanken text-sm text-[#7C5F93]">
-                    Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span> properties
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => currentPage > 1 && goToPage(currentPage - 1)} disabled={currentPage === 1} className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}><ChevronLeft size={24} /></button>
-                    <div className="flex items-center gap-4">
-                      {getPageNumbers().map((page, index) => (
-                        <button key={index} onClick={() => typeof page === 'number' && goToPage(page)} className={`min-w-[44px] h-[44px] rounded-[12px] font-hanken font-bold transition-all border-none outline-none ring-0 ${currentPage === page ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md' : 'bg-transparent text-[#868893] hover:text-[#1A1A1A]'}`}>{page}</button>
-                      ))}
-                    </div>
-                    <button onClick={() => currentPage < totalPages && goToPage(currentPage + 1)} disabled={currentPage === totalPages} className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}><ChevronRight size={24} /></button>
-                  </div>
-                </motion.div>
-              )}
+              {renderCards()}
+              {renderPagination()}
             </div>
           </div>
         )}
 
-        {/* ── DESKTOP LAYOUT (≥1200px) */}
+        {/* ── DESKTOP ─────────────────────────────────────────────────────── */}
         {isDesktop && (
           <div className="max-w-[1440px] mx-auto px-[60px] max-[1300px]:px-[40px] py-10 mb-[8%]">
             <div className="flex flex-row gap-[40px] max-[1300px]:gap-[24px] items-start relative">
-              <motion.section 
-                initial="hidden" whileInView="visible" viewport={{ once: true }} 
-                transition={{ ...fadeInUp, delay: 0.2 }} 
-                className="w-[45%] max-[1300px]:w-[40%] flex-shrink-0 sticky top-10"
-              >
-                <div className="w-full rounded-[24px] overflow-hidden shadow-sm bg-white border border-[#E8E1FF]" style={{ height: '930px' }}>
-                  <MapProvider properties={memoizedProperties} />
-                </div>
+              <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }}
+                transition={{ ...fadeInUp, delay: 0.2 }}
+                className="w-[45%] max-[1300px]:w-[40%] flex-shrink-0 sticky top-10">
+                {renderMap("930px")}
               </motion.section>
               <section className="flex-1 min-w-0 flex-col">
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex justify-between items-end mb-6">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="flex justify-between items-end mb-6">
                   <div className="flex flex-col gap-2">
                     <h2 className="font-syne font-bold text-[32px] text-[#1A1A1A]">{pagination.total_items} Results</h2>
                     {activeFilters && getActiveFilterCount() > 0 && (
@@ -660,63 +560,8 @@ export const SearchTemplate = () => {
                     </button>
                   </div>
                 </motion.div>
-                {isLoading ? (
-                  <div className="flex flex-col gap-[32px] mb-12"><CardSkeleton /><CardSkeleton /><CardSkeleton /></div>
-                ) : results.length > 0 ? (
-                  <motion.div
-                    key={cardsKey}
-                    className="flex flex-col gap-[32px] mb-12"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={staggerContainer}
-                  >
-                    {results.map((item) => (
-                      <motion.div key={item.id} variants={staggerItem}>
-                        <PropertyCardSearch property={item} />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                ) : (
-                  <div className="text-center py-20">
-                    <p className="text-xl text-[#868893] mb-4">No properties match your filters</p>
-                    <button onClick={handleClearFilters} className="px-6 py-3 bg-[#1A1A1A] text-white rounded-[12px] hover:bg-[#000000] transition-all">Clear Filters</button>
-                  </div>
-                )}
-                {results.length > 0 && (
-                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center justify-center gap-6 pt-10 pb-[40px]">
-                    <p className="font-hanken text-sm text-[#7C5F93]">
-                      Showing <span className="font-bold text-[#1A1A1A]">{pagination.total_items > 0 ? startIndex + 1 : 0}</span> to <span className="font-bold text-[#1A1A1A]">{endIndex}</span> of <span className="font-bold text-[#1A1A1A]">{pagination.total_items}</span> properties
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <button
-                        onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === 1 ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
-                      >
-                        <ChevronLeft size={24} />
-                      </button>
-                      <div className="flex items-center gap-4">
-                        {getPageNumbers().map((page, index) => (
-                          <button
-                            key={index}
-                            onClick={() => typeof page === 'number' && goToPage(page)}
-                            className={`min-w-[44px] h-[44px] rounded-[12px] font-hanken font-bold transition-all border-none outline-none ring-0 ${currentPage === page ? 'bg-[#1A1A1A] text-[#FFFFFF] shadow-md' : 'bg-transparent text-[#868893] hover:text-[#1A1A1A]'}`}
-                          >
-                            {page}
-                          </button>
-                        ))}
-                      </div>
-                      <button
-                        onClick={() => currentPage < totalPages && goToPage(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className={`p-2 transition-all border-none bg-transparent outline-none ring-0 ${currentPage === totalPages ? 'opacity-20 cursor-not-allowed' : 'text-[#1A1A1A] hover:scale-110'}`}
-                      >
-                        <ChevronRight size={24} />
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
+                {renderCards()}
+                {renderPagination()}
               </section>
             </div>
           </div>
